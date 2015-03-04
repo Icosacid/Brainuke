@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.6/angular.min.js"></script>
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<body>
+	<div class="row" id="mainPage">
+		<div class="col-md-2" id="left">
+			<div id="randomBtn">
+				<button type="button" class="btn btn-default" aria-label="Left Align" id="randomBtn1">
+					<span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Random
+				</button>
+			</div>
+			<div id="inputBtn">
+
+				<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+				<input ng-model="selectedShape.x" type="number" class="form-control" id="secondEnter" placeholder="Enter x second">
+			</div>
+		</div>
+		<div class="col-md-8" id="center">
+			<svg width="700" height="700">
+				<circle cx="100" cy="100" r="100">
+			</svg>
+
+
+
+
+
+		</div>
+		<div class="col-md-2" id="right">
+
+				<button type="button" class=" btn btn-default noteBtn" aria-label="Left Align"> C
+			</button>
+		
+			<button type="button" class="btn btn-default noteBtn "aria-label="Left Align" > C#
+			</button>
+		  
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" > D
+			</button>
+			
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> D#
+			</button>
+		  
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> E
+			</button>
+			
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> F
+			</button>
+		
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> F#
+			</button>
+			
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> G
+			</button>
+			
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> G#
+			</button>
+			
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> A
+			</button>
+		    <button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> A#
+			</button>
+		
+			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align"> B
+			</button>
+		
+		  
+		</div>
+	</div>
+</body>
