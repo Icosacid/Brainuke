@@ -10,12 +10,20 @@ function dragMe(selector,containerselector){
 	
 	// Initial positions, because need to initialize JS positioning, CSS isn't enough to define style.left attribute
 	
-	me.style.left = jQme.css('left');
-	me.style.top = jQme.css('top');
+	// If not SVG
+	if(!jQme.is(jQuery('circle')) && !jQme.is(jQuery('path'))){
 	
-	var posX = me.style.left.slice(0, me.style.left.length-2);// To remove the "px" part
-	var posY = me.style.top.slice(0, me.style.top.length-2);
-	
+		me.style.left = jQme.css('left');
+		me.style.top = jQme.css('top');
+		
+		var posX = me.style.left.slice(0, me.style.left.length-2);// To remove the "px" part
+		var posY = me.style.top.slice(0, me.style.top.length-2);
+	}
+	// If svg (path or circle)
+	else{
+		var posX = jQme.attr('cx');
+		var posY = jQme.attr('cy');
+	}
 	var initialPosX = posX;// For SVG path translate offset
 	var initialPosY = posY;
 	
@@ -33,6 +41,7 @@ function dragMe(selector,containerselector){
 	// Grab cursor
 	function grabbed(){
 		if (down == 0){
+			jQuery(containerselector).append(jQme);
 			jQme.css("cursor","grab").css("cursor","-moz-grab").css("cursor","-webkit-grab");
 		}
 		else{
@@ -56,8 +65,8 @@ function dragMe(selector,containerselector){
 			jQme.attr('top',posY+"px");
 			// If SVG
 			if (jQme.is(jQuery("circle"))){
-				jQme.attr('cx',posX+parseFloat(jQme.attr('r'))+"px");
-				jQme.attr('cy',posY+parseFloat(jQme.attr('r'))+"px");
+				jQme.attr('cx',posX);
+				jQme.attr('cy',posY);
 			}
 			else if (jQme.is(jQuery("path"))){
 				var x = posX - initialPosX;
