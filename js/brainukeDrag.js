@@ -142,3 +142,27 @@ function segmentAngleRad(Xstart,Ystart,Xtarget,Ytarget){
 	
 	return (result+2*Math.PI)%(2*Math.PI);
 }
+
+function angleDistance(fromAngle,toAngle,way){
+	fromAngle = (fromAngle + 2*Math.PI) % (2*Math.PI);
+	toAngle = (toAngle + 2*Math.PI) % (2*Math.PI);
+	if(way == "anticlockwise"){
+		if(toAngle>fromAngle){
+			return (toAngle - fromAngle);
+		}
+		else{
+			return (toAngle + 2*Math.PI - fromAngle);
+		}
+	}
+	else if(way=="clockwise"){
+		if(toAngle>fromAngle){
+			return (2*Math.PI - (toAngle - fromAngle));
+		}
+		else{
+			return (fromAngle - toAngle);
+		}
+	}
+	else{
+		console.log("Wrong way in angleDistance()");
+	}
+}

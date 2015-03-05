@@ -60,7 +60,7 @@ BUKE.addBall = function(id){
 	var cx = this.angleToXY(ball.angleRad).cx;
 	var cy = this.angleToXY(ball.angleRad).cy;
 	jQuery('#ball'+id).attr('number',id).attr('cx',cx).attr('cy',cy)
-	.attr('r',this.rBall).attr('fill','#7ae')
+	.attr('r',this.rBall).attr('fill','#'+Math.floor(10*Math.random())+''+Math.floor(10*Math.random())+''+Math.floor(10*Math.random()))
 	.attr('stroke-width',1).attr('stroke','black');
 }
 
@@ -104,34 +104,35 @@ BUKE.newBallAngle = function(id,newAngleRad){
  */
 BUKE.animateBall = function(id,oldAngleRad,newAngleRad,way){
 	var steps = 10;
-	var animDuration = 500;
+	var animDuration = 200;
 	var ball = this.getBall(id);
 	var i = 1;
 	var anim;
+	var cloDist = angleDistance(oldAngleRad,newAngleRad,"clockwise");
+	var antiCloDist = angleDistance(oldAngleRad,newAngleRad,"anticlockwise");
 	function callback(){
 		clearInterval(anim);
+		// Save new angle to BUKE.positions
+		BUKE.getBall(id).angleRad = newAngleRad;
 	}
-	(function(oldA,newA,steps){
-		anim = setInterval(function(){
-			if(way == "anticlockwise"){
-				var stepAngle = (newA - oldA) * i/steps;
-			}
-			else if(way == "clockwise"){
-				// Does nothing different! At the moment.
-				var stepAngle = (newA - oldA) * i/steps;
-			}
-			else{
-				console.log('Wrong "way" parameter in animateBall()');
-			}
-			// Move to step position
-			jQuery('#ball'+id).attr('cx',BUKE.angleToXY(oldA+stepAngle).cx);
-			jQuery('#ball'+id).attr('cy',BUKE.angleToXY(oldA+stepAngle).cy);
-			if(i == steps){
-				callback();
-			}
-			i++;
-		},animDuration/steps);
-	})(oldAngleRad,newAngleRad,steps);
+	anim = setInterval(function(){
+		if(way == "anticlockwise"){
+			var stepAngle = oldAngleRad + antiCloDist * i/steps;
+		}
+		else if(way == "clockwise"){
+			var stepAngle = oldAngleRad - cloDist * i/steps;
+		}
+		else{
+			console.log('Wrong "way" parameter in animateBall()');
+		}
+		// Move to step position
+		jQuery('#ball'+id).attr('cx',BUKE.angleToXY(stepAngle).cx);
+		jQuery('#ball'+id).attr('cy',BUKE.angleToXY(stepAngle).cy);
+		if(i == steps){
+			callback();
+		}
+		i++;
+	},animDuration/steps);
 }
 
 /*
@@ -141,13 +142,12 @@ BUKE.animateBall = function(id,oldAngleRad,newAngleRad,way){
  * @param {Number} newAngleRad Where it will be moved
  */
 BUKE.makePlaceFor = function(id,oldAngleRad,newAngleRad){
-	if (newAngleRad < oldAngleRad){newAngleRad = newAngleRad + 2*Math.PI;}
-	var diff = newAngleRad - oldAngleRad;
+	var antiCloDist = angleDistance(oldAngleRad,newAngleRad,"anticlockwise");
 	var closestToNewAngle = null;
 	var closestToNewAngle2nd = null;
 	var angleCloseness = 99999;
 	var angleCloseness2nd = 99999;
-	var way = "";
+	var friendsMotion = "";
 	
 	// Detect closest element and 2nd closest to destination (newAngleRad)
 	for (var j=1;j<=this.positions.length;j++){
@@ -182,60 +182,59 @@ BUKE.makePlaceFor = function(id,oldAngleRad,newAngleRad){
 		return result;
 	}
 	
-	if (diff>Math.PI){
-		for (var j=1;j<=this.positions.length;j++){
-			var ball = this.getBall(j);
-			if (this.isBetween(ball.angleRad,oldAngleRad,newAngleRad)){
-				// Don't move
-			}
-			else{
-				// Push clockwise (by 2*Math.PI/circlesNb)
+	if (antiCloDist>Math.PI){
+		for (var k=1;k<=this.positions.length;k++){
+			var ball = this.getBall(k);
+			if (k !== id && angleDistance(oldAngleRad,ball.angleRad,"anticlockwise") > antiCloDist){
+				// Those whose anticlockwise distance from oldAngle are higher than antiCloDist will be translated anticlockwise
+				// Push anticlockwise (by 2*Math.PI/circlesNb)
 				console.log('Push clockwise ball '+ball.id);
-				this.animateBall(ball.id,ball.angleRad,ball.angleRad+2*Math.PI/this.circles,"clockwise");
-				isMoved.push(j);
-			}
-		}
-		way = "anticlockwise";
-	}
-	else if(diff<Math.PI){
-		for (var j=1;j<=this.positions.length;j++){
-			var ball = this.getBall(j);
-			if (this.isBetween(ball.angleRad,oldAngleRad,newAngleRad)){
-				// Push anti-clockwise (by -2*Math.PI/circlesNb)
-				console.log('Push anti-clockwise ball '+ball.id);
-				this.animateBall(ball.id,ball.angleRad,ball.angleRad - 2*Math.PI/this.circles,"anticlockwise");
-				isMoved.push(j);
+				this.animateBall(ball.id,ball.angleRad,ball.angleRad+2*Math.PI/this.circles,"anticlockwise");
+				isMoved.push(k);
 			}
 			else{
-				// Don't move
+				
 			}
 		}
-		way = "clockwise";
+		friendsMotion = "anticlockwise";
+	}
+	else if(antiCloDist<Math.PI){
+		for (var l=1;l<=this.positions.length;l++){
+
+			var ball = this.getBall(l);
+			if (l !== id && angleDistance(oldAngleRad,ball.angleRad,"anticlockwise") < antiCloDist){
+				// Those whose anticlockwise distance from oldAngle are higher than antiCloDist will be translated anticlockwise
+				// Push anticlockwise (by 2*Math.PI/circlesNb)
+				console.log('Push clockwise ball '+ball.id);
+				this.animateBall(ball.id,ball.angleRad,ball.angleRad-2*Math.PI/this.circles,"clockwise");
+				isMoved.push(l);
+			}
+			
+		}
+		friendsMotion = "clockwise";
 	}
 	else{
 		console.log('Problem with diff in BUKE.makePlaceFor()');
 	}
 	
 	// Now move the dropped ball to new location
-	if(isInMoved(closestToNewAngle)){
-		if (way == "clockwise"){
-			console.log("clo moved");
-			this.animateBall(id,oldAngleRad,newAngleRad-angleCloseness,way);
-		}
-		else{
-		console.log("anticlo moved");
-			this.animateBall(id,oldAngleRad,newAngleRad-angleCloseness,way);
-		}
+	if (friendsMotion == "clockwise" && isInMoved(closestToNewAngle)){
+		this.animateBall(id,newAngleRad,newAngleRad-angleCloseness,"clockwise");
+	}
+	else if(friendsMotion == "clockwise" && isInMoved(closestToNewAngle2nd)){
+		this.animateBall(id,newAngleRad,newAngleRad-angleCloseness2nd,"clockwise");
+		
+	}
+	else if(friendsMotion == "anticlockwise" && isInMoved(closestToNewAngle)){
+		this.animateBall(id,newAngleRad,newAngleRad+angleCloseness,"anticlockwise");
+	}
+	else if (friendsMotion == "anticlockwise" && isInMoved(closestToNewAngle2nd)){
+		this.animateBall(id,newAngleRad,newAngleRad+angleCloseness2nd,"anticlockwise");
 	}
 	else{
-		if (way == "clockwise"){
-		console.log("clo notmoved");
-			this.animateBall(id,oldAngleRad,newAngleRad-angleCloseness2nd,way);
-		}
-		else{
-			console.log("clo notmoved");
-			this.animateBall(id,oldAngleRad,newAngleRad+angleCloseness2nd,way);
-		}
+	// No group motion, ball returns to original position
+		console.log("Stays");
+		this.animateBall(id,newAngleRad,oldAngleRad,"clockwise");
 	}
 } 
 
