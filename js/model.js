@@ -1,6 +1,9 @@
 window.app.service("Model", function(){
 
 	this.notes=[];
+	this.score=0;
+
+
 
 //It calculates the cordinates of the shapes on the viewPort
 //and updates the their coordinates
@@ -29,5 +32,6 @@ this.addNote=function(note){
 	this.notes.unshift(newNote);
 	updateShapesPosition.call(this);
 };
+
 
 });
