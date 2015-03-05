@@ -2,7 +2,31 @@ window.app.service("Model", function(){
 
 	this.notes=[];
 	this.score=0;
+	this.players=[];
 
+///////////////TEST AREA - REMOVE AFTERWARDS///////////
+	//Testing score board
+	maria=new Object();
+	maria.name="augusto";
+	maria.score=333;
+
+	maria2=new Object();
+	maria2.name="maria";
+	maria2.score=24523;
+
+	maria3=new Object();
+	maria3.name="mariama";
+	maria3.score=333333;
+
+	maria4=new Object();
+	maria4.name="sheng";
+	maria4.score=33003;
+
+	this.players.push(maria);
+	this.players.push(maria2);
+	this.players.push(maria3);
+	this.players.push(maria4);
+ ///////////////////////////////////////////////////////
 
 
 //It calculates the cordinates of the shapes on the viewPort

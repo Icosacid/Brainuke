@@ -1,10 +1,15 @@
 window.app.controller("BrainukeController", ["$scope", "Model", function($scope, Model){
 
 	console.log("controle added");
-		this.notes=Model.notes;
+
+		//get the list of added notes from the model
+		this.notes=Model.notes; 
 		this.currentNote;
 		this.score=Model.score;
 		this.currentPage=1;
+
+		//get the list of players from the model
+		this.players=Model.players;
 
 		//The time is binded with the html, pass value to the model to handle it	
 		this.timeCount;
@@ -46,6 +51,5 @@ window.app.controller("BrainukeController", ["$scope", "Model", function($scope,
 		this.setPage=function(pageId){
 			this.currentPage=pageId;
 		}
-
 
 }]);

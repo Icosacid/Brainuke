@@ -108,3 +108,57 @@ svg{
 .notVerified{
 	fill:gray;
 }
+
+/* score page */
+
+#bgScore{
+
+	background-image:url("images/bgScore.jpg");
+	height:700px;
+	background-size: 150%;
+	background-position: -200px -257px;
+
+
+}
+#header{
+
+	text-align: center;
+	margin-top: 50px;
+	font-size: 36px;
+	color: #F7F8E0;
+	font-weight: bold;
+	font-family: 'Helvetica Neue', sans-serif;
+	text-shadow: 0px 2px 3px #F3F781;
+
+	letter-spacing:0.05em;
+	position:relative;
+}
+
+#scoreTable{
+	margin-top: 50px;
+	margin-bottom:30px;
+	width: 600px;
+	height: 300px;
+	background-color: rgba(255,255,255,0.8);
+	font-size: 18px;
+}
+
+
+.gameBtn{
+	display: block; margin-left: auto;
+
+	margin-right: 20px;
+	width:120px;
+
+}
+
+.userBtn{
+	display: block; margin-left: 20px;
+
+	margin-right: auto;
+	width:120px;
+}
+
+.table-hover{
+	table-hover: black;
+}
