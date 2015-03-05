@@ -14,5 +14,6 @@
 <script src="js/hand.minified-1.3.8.js"></script>
 <script src="js/brainukeDrag.js"></script>
 <script src="js/brainuke.js"></script>
+<script src="js/pitchdetect.js"></script>
 </body>
 </html>
