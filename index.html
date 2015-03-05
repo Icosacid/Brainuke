@@ -33,7 +33,7 @@
 		<div class="col-md-2" id="left">
 
 			<div id="randomBtn">
-				<button type="button" class="btn btn-default" aria-label="Left Align" id="randomBtn1" ng-click="mainCtrl.randomise()">
+				<button type="button" class="btn btn-default" aria-label="Left Align" id="randomBtn1" ng-click="mainCtrl.randomize()">
 					<span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Random
 				</button>
 			</div>
@@ -55,10 +55,17 @@
 				</g>
 
 				<!--Inserting the the text of the current note being tested-->
-				<text ng-attr-x="{{270}}" ng-attr-y="{{320}}" ng-attr-font-family="{{'Verdana'}}" ng-attr-font-size="{{'100'}}" ng-attr-fill="{{'blue'}}" > {{mainCtrl.currentNote.name}} </text>
+				<text ng-attr-x="{{270}}" ng-attr-y="{{320}}" ng-attr-font-family="{{'Verdana'}}" ng-attr-font-size="{{'100'}}" ng-attr-fill="{{'blue'}}" ng-show="mainCtrl.gameOn"> {{mainCtrl.currentNote.name}} </text>
 
 				<!--Inserting the the text of the points on the game-->
-				<text ng-attr-x="{{230}}" ng-attr-y="{{400}}" ng-attr-font-family="{{'Verdana'}}" ng-attr-font-size="{{'25'}}" ng-attr-fill="{{'blue'}}" >score: {{mainCtrl.score}} </text>
+				<text ng-attr-x="{{230}}" ng-attr-y="{{400}}" ng-attr-font-family="{{'Verdana'}}" ng-attr-font-size="{{'25'}}" ng-attr-fill="{{'blue'}}" ng-show="mainCtrl.gameOn">score: {{mainCtrl.score}} </text>
+
+				<!--Button responsible for initiating the game-->
+				<g ng-click="mainCtrl.startGame()" ng-show="!mainCtrl.gameOn">
+					<rect x="175" y="250" rx="20" ry="20" width="250" height="100"
+					style="fill:red;stroke:black;stroke-width:5;opacity:0.5"/>
+					<text x="240" y="315" font-family="Verdana" font-size="50" fill="blue">start</text>
+				</g>
 
 			</svg>
 

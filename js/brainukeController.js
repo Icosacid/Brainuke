@@ -11,32 +11,37 @@ window.app.controller("BrainukeController", ["$scope", "Model", function($scope,
 		//get the list of players from the model
 		this.players=Model.players;
 
+
 		//The time is binded with the html, pass value to the model to handle it	
 		this.timeCount;
+		this.gameOn=false;
+
 		
 		//Current player, it consist of a string of it's name, 
 		//however for future implementation it could be an object that consists of all information of the player
 		this.currentPlayer;
-		
 
 		this.addNote=function(note){
 			//add note on the array on the model with all notes
 			Model.addNote(note);
-			//inserted here in order to test 
-			this.currentNote=this.notes[0];
-			this.updateScore();
 		};
 
-		this.randomise=function(){
+		this.randomize=function(){
 			//ATTENTION:Call the model and randomise the sequence stored
-			console.log("randomising!!");
+			Model.randomize();
 		};
+
+
+		this.startGame= function(){
+			////ATTENTION:Call the model and start the game
+			Model.startGame();
+			this.gameOn=true;
+		}
 
 		this.updateScore=function(){
 			//ATTENTION:function should be changed depending of how it is implemented the model
 			this.score=Model.score;
 		}
-
 
 
 		//This function are related to the navigation within the the html, I don't now if it would 
@@ -51,5 +56,7 @@ window.app.controller("BrainukeController", ["$scope", "Model", function($scope,
 		this.setPage=function(pageId){
 			this.currentPage=pageId;
 		}
+
+
 
 }]);
