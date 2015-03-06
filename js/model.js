@@ -59,10 +59,14 @@ this.randomize= function(){
 
 }
 
-//todo: function triggered when the game starts
-this.startGame= function(){
 
+//todo: function triggered to check a note in the array
+this.checkNote= function(position){
+
+	
 }
+
+
 
 //It calculates the cordinates of the shapes on the viewPort
 //and updates the their coordinates
@@ -76,5 +80,6 @@ var updateShapesPosition= function(){
 		this.notes[i-1].y= 300-230 * Math.sin(i/numberNotes*2*Math.PI+(Math.PI/2));
 	}
 };
+
 
 });

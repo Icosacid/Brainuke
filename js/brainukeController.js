@@ -1,11 +1,10 @@
-window.app.controller("BrainukeController", ["$scope", "Model", function($scope, Model){
+window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", function($scope, $timeout, Model){
 
 	console.log("controle added");
 
 		//get the list of added notes from the model
-		this.notes=Model.notes; 
+		$scope.model=Model; 
 		this.currentNote;
-		this.score=Model.score;
 		this.currentPage=1;
 
 		//get the list of players from the model
@@ -16,6 +15,8 @@ window.app.controller("BrainukeController", ["$scope", "Model", function($scope,
 		this.timeCount;
 		this.gameOn=false;
 
+		var totalNotes=0;
+
 		
 		//Current player, it consist of a string of it's name, 
 		//however for future implementation it could be an object that consists of all information of the player
@@ -24,6 +25,7 @@ window.app.controller("BrainukeController", ["$scope", "Model", function($scope,
 		this.addNote=function(note){
 			//add note on the array on the model with all notes
 			Model.addNote(note);
+			totalNotes++;
 		};
 
 		this.randomize=function(){
@@ -34,13 +36,8 @@ window.app.controller("BrainukeController", ["$scope", "Model", function($scope,
 
 		this.startGame= function(){
 			////ATTENTION:Call the model and start the game
-			Model.startGame();
 			this.gameOn=true;
-		}
-
-		this.updateScore=function(){
-			//ATTENTION:function should be changed depending of how it is implemented the model
-			this.score=Model.score;
+			notesChecked=0;
 		}
 
 
@@ -59,4 +56,4 @@ window.app.controller("BrainukeController", ["$scope", "Model", function($scope,
 
 
 
-}]);
+	}]);
