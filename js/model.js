@@ -3,38 +3,32 @@ window.app.service("Model", function(){
 	this.notes = [];
 	this.score = 0;
 	this.players = [];
-
-///////////////TEST AREA - REMOVE AFTERWARDS///////////
-
-	//Testing score board
-	maria = new Object();
-	maria.name = "augusto";
-	maria.score = 333;
-
-	maria2 = new Object();
-	maria2.name = "maria";
-	maria2.score = 24523;
-
-	maria3 = new Object();
-	maria3.name = "mariama";
-	maria3.score = 333333;
-
-	maria4 = new Object();
-	maria4.name = "sheng";
-	maria4.score = 33003;
-
-	this.players.push(maria);
-	this.players.push(maria2);
-	this.players.push(maria3);
-	this.players.push(maria4);
-	
- ///////////////////////////////////////////////////////
+	this.rankedPlayers = [];
 
 	//Add player on the list of players (name, score and rank)
 	this.addPlayer = function(player){
 		this.players.push(player);
 	}
-
+	
+	// Fills the rankedPlayers array
+	this.rankPlayers = function(){
+		// Store scores
+		var scores = [];
+		for (key in this.players){
+			scores.push(this.players[key].score);
+		}
+		// Sort
+		var sorted = scores.sort(function(a, b){return b-a});
+		// Fill this.rankedPlayers
+		for (key in sorted){
+			for (key2 in this.players){
+				if(sorted[key] == this.players[key2].score){
+					this.players[key2].rank = parseInt(key)+1;
+					this.rankedPlayers.push(this.players[key2]);
+				}
+			}
+		}
+	}
 
 	//Add note on the array of notes and update its position on the viewPort
 	this.addNote = function(note){
@@ -106,4 +100,35 @@ window.app.service("Model", function(){
 		}
 	};
 
+///////////////TEST AREA - REMOVE AFTERWARDS///////////
+
+	//Testing score board
+	maria = new Object();
+	maria.name = "augusto";
+	maria.score = 333;
+	maria.rank = null;
+
+	maria2 = new Object();
+	maria2.name = "maria";
+	maria2.score = 24523;
+	maria2.rank = null;
+
+	maria3 = new Object();
+	maria3.name = "mariama";
+	maria3.score = 333333;
+	maria3.rank = null;
+	
+	maria4 = new Object();
+	maria4.name = "sheng";
+	maria4.score = 33003;
+	maria4.rank = null;
+	
+	this.players.push(maria);
+	this.players.push(maria2);
+	this.players.push(maria3);
+	this.players.push(maria4);
+	this.rankPlayers();
+	
+ ///////////////////////////////////////////////////////
+	
 });

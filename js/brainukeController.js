@@ -9,8 +9,9 @@ window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", func
 
 	//get the list of players from the model
 	this.players = Model.players;
+	this.rankedPlayers = Model.rankedPlayers;
 
-	//The time is binded with the html, pass value to the model to handle it	
+	//The time is binded with the html, pass value to the model to handle it
 	this.timeCount;
 	this.gameOn = false;
 
