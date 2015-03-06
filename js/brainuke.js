@@ -5,6 +5,7 @@ BUKE.circles = 15;
 BUKE.rFromCenter = (BUKE.rIn + BUKE.rOut)/2;
 BUKE.rBall = (BUKE.rOut - BUKE.rIn)/2;
 BUKE.positions = [];
+
 /*
  * Shapes the circular structure of the central panel
  */
@@ -261,7 +262,6 @@ BUKE.isBetween = function(angleRad,angleBeforeRad,angleAfterRad){
 	}
 }
 
-
 /*** Scripts executed on start ***/
 
 jQuery(document).ready(function(){
@@ -273,6 +273,4 @@ jQuery(document).ready(function(){
 			dragMe('#ball'+i,'#central svg');
 		}
 	},500);
-	
-	
 });
