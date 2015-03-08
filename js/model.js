@@ -1,17 +1,18 @@
-window.app.service("Model", function(){
+window.app.service("Model", function() {
 
 	this.notes = [];
 	this.score = 0;
 	this.players = [];
 	this.rankedPlayers = [];
+	this.currentNote;
 
 	//Add player on the list of players (name, score and rank)
-	this.addPlayer = function(player){
+	this.addPlayer = function(player) {
 		this.players.push(player);
 	}
 	
 	// Fills the rankedPlayers array
-	this.rankPlayers = function(){
+	this.rankPlayers = function() {
 		// Store scores
 		var scores = [];
 		for (key in this.players){
@@ -31,7 +32,7 @@ window.app.service("Model", function(){
 	}
 
 	//Add note on the array of notes and update its position on the viewPort
-	this.addNote = function(note){
+	this.addNote = function(note) {
 
 		var newNote = new Object();
 		newNote.name = note;
@@ -43,10 +44,11 @@ window.app.service("Model", function(){
 		//ATTENTION: The oldest note is in the end of the array
 		this.notes.unshift(newNote);
 		updateShapesPosition.call(this);
+		this.currentNote = this.notes[this.notes.length-1].name;
 	};
 
 	// Function that randomises the order of the notes in the array
-	this.randomize = function(){
+	this.randomize = function() {
 		var order = this.randomIntIndexList(this.notes.length,0,this.notes.length-1);
 		var notesCopy = this.notes.slice();
 		for (key in this.notes){
@@ -55,7 +57,7 @@ window.app.service("Model", function(){
 	}
 	
 	// Function that returns an Int array with random values
-	this.randomIntIndexList = function(size,min,max){
+	this.randomIntIndexList = function(size,min,max) {
 		// size must be > (max-min)
 		if(size > (max-min+1)){
 			console.log("Values not accepted in randomIntIndexList()");
@@ -81,24 +83,59 @@ window.app.service("Model", function(){
 		return list;
 	}
 
+	
+	//function used for testing
+	function pausecomp(millis) {
+		var date = new Date();
+		var curDate = null;
 
+		do { curDate = new Date(); } 
+		while(curDate-date < millis);
+	} 
+	
 	//todo: function triggered to check a note in the array
-	this.checkNote = function(position){
+	this.checkNote = function(position) {
+		//TEST-REMOVE AFTERWARDS: testing the game being players////
+	
+		this.notes[position-1].verified = true;
+		if(Math.random()>.5) {
+			this.notes[position-1].isRight = false;
+		} else {
+			this.score = this.score+1000;
+		}
 
+		//it will work if we have a dummyBall, it will crach otherwise, fix it latter
+		this.currentNote = this.notes[position-1].name;
+
+		pausecomp(3000);
+
+		//ATTENTION: Trick to trigger the function to evaluate next note
+		this.addDummyBall();
+		//////////////////////////////////////////////////////
 	}
 
 	//It calculates the cordinates of the shapes on the viewPort
 	//and updates the their coordinates
-	var updateShapesPosition = function(){
+	var updateShapesPosition = function() {
 
 		var numberNotes = this.notes.length;
 
-		for (var i=1;i<=numberNotes;i++){
+		for (var i=1;i<=numberNotes;i++) {
 			// Loop coordinate shape values 
 			this.notes[i-1].x = 300+230 * Math.cos(i/numberNotes*2*Math.PI+(Math.PI/2));
 			this.notes[i-1].y= 300-230 * Math.sin(i/numberNotes*2*Math.PI+(Math.PI/2));
 		}
 	};
+	
+	this.addDummyBall = function() {
+		var newNote = new Object();
+		newNote.name = "dummy";
+		newNote.verified = false; //set as not verified initially
+		newNote.isRight = true;
+		newNote.x = -100;
+		newNote.y = -100;
+		this.notes.push(newNote);
+	}
 
 ///////////////TEST AREA - REMOVE AFTERWARDS///////////
 
