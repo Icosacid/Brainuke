@@ -4,9 +4,8 @@ window.app.service("Model", function() {
 	this.score = 0;
 	this.players = [];
 	this.rankedPlayers = [];
-	this.currentNote;
 
-	//Add player on the list of players (name, score and rank)
+	// Add player on the list of players (name and score)
 	this.addPlayer = function(player) {
 		this.players.push(player);
 	}
@@ -15,23 +14,23 @@ window.app.service("Model", function() {
 	this.rankPlayers = function() {
 		// Store scores
 		var scores = [];
-		for (key in this.players){
+		for (key in this.players) {
 			scores.push(this.players[key].score);
 		}
 		// Sort
 		var sorted = scores.sort(function(a, b){return b-a});
 		// Fill this.rankedPlayers
-		for (key in sorted){
-			for (key2 in this.players){
-				if(sorted[key] == this.players[key2].score){
-					this.players[key2].rank = parseInt(key)+1;
+		for (key in sorted) {
+			for (key2 in this.players) {
+				if(sorted[key] == this.players[key2].score) {
+					this.players[key2].rank = parseInt(key) + 1;
 					this.rankedPlayers.push(this.players[key2]);
 				}
 			}
 		}
 	}
 
-	//Add note on the array of notes and update its position on the viewPort
+	// Add note on the array of notes and update its position on the viewPort
 	this.addNote = function(note) {
 
 		var newNote = new Object();
@@ -44,7 +43,7 @@ window.app.service("Model", function() {
 		//ATTENTION: The oldest note is in the end of the array
 		this.notes.unshift(newNote);
 		updateShapesPosition.call(this);
-		this.currentNote = this.notes[this.notes.length-1].name;
+		
 	};
 
 	// Function that randomises the order of the notes in the array
@@ -54,6 +53,14 @@ window.app.service("Model", function() {
 		for (key in this.notes){
 			this.notes[key] = notesCopy[order[key]];
 		}
+	}
+	
+	// Function that empties the notes array
+	this.resetAll = function() {
+		this.notes = [];
+		this.score = 0;
+		this.players = [];
+		this.rankedPlayers = [];
 	}
 	
 	// Function that returns an Int array with random values
@@ -82,7 +89,6 @@ window.app.service("Model", function() {
 		}
 		return list;
 	}
-
 	
 	//function used for testing
 	function pausecomp(millis) {
@@ -93,18 +99,18 @@ window.app.service("Model", function() {
 		while(curDate-date < millis);
 	} 
 	
-	//todo: function triggered to check a note in the array
+	// Function triggered to check a note in the array
 	this.checkNote = function(position) {
 		//TEST-REMOVE AFTERWARDS: testing the game being players////
 	
 		this.notes[position-1].verified = true;
-		if(Math.random()>.5) {
+		if(Math.random() > .5) {
 			this.notes[position-1].isRight = false;
 		} else {
 			this.score = this.score+1000;
 		}
 
-		//it will work if we have a dummyBall, it will crach otherwise, fix it latter
+		// it will work if we have a dummyBall, it will crach otherwise, fix it latter
 		this.currentNote = this.notes[position-1].name;
 
 		pausecomp(3000);

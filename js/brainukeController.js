@@ -24,24 +24,26 @@ window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", func
 
 	this.addNote = function(note) {
 		//add note on the array on the model with all notes
-		Model.addNote(note);
+		$scope.model.addNote(note);
 		totalNotes++;
 	};
 
 	this.randomize = function() {
 		//ATTENTION:Call the model and randomise the sequence stored
-		Model.randomize();
+		$scope.model.randomize();
 	};
 
 	this.startGame = function() {
 		////ATTENTION:Call the model and start the game
 		$scope.gameOn = true;
 		$scope.model.addDummyBall();
-		this.currentNote = Model.notes[totalNotes-1].name;
+		this.currentNote = $scope.model.notes[totalNotes-1].name;
 	}
 	
-	this.resetGame = function(){
-	
+	$scope.resetGame = function(){
+		$scope.gameOn = false;
+		this.currentNote = null;
+		$scope.model.resetAll();
 	}
 	
 	//These functions are related to the navigation within the the html, I don't now
@@ -67,6 +69,7 @@ window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", func
 			if(totalNotes !== 0) {
 				this.currentNote = Model.notes[totalNotes-1].name;
 			} else {
+				$scope.resetGame();
 				$scope.setPage(3);
 			}
 		} else {
