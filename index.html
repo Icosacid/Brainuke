@@ -1,52 +1,44 @@
 <!DOCTYPE html>
 <html ng-app="brainuke">
 <head>
-
 	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
-
+	<link rel="stylesheet" type="text/css" href="mdevcss.css">
 </head>
 
 <body ng-controller="BrainukeController as mainCtrl">
-	<!--Home page-->
-	<div id="homePage" ng-show="mainCtrl.isSetPage(1)">
-
-		<div class="col-md-5" id="left-home">
+	<div id="homePage" ng-show="mainCtrl.isSetPage(2)">
+		<div class="col-md-5">
 			<div><p id="title">Brainuke<span></span></p>
-				<p id="subtitle">Enjoy your Ukulele!</p>
+				 <p id="subtitle">Enjoy your Ukulele!</p>
 			</div>
-
 			<div id="getStart">
 				<form name="formName" class="navbar-form navbar-left" role="search" novalidate>
 					<div class="form-group">
 						<input ng-model="mainCtrl.currentPlayer" type="text" class="form-control" placeholder="Enter your name" required>
 					</div>
-					<button type="submit" class="btn btn-default" ng-click="formName.$valid && setPage(2)">Get Started!</button>
+					<button type="submit" class="btn btn-warning" ng-click="formName.$valid && setPage(2)">Get Started!</button>
 				</form>
 			</div>
 		</div>
-
 	</div>
 
 	<!--mainCtrl page-->
-	<div class="row" id="mainPage" ng-show="mainCtrl.isSetPage(2)">
+	<div class="row" id="mainPage" ng-show="mainCtrl.isSetPage(1)">
 		<div class="col-md-2" id="left">
-
-			<div id="randomBtn">
-				<button type="button" class="btn btn-default" aria-label="Left Align" id="randomBtn1" ng-click="mainCtrl.randomize()">
-					<span class="glyphicon glyphicon-random" aria-hidden="true"></span>  Random
+			<div>
+				<button type="button" class="btn btn-primary" id="randomBtn1" ng-click="mainCtrl.randomize()">
+					<span><span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom</span>
 				</button>
 			</div>
-
-			<div id="inputBtn">
-				<span class="glyphicon glyphicon-time" aria-hidden="true" id="timeIcon"></span>
-				<input ng-model="mainCtrl.timeCount" type="number" class="form-control" id="secondEnter" placeholder="seconds">
-			</div>
-
+			<br />
+			<div id="randomBtn1">
+           		<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" />
+       		</div>
 		</div>
-		<div class="col-md-8" id="center">
 
-			<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+		<div class="col-md-8" id="center">
+			<svg class="true-center" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
 
 				<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
 				<g  class="noteCircle" ng-repeat="note in model.notes" on-finish-render="ngRepeatFinished">
@@ -65,47 +57,47 @@
 					<rect x="175" y="250" rx="20" ry="20" width="250" height="100"/>
 					<text x="240" y="315">start</text>
 				</g>
-
 			</svg>
-
 		</div>
-		<div class="col-md-2" id="right">
 
-			<button type="button" class="btn btn-default noteBtn" aria-label="Left Align" ng-click="mainCtrl.addNote('C')">C
-			</button>
+		<div class="col-md-2">
+			<div id="right">
 
-			<button type="button" class="btn btn-default noteBtn "aria-label="Left Align" ng-click="mainCtrl.addNote('C#')"> C#
-			</button>
+				<button type="button" class="btn btn-default noteBtn" aria-label="Left Align" ng-click="mainCtrl.addNote('C')">C
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('D')"> D
-			</button>
+				<button type="button" class="btn btn-default noteBtn "aria-label="Left Align" ng-click="mainCtrl.addNote('C#')"> C#
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('D#')"> D#
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('D')"> D
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('E')"> E
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('D#')"> D#
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('F')"> F
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('E')"> E
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('F#')"> F#
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('F')"> F
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('G')"> G
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('F#')"> F#
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('G#')"> G#
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('G')"> G
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('A')"> A
-			</button>
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('A#')"> A#
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('G#')"> G#
+				</button>
 
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('B')"> B
-			</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('A')"> A
+				</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('A#')"> A#
+				</button>
 
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="mainCtrl.addNote('B')"> B
+				</button>
+			</div>
 		</div>
 	</div>
 
@@ -160,3 +152,4 @@
 <script src="js/on-finish-rendering.js"></script>
 
 </body>
+	<!--Home page-->
