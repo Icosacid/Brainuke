@@ -9,9 +9,9 @@
 
 <body ng-controller="BrainukeController as mainCtrl">
 	<!--Home page-->
-	<div id="homePage" ng-show="isSetPage(1)">
+	<div id="homePage" ng-show="isSetPage(2)">
 
-		<div class="col-md-5" id="left-home">
+		<div class="col-md-5">
 			<div><p id="title">Brainuke<span></span></p>
 				 <p id="subtitle">Enjoy your Ukulele!</p>
 			</div>
@@ -27,7 +27,7 @@
 	</div>
 
 	<!--mainCtrl page-->
-	<div class="row" id="mainPage" ng-show="isSetPage(2)">
+	<div class="row" id="mainPage" ng-show="isSetPage(1)">
 		<div class="col-md-2" id="left">
 			<div>
 				<button type="button" class="btn btn-primary" id="randomBtn1" ng-click="mainCtrl.randomize()">
@@ -39,9 +39,9 @@
            		<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" />
        		</div>
 		</div>
-		<div class="col-md-8" id="center">
 
-			<svg width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+		<div class="col-md-8" id="center">
+			<svg class="true-center" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
 
 				<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
 				<g  class="noteCircle" ng-repeat="note in model.notes" on-finish-render="ngRepeatFinished">

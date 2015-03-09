@@ -9,7 +9,6 @@
 	background-size: cover;
 	background-image: url("../images/bgHome.jpg");
 	background-repeat: no-repeat;
-	height: 700px;
 }
 #title{
 	font-size: 66px;
@@ -38,9 +37,6 @@
 }
 
 /* Main page */
-#left-home{
-	height:800px;
-}
 
 #subtitle{
 	font-size: 30px;
@@ -50,7 +46,7 @@
 	color: #fff;
 }
 #left{
-	padding-top: 50px;
+	padding-top: 30px;
 }
 #randomBtn1{
 	display:block;
