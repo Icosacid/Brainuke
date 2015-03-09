@@ -104,15 +104,6 @@ window.app.service("Model", function() {
 		}
 	};
 	
-	this.addDummyBall = function() {
-		var newNote = new Object();
-		newNote.name = "dummy";
-		newNote.verified = false; //set as not verified initially
-		newNote.isRight = true;
-		newNote.x = -100;
-		newNote.y = -100;
-		this.notes.push(newNote);
-	}
 
 ///////////////TEST AREA - REMOVE AFTERWARDS///////////
 

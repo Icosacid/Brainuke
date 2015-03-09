@@ -68,10 +68,12 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
 		}
 
+		$scope.totalNotes--;
 		///////////////////////////////
 
-		$scope.totalNotes--;
+		
 
+		//checks if the game is over
 		if($scope.totalNotes<=0){
 			//Killing the gameLoop
 			$interval.cancel($scope.intervalPromise);
