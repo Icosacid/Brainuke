@@ -90,35 +90,6 @@ window.app.service("Model", function() {
 		return list;
 	}
 	
-	//function used for testing
-	function pausecomp(millis) {
-		var date = new Date();
-		var curDate = null;
-
-		do { curDate = new Date(); } 
-		while(curDate-date < millis);
-	} 
-	
-	// Function triggered to check a note in the array
-	this.checkNote = function(position) {
-		//TEST-REMOVE AFTERWARDS: testing the game being players////
-	
-		this.notes[position-1].verified = true;
-		if(Math.random() > .5) {
-			this.notes[position-1].isRight = false;
-		} else {
-			this.score = this.score+1000;
-		}
-
-		// it will work if we have a dummyBall, it will crach otherwise, fix it latter
-		this.currentNote = this.notes[position-1].name;
-
-		pausecomp(3000);
-
-		//ATTENTION: Trick to trigger the function to evaluate next note
-		this.addDummyBall();
-		//////////////////////////////////////////////////////
-	}
 
 	//It calculates the cordinates of the shapes on the viewPort
 	//and updates the their coordinates

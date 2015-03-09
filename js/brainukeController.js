@@ -56,13 +56,16 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	$scope.gameLoop= function(){
 
-		//Add the sound function 
+		//Add the pitch recognition function 
 
 		//TEST/////////////////////////
 		if(Math.random()>.5){
-			$scope.currentNote = "A";
+			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
+			$scope.model.notes[$scope.totalNotes-1].verified = true;
+			$scope.model.notes[$scope.totalNotes-1].isRight = false;
 		}else{
-			$scope.currentNote = "B";
+			$scope.model.notes[$scope.totalNotes-1].verified = true;
+			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
 		}
 
 		///////////////////////////////
