@@ -1,7 +1,7 @@
 var BUKE = {};
 BUKE.rIn = 100;
 BUKE.rOut = 152;
-BUKE.circles = 15;
+BUKE.circles = 10;
 BUKE.rFromCenter = (BUKE.rIn + BUKE.rOut)/2;
 BUKE.rBall = (BUKE.rOut - BUKE.rIn)/2;
 BUKE.positions = [];
@@ -51,7 +51,7 @@ BUKE.fill = function(){
 }
 
 /*
- *	Adds a ball with data already stored in the array to the circle 
+ * Adds a ball with data already stored in the array to the circle 
  * @param {Number} id Id of ball to add
  */
 BUKE.addBall = function(id){

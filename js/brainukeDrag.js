@@ -76,8 +76,10 @@ function dragMe(selector,containerselector){
 			jQme.attr('top',posY+"px");
 			// If SVG
 			if (jQme.is(jQuery("circle"))){
-				jQme.attr('cx',forcedPosX);
-				jQme.attr('cy',forcedPosY);
+				//jQme.attr('cx',forcedPosX);
+				//jQme.attr('cy',forcedPosY);
+				jQme.attr('cx',posX);
+				jQme.attr('cy',posY);
 			}
 			else if (jQme.is(jQuery("path"))){
 				var x = posX - initialPosX;
