@@ -1,4 +1,4 @@
-window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", "Audiuke", function($scope, $timeout, Model, Audiuke) {
+window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "Model", "Audiuke", function($scope, $interval, $timeout, Model, Audiuke) {
 
 	console.log("Controller added");
 	
@@ -20,6 +20,7 @@ window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", "Aud
 	$scope.currentNote;
 	$scope.gameOver = false;
 	$scope.gameOn = false;
+	$scope.intervalPromise;
 	//The time is binded with the html, pass value to the model to handle it
 	$scope.timeCount;
 	$scope.totalNotes = 0;
@@ -50,9 +51,33 @@ window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", "Aud
 		////ATTENTION:Call the model and start the game
 		$scope.gameOn = true;
 		//$scope.audiuke.init(this.gotStream);
-		$scope.model.addDummyBall();
-		$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
+		$scope.intervalPromise= $interval(function(){$scope.gameLoop();}, 100);
 	}
+
+	$scope.gameLoop= function(){
+
+		//Add the sound function 
+
+		//TEST/////////////////////////
+		if(Math.random()>.5){
+			$scope.currentNote = "A";
+		}else{
+			$scope.currentNote = "B";
+		}
+
+		///////////////////////////////
+
+		$scope.totalNotes--;
+
+		if($scope.totalNotes<=0){
+			//Killing the gameLoop
+			$interval.cancel($scope.intervalPromise);
+			//Reseting the game and showing the score page
+			$scope.resetGame();
+			$scope.setPage(3);
+		}
+	}
+
 	$scope.resetGame = function(){
 		$scope.gameOn = false;
 		$scope.currentNote = null;
@@ -61,7 +86,7 @@ window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", "Aud
 
 	//Forces rendering, creep solution, but it works, assuming that the
 	//program is monothread and stops just to recognise the note
-	$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
+	/*$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
 		console.log("ngRepeatFinished event is fired");
 		if($scope.gameOn && $scope.totalNotes!== 0) {
 			console.log("Into");
@@ -77,6 +102,6 @@ window.app.controller("BrainukeController", ["$scope", "$timeout", "Model", "Aud
 		} else {
 			console.log("Not Yet (outside)");
 		}
-	});
+	});*/
 
 }]);
