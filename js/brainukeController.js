@@ -24,6 +24,8 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	//The time is binded with the html, pass value to the model to handle it
 	$scope.timeCount;
 	$scope.totalNotes = 0;
+	
+	$scope.audiuke.data = 5;
 
 	/** View functions **/
 	
@@ -52,6 +54,9 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.gameOn = true;
 		//$scope.audiuke.init(this.gotStream);
 		$scope.intervalPromise= $interval(function(){$scope.gameLoop();}, 100);
+		$scope.audiuke.init($scope.audiuke.gotStream);
+		//$scope.model.addDummyBall();
+		//$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
 	}
 
 	$scope.gameLoop= function(){
@@ -94,8 +99,9 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	/*$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
 		console.log("ngRepeatFinished event is fired");
 		if($scope.gameOn && $scope.totalNotes!== 0) {
+		
 			console.log("Into");
-			Model.checkNote($scope.totalNotes);
+			$scope.model.checkNote($scope.totalNotes);
 			$scope.totalNotes--;
 
 			if($scope.totalNotes !== 0) {
