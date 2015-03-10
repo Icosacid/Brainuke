@@ -254,7 +254,6 @@ window.app.service("Audiuke", function() {
 			//console.log("Confident",_this.pitch,_this.note,_this.detune,_this.noteStrings[_this.note%12]);
 			_this.noteString = _this.noteStrings[_this.note%12];
 		}
-		console.log(_this.noteString);
 
 		if (!window.requestAnimationFrame)
 			window.requestAnimationFrame = window.webkitRequestAnimationFrame;

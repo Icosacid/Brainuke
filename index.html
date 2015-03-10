@@ -9,7 +9,7 @@
 
 <body ng-controller="BrainukeController as mainCtrl">
 	<!--Home page-->
-	<div id="homePage" ng-show="isSetPage(2)">
+	<div id="homePage" ng-show="isSetPage(1)">
 
 		<div class="col-md-5">
 			<div><p id="title">Brainuke<span></span></p>
@@ -27,7 +27,7 @@
 	</div>
 
 	<!--mainCtrl page-->
-	<div class="row" id="mainPage" ng-show="isSetPage(1)">
+	<div class="row" id="mainPage" ng-show="isSetPage(2)">
 		<div class="col-md-2" id="left">
 			<div>
 				<button type="button" class="btn btn-primary" id="randomBtn1" ng-click="mainCtrl.randomize()">

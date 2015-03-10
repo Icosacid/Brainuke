@@ -24,8 +24,9 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	//The time is binded with the html, pass value to the model to handle it
 	$scope.timeCount;
 	$scope.totalNotes = 0;
+	$scope.gameStep = 1;
 	
-	$scope.audiuke.data = 5;
+	$scope.mikeOn = false;
 
 	/** View functions **/
 	
@@ -50,46 +51,59 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	/** Game functions **/
 	$scope.startGame = function() {
-		////ATTENTION:Call the model and start the game
 		$scope.gameOn = true;
-		//$scope.audiuke.init(this.gotStream);
-		$scope.intervalPromise= $interval(function(){$scope.gameLoop();}, 100);
-		$scope.audiuke.init($scope.audiuke.gotStream);
-		//$scope.model.addDummyBall();
-		//$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
-	}
-
-	$scope.gameLoop= function(){
-
-		//Add the pitch recognition function 
-
-		//TEST/////////////////////////
-		if(Math.random()>.5){
-			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
-			$scope.model.notes[$scope.totalNotes-1].verified = true;
-			$scope.model.notes[$scope.totalNotes-1].isRight = false;
-		}else{
-			$scope.model.notes[$scope.totalNotes-1].verified = true;
-			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1].name;
-		}
-
-		$scope.totalNotes--;
-		///////////////////////////////
-
+		$scope.intervalPromise = $interval(function() {
+			if ($scope.mikeOn) {
+				$scope.gameLoop();
+			}
+			// Test note
+		}, 200);
+		$scope.audiuke.init(function(stream) {
+			$scope.mikeOn = true;
+			$scope.audiuke.gotStream(stream);
+			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].name;
+			console.log("New note:" + $scope.currentNote);
+		});
 		
-
-		//checks if the game is over
-		if($scope.totalNotes<=0){
-			//Killing the gameLoop
-			$interval.cancel($scope.intervalPromise);
-			//Reseting the game and showing the score page
-			$scope.resetGame();
-			$scope.setPage(3);
+	}
+	// Takes the game to the next step (test new note)
+	$scope.nextStep = function() {
+		
+	}
+	
+	$scope.gameLoop = function() {
+		console.log('You play:' + $scope.audiuke.noteString);
+		if ($scope.audiuke.noteString == $scope.currentNote) {
+			// Success
+			console.log('Success!');
+			// View feedback that note is OK
+			$scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].verified = true;
+			$scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].isRight = true;
+			// Next step
+			$scope.gameStep++;
+			// Might be over!
+			if (($scope.gameStep-1) !== $scope.totalNotes) {
+				// Next step indeed
+				$scope.currentNote = $scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].name;
+				console.log("New note:" + $scope.currentNote);
+			} else {
+				// Game over!
+				// Killing the gameLoop
+				$interval.cancel($scope.intervalPromise);
+				// Reseting the game and showing the score page
+				$scope.resetGame();
+				$scope.setPage(3);
+			}
+		} else {
+			// Wait...
 		}
 	}
 
 	$scope.resetGame = function(){
 		$scope.gameOn = false;
+		$scope.mikeOn = false;
+		$scope.totalNotes = 0;
+		$scope.gameStep = 1;
 		$scope.currentNote = null;
 		$scope.model.resetAll();
 	}
