@@ -10,7 +10,7 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 ## Game session
 
 ### UI
-* Add SVG text for the note detected by the microphone (under the requested note?)
+* Add SVG text for the note detected by the microphone, under the requested note? (The html is there, just needs styling)
 * Add remove note function
 * Add buttons/list for predefined sequences
 * Add progression/XP/score bar

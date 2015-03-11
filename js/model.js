@@ -4,7 +4,11 @@ window.app.service("Model", function() {
 	this.score = 0;
 	this.players = [];
 	this.rankedPlayers = [];
-
+	this.ballRadius = 50;
+	this.ringRadius = 230;
+	this.ringCenterX = 300;
+	this.ringCenterY = 300;
+	
 	// Add player on the list of players (name and score)
 	this.addPlayer = function(player) {
 		this.players.push(player);
@@ -22,7 +26,7 @@ window.app.service("Model", function() {
 		// Fill this.rankedPlayers
 		for (key in sorted) {
 			for (key2 in this.players) {
-				if(sorted[key] == this.players[key2].score) {
+				if (sorted[key] == this.players[key2].score) {
 					this.players[key2].rank = parseInt(key) + 1;
 					this.rankedPlayers.push(this.players[key2]);
 				}
@@ -33,24 +37,24 @@ window.app.service("Model", function() {
 	// Add note on the array of notes and update its position on the viewPort
 	this.addNote = function(note) {
 
-		var newNote = new Object();
+		var newNote = {};
 		newNote.name = note;
-
-		//These variables are used to define the style
+		newNote.r = this.ballRadius;
+		// style attributes
 		newNote.verified = false; //set as not verified initially
 		newNote.isRight = true; //set the note as right when it is added
 
 		//ATTENTION: The oldest note is in the end of the array
 		this.notes.unshift(newNote);
-		updateShapesPosition.call(this);
+		this.updateShapesPosition();
 		
 	};
 
 	// Function that randomises the order of the notes in the array
 	this.randomize = function() {
-		var order = this.randomIntIndexList(this.notes.length,0,this.notes.length-1);
+		var order = this.randomIntIndexList(this.notes.length, 0, this.notes.length - 1);
 		var notesCopy = this.notes.slice();
-		for (key in this.notes){
+		for (key in this.notes) {
 			this.notes[key] = notesCopy[order[key]];
 		}
 	}
@@ -64,43 +68,41 @@ window.app.service("Model", function() {
 	}
 	
 	// Function that returns an Int array with random values
-	this.randomIntIndexList = function(size,min,max) {
+	this.randomIntIndexList = function(size, min, max) {
 		// size must be > (max-min)
-		if(size > (max-min+1)){
+		if (size > (max - min + 1)) {
 			console.log("Values not accepted in randomIntIndexList()");
 			return;
 		}
 		// min & max included
-		var i=0;
+		var i = 0;
 		var randomNum;
 		var isAlreadyThere = false;
 		var list = [];
-		while(i<size){
+		while (i < size) {
 			// Generate random number
-			randomNum = Math.floor(Math.random()*(max-min+1)+min);
+			randomNum = Math.floor(Math.random()*(max - min + 1) + min);
 			// If already in list
 			isAlreadyThere = false;
-			for (var t=0;t<list.length;t++){
-				if(randomNum == list[t]){isAlreadyThere = true}
-				else{};
+			for (var t = 0; t < list.length; t++) {
+				if (randomNum == list[t]) { isAlreadyThere = true; }
 			}
-			if(isAlreadyThere){}
-			else{i++;list.push(randomNum);}
+			if (!isAlreadyThere) {
+				i++;
+				list.push(randomNum);
+			}
 		}
 		return list;
 	}
 	
-
-	//It calculates the cordinates of the shapes on the viewPort
-	//and updates the their coordinates
-	var updateShapesPosition = function() {
-
+	// It calculates the cordinates of the shapes on the viewPort
+	// and updates the their coordinates
+	this.updateShapesPosition = function() {
 		var numberNotes = this.notes.length;
-
-		for (var i=1;i<=numberNotes;i++) {
+		for (var i = 0; i < numberNotes; i++) {
 			// Loop coordinate shape values 
-			this.notes[i-1].x = 300+230 * Math.cos(i/numberNotes*2*Math.PI+(Math.PI/2));
-			this.notes[i-1].y= 300-230 * Math.sin(i/numberNotes*2*Math.PI+(Math.PI/2));
+			this.notes[i].x = this.ringCenterX + this.ringRadius * Math.cos((i+1)/numberNotes*2*Math.PI + (Math.PI/2));
+			this.notes[i].y = this.ringCenterY - this.ringRadius * Math.sin((i+1)/numberNotes*2*Math.PI + (Math.PI/2));
 		}
 	};
 	
@@ -108,22 +110,22 @@ window.app.service("Model", function() {
 ///////////////TEST AREA - REMOVE AFTERWARDS///////////
 
 	//Testing score board
-	maria = new Object();
+	maria = {};
 	maria.name = "augusto";
 	maria.score = 333;
 	maria.rank = null;
 
-	maria2 = new Object();
+	maria2 = {}
 	maria2.name = "maria";
 	maria2.score = 24523;
 	maria2.rank = null;
 
-	maria3 = new Object();
+	maria3 = {};
 	maria3.name = "mariama";
 	maria3.score = 333333;
 	maria3.rank = null;
 	
-	maria4 = new Object();
+	maria4 = {};
 	maria4.name = "sheng";
 	maria4.score = 33003;
 	maria4.rank = null;
@@ -134,6 +136,6 @@ window.app.service("Model", function() {
 	this.players.push(maria4);
 	this.rankPlayers();
 	
- ///////////////////////////////////////////////////////
+///////////////////////////////////////////////////////
 	
 });

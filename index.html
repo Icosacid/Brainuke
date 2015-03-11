@@ -42,16 +42,22 @@
 
 		<div class="col-md-8" id="center">
 			<svg class="true-center" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
-
+				
+				<!-- Background ring (inline style to be moves to CSS) -->
+				<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius}}" fill="none" stroke-width="2" stroke="rgba(0,0,0,0.5)"/>
+				
 				<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
 				<g  class="noteCircle" ng-repeat="note in model.notes" on-finish-render="ngRepeatFinished">
-					<circle ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{$index}}" ng-attr-cx="{{note.x}}" ng-attr-cy="{{note.y}}" ng-attr-r="{{60}}"/>
+					<circle ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-attr-cx="{{note.x}}" ng-attr-cy="{{note.y}}" ng-attr-r="{{note.r}}"/>
 					<text ng-attr-x="{{note.x-10}}" ng-attr-y="{{note.y+10}}">{{note.name}}</text>
 				</g>
 
 				<!--Inserting the the text of the current note being tested-->
-				<text class="currentNote" x="270" y="320" ng-if="gameOn">{{currentNote}} </text>
-
+				<text class="currentNote" x="270" y="320" ng-if="gameOn">{{currentNote}}</text>
+				
+				<!-- Anyone wanna do the style for this one? -->
+				<!--<text class="heardNote" x="?" y="?" ng-if="gameOn">{{audiuke.noteString}}</text>-->
+				
 				<!--Inserting the the text of the points on the game-->
 				<text class="scoreText" ng-attr-x="{{230}}" ng-attr-y="{{400}}" ng-show="gameOn">Score: {{model.score}}</text>
 

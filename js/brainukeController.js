@@ -1,5 +1,8 @@
 window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "Model", "Audiuke", "Draguke", function($scope, $interval, $timeout, Model, Audiuke, Draguke) {
-
+	
+	// Parameters
+	$scope.idPrefix = "ball";
+	
 	// Model service
 	$scope.model = Model;
 	$scope.players = Model.players;
@@ -10,6 +13,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	
 	// Drag and drop service
 	$scope.draguke = Draguke;
+	$scope.draguke.init($scope.model, $scope.idPrefix);
 	
 	// View variables
 	$scope.currentPage = 1;
@@ -46,7 +50,15 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	/** Game setup functions **/
 	$scope.addNote = function(note) {
 		$scope.model.addNote(note);
+		console.log($scope.model.notes);
 		$scope.totalNotes++;
+		// A digest loop is triggered in model.addNote() because the array notes changes
+		// We want to wait for Angular to create the DOM SVG element before putting a listener on it
+		// This is an amazing trick: using $timeout without time
+		// It will just run once the current digest loop is over
+		$timeout(function() {
+			$scope.draguke.update();
+		});
 	};
 	$scope.randomize = function() {
 		$scope.model.randomize();
@@ -115,11 +127,6 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.gameStep = 1;
 		$scope.currentNote = null;
 		$scope.model.resetAll();
-	}
-	
-	/** Drag and drop functions **/
-	$scope.startDND = function(){
-	
 	}
 	
 	

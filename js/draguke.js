@@ -1,30 +1,46 @@
 window.app.service("Draguke", function() {
 	
 	var DRAGUKE = {};
-	DRAGUKE.rIn = 100;
-	DRAGUKE.rOut = 152;
-	DRAGUKE.circles = 10;
-	DRAGUKE.rFromCenter = (DRAGUKE.rIn + DRAGUKE.rOut)/2;
-	DRAGUKE.rBall = (DRAGUKE.rOut - DRAGUKE.rIn)/2;
+	DRAGUKE.ringCenterX;
+	DRAGUKE.ringCenterY;
+	DRAGUKE.rIn;
+	DRAGUKE.rOut;
+	DRAGUKE.circles;
+	DRAGUKE.rFromCenter;
+	DRAGUKE.rBall;
 	DRAGUKE.positions = [];
+	DRAGUKE.idPrefix;
+	
+	DRAGUKE.model;// Yeah, it was necessary with Angular :/
 
 	/**
-	 * Shapes the circular structure of the central panel
+	 * Initialize DRAGUKE attributes
+	 * @param {AngularJS Service} model Model of the app
+	 * @param {String} idPrefix
 	 */
-	DRAGUKE.shapeCentral = function() {
-		// Just for visualization, outer circles
-		jQuery('#central svg').append("<circle class='outerBig'/>");
-		jQuery('#central svg').append("<circle class='outerSmall'/>");
-		jQuery('.outerBig').attr('cx', 300).attr('cy', 200)
-			.attr('r', this.rIn).attr('fill', 'none')
-			.attr('stroke-width', 3).attr('stroke', 'black')
-			.css('z-index', 0);
-		jQuery('.outerSmall').attr('cx', 300).attr('cy', 200)
-			.attr('r', this.rOut).attr('fill', 'none')
-			.attr('stroke-width', 3).attr('stroke', 'black')
-			.css('z-index', 0);
-		this.fill();
-		this.addAllBalls();
+	DRAGUKE.init = function(model, idPrefix) {
+		DRAGUKE.model = model;
+		DRAGUKE.ringCenterX = model.ringCenterX;
+		DRAGUKE.ringCenterY = model.ringCenterY;
+		DRAGUKE.rFromCenter = model.ringRadius;
+		DRAGUKE.rIn = model.ringRadius - model.ballRadius/2;
+		DRAGUKE.rOut = model.ringRadius + model.ballRadius/2;
+		DRAGUKE.rBall = model.ballRadius;
+		DRAGUKE.idPrefix = idPrefix;
+	}
+	
+	/**
+	 * Updates DRAGUKE attributes and reshape the ring of balls
+	 */
+	DRAGUKE.update = function() {
+		console.log('Draguke update');
+		DRAGUKE.fill();
+		console.log(DRAGUKE.positions);
+		//DRAGUKE.addAllBalls();
+		for (key in DRAGUKE.model.notes) {
+			var id = parseInt(key) + 1;
+			DRAGUKE.dragMe("#" + DRAGUKE.idPrefix + id, id, "#mainPage svg");
+		}
 	}
 
 	/**
@@ -33,8 +49,8 @@ window.app.service("Draguke", function() {
 	 */
 	DRAGUKE.angleToXY = function(angleRad) {
 		var obj = {
-			cx : 300 + this.rFromCenter * Math.cos(angleRad),
-			cy : 200 - this.rFromCenter * Math.sin(angleRad)
+			cx : DRAGUKE.ringCenterX + DRAGUKE.rFromCenter * Math.cos(angleRad),
+			cy : DRAGUKE.ringCenterY - DRAGUKE.rFromCenter * Math.sin(angleRad)
 		}
 		return obj;
 	}
@@ -43,11 +59,14 @@ window.app.service("Draguke", function() {
 	 * Fills the DRAGUKE.positions array
 	 */
 	DRAGUKE.fill = function() {
-		for (var i = 1; i <= this.circles; i++) {
+		DRAGUKE.positions = [];
+		for (var i = 1; i <= DRAGUKE.model.notes.length; i++) {
 			// Loop circle values
-			this.positions.push({
-				id : i,
-				angleRad : i/this.circles*2*Math.PI
+			var note = DRAGUKE.model.notes[i-1];
+			var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, note.x, note.y, false);
+			DRAGUKE.positions.push({
+				id: i,
+				angleRad: angle
 			});
 		}
 	}
@@ -57,13 +76,13 @@ window.app.service("Draguke", function() {
 	 * @param {Number} id Id of ball to add
 	 */
 	DRAGUKE.addBall = function(id) {
-		var ball = this.getBall(id);
+		var ball = DRAGUKE.getBall(id);
 		jQuery('#central svg').append("<circle class='ball' id='ball"+id+"' />");
 		// Loop circle values
-		var cx = this.angleToXY(ball.angleRad).cx;
-		var cy = this.angleToXY(ball.angleRad).cy;
+		var cx = DRAGUKE.angleToXY(ball.angleRad).cx;
+		var cy = DRAGUKE.angleToXY(ball.angleRad).cy;
 		jQuery('#ball'+id).attr('number', id).attr('cx', cx).attr('cy', cy)
-		.attr('r', this.rBall).attr('fill', '#' + Math.floor(10*Math.random()) + '' + Math.floor(10*Math.random()) + '' + Math.floor(10*Math.random()))
+		.attr('r', DRAGUKE.rBall).attr('fill', '#' + Math.floor(10*Math.random()) + '' + Math.floor(10*Math.random()) + '' + Math.floor(10*Math.random()))
 		.attr('stroke-width', 1).attr('stroke', 'black');
 	}
 
@@ -71,8 +90,8 @@ window.app.service("Draguke", function() {
 	 * Calls DRAGUKE.addBall() for all elements of DRAGUKE.positions
 	 */
 	DRAGUKE.addAllBalls = function() {
-		for (key in this.positions) {
-			this.addBall(this.positions[key].id);
+		for (key in DRAGUKE.positions) {
+			DRAGUKE.addBall(DRAGUKE.positions[key].id);
 		}
 	}
 
@@ -81,8 +100,8 @@ window.app.service("Draguke", function() {
 	 * @returns {Objects} Ball object with this id
 	 */
 	DRAGUKE.getBall = function(id) {
-		for (var i = 0; i < this.positions.length; i++) {
-			if (this.positions[i].id == id){ return this.positions[i]; }
+		for (var i = 0; i < DRAGUKE.positions.length; i++) {
+			if (DRAGUKE.positions[i].id == id){ return DRAGUKE.positions[i]; }
 		}
 		console.log("There's no such ball.");
 	}
@@ -93,9 +112,9 @@ window.app.service("Draguke", function() {
 	 * @param {Number} newAngleRad New angle for the ball
 	 */
 	DRAGUKE.newBallAngle = function(id, newAngleRad) {
-		var oldAngleRad = this.getBall(id).angleRad;
-		this.getBall(id).angleRad = newAngleRad;
-		this.animateBall(id, oldAngleRad, newAngleRad);
+		var oldAngleRad = DRAGUKE.getBall(id).angleRad;
+		DRAGUKE.getBall(id).angleRad = newAngleRad;
+		DRAGUKE.animateBall(id, oldAngleRad, newAngleRad);
 	}
 
 	/**
@@ -108,11 +127,11 @@ window.app.service("Draguke", function() {
 	DRAGUKE.animateBall = function(id, oldAngleRad, newAngleRad, way) {
 		var steps = 10;
 		var animDuration = 200;
-		var ball = this.getBall(id);
+		var ball = DRAGUKE.getBall(id);
 		var i = 1;
 		var anim;
-		var cloDist = angleDistance(oldAngleRad, newAngleRad, "clockwise");
-		var antiCloDist = angleDistance(oldAngleRad, newAngleRad, "anticlockwise");
+		var cloDist = DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "clockwise");
+		var antiCloDist = DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "anticlockwise");
 		function callback() {
 			clearInterval(anim);
 			// Save new angle to DRAGUKE.positions
@@ -143,7 +162,7 @@ window.app.service("Draguke", function() {
 	 * @param {Number} newAngleRad Where it will be moved
 	 */
 	DRAGUKE.makePlaceFor = function(id, oldAngleRad, newAngleRad) {
-		var antiCloDist = angleDistance(oldAngleRad, newAngleRad, "anticlockwise");
+		var antiCloDist = DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "anticlockwise");
 		var closestToNewAngle = null;
 		var closestToNewAngle2nd = null;
 		var angleCloseness = 99999;
@@ -151,11 +170,11 @@ window.app.service("Draguke", function() {
 		var friendsMotion = "";
 		
 		// Detect closest element and 2nd closest to destination (newAngleRad)
-		for (var j = 1; j <= this.positions.length; j++) {
+		for (var j = 1; j <= DRAGUKE.positions.length; j++) {
 			if(j !== id) {
-				var distance1 = Math.abs(newAngleRad - this.getBall(j).angleRad);
-				var distance2 = Math.abs(newAngleRad + 2*Math.PI - this.getBall(j).angleRad);
-				var distance3 = Math.abs(newAngleRad - 2*Math.PI - this.getBall(j).angleRad);
+				var distance1 = Math.abs(newAngleRad - DRAGUKE.getBall(j).angleRad);
+				var distance2 = Math.abs(newAngleRad + 2*Math.PI - DRAGUKE.getBall(j).angleRad);
+				var distance3 = Math.abs(newAngleRad - 2*Math.PI - DRAGUKE.getBall(j).angleRad);
 				var distance = Math.min(distance1, Math.min(distance2, distance3));
 				if (distance < angleCloseness2nd) {
 					angleCloseness2nd = distance;
@@ -184,25 +203,25 @@ window.app.service("Draguke", function() {
 		}
 		
 		if (antiCloDist > Math.PI) {
-			for (var k = 1; k <= this.positions.length; k++) {
-				var ball = this.getBall(k);
-				if (k !== id && angleDistance(oldAngleRad, ball.angleRad, "anticlockwise") > antiCloDist) {
+			for (var k = 1; k <= DRAGUKE.positions.length; k++) {
+				var ball = DRAGUKE.getBall(k);
+				if (k !== id && DRAGUKE.angleDistance(oldAngleRad, ball.angleRad, "anticlockwise") > antiCloDist) {
 					// Those whose anticlockwise distance from oldAngle are higher than antiCloDist will be translated anticlockwise
 					// Push anticlockwise (by 2*Math.PI/circlesNb)
 					console.log('Push clockwise ball ' + ball.id);
-					this.animateBall(ball.id, ball.angleRad, ball.angleRad + 2*Math.PI/this.circles, "anticlockwise");
+					DRAGUKE.animateBall(ball.id, ball.angleRad, ball.angleRad + 2*Math.PI/DRAGUKE.positions.length, "anticlockwise");
 					isMoved.push(k);
 				} else {}
 			}
 			friendsMotion = "anticlockwise";
 		} else if (antiCloDist < Math.PI) {
-			for (var l = 1; l <= this.positions.length; l++) {
-				var ball = this.getBall(l);
-				if (l !== id && angleDistance(oldAngleRad, ball.angleRad, "anticlockwise") < antiCloDist) {
+			for (var l = 1; l <= DRAGUKE.positions.length; l++) {
+				var ball = DRAGUKE.getBall(l);
+				if (l !== id && DRAGUKE.angleDistance(oldAngleRad, ball.angleRad, "anticlockwise") < antiCloDist) {
 					// Those whose anticlockwise distance from oldAngle are higher than antiCloDist will be translated anticlockwise
 					// Push anticlockwise (by 2*Math.PI/circlesNb)
 					console.log('Push clockwise ball ' + ball.id);
-					this.animateBall(ball.id, ball.angleRad, ball.angleRad - 2*Math.PI/this.circles, "clockwise");
+					DRAGUKE.animateBall(ball.id, ball.angleRad, ball.angleRad - 2*Math.PI/DRAGUKE.positions.length, "clockwise");
 					isMoved.push(l);
 				}
 			}
@@ -213,17 +232,17 @@ window.app.service("Draguke", function() {
 		
 		// Now move the dropped ball to new location
 		if (friendsMotion == "clockwise" && isInMoved(closestToNewAngle)) {
-			this.animateBall(id, newAngleRad, newAngleRad - angleCloseness, "clockwise");
+			DRAGUKE.animateBall(id, newAngleRad, newAngleRad - angleCloseness, "clockwise");
 		} else if (friendsMotion == "clockwise" && isInMoved(closestToNewAngle2nd)) {
-			this.animateBall(id, newAngleRad, newAngleRad - angleCloseness2nd, "clockwise");
+			DRAGUKE.animateBall(id, newAngleRad, newAngleRad - angleCloseness2nd, "clockwise");
 		} else if (friendsMotion == "anticlockwise" && isInMoved(closestToNewAngle)) {
-			this.animateBall(id, newAngleRad, newAngleRad + angleCloseness, "anticlockwise");
+			DRAGUKE.animateBall(id, newAngleRad, newAngleRad + angleCloseness, "anticlockwise");
 		} else if (friendsMotion == "anticlockwise" && isInMoved(closestToNewAngle2nd)) {
-			this.animateBall(id, newAngleRad, newAngleRad + angleCloseness2nd, "anticlockwise");
+			DRAGUKE.animateBall(id, newAngleRad, newAngleRad + angleCloseness2nd, "anticlockwise");
 		} else {
 			// No group motion, ball returns to original position
 			console.log("Stays");
-			this.animateBall(id, newAngleRad, oldAngleRad, "clockwise");
+			DRAGUKE.animateBall(id, newAngleRad, oldAngleRad, "clockwise");
 		}
 	}
 
@@ -260,12 +279,12 @@ window.app.service("Draguke", function() {
 	 * @param {String} selector Selector of the object
 	 * @param {String} containerSelector Selector of the container
 	 */
-	DRAGUKE.dragMe = function(selector, containerSelector) { 
+	DRAGUKE.dragMe = function(selector, id, containerSelector) { 
 		// The object
 		var me = document.querySelector(selector);
 		var jQme = jQuery(selector);
 		var mycontainer = document.querySelector(containerSelector);
-		var myNum = jQme.attr('number');
+		var myNum = id;
 		// Make all elements inside ipad non draggable (may be modified depending on the game)
 		me.setAttribute("draggable", "false");
 		jQme.find('*').attr("draggable", "false");
@@ -279,7 +298,7 @@ window.app.service("Draguke", function() {
 			var posX = me.style.left.slice(0, me.style.left.length-2);// To remove the "px" part
 			var posY = me.style.top.slice(0, me.style.top.length-2);
 		} else {
-			// If svg (path or circle)	
+			// If svg (path or circle)
 			var posX = jQme.attr('cx');
 			var posY = jQme.attr('cy');
 		}
@@ -297,34 +316,30 @@ window.app.service("Draguke", function() {
 		// Mouse down or not, not if 0
 		var down = 0;
 		
-		// Grab cursor
-		function grab() {
-			if (down == 0) {
-				jQuery(containerSelector).append(jQme);
-				jQme.css("cursor","grab").css("cursor","-moz-grab").css("cursor","-webkit-grab");
-			} else {
-				jQme.css("cursor","grabbing").css("cursor","-moz-grabbing").css("cursor","-webkit-grabbing");
-			}
-		}
 		function drop(theEvent) {
 			// Calculate angle
-			var angle = segmentAngleRad(300, 200, parseFloat(theEvent.clientX), parseFloat(theEvent.clientY));
-			var realAngle = 2*Math.PI - angle;
-			console.log(300, 200, parseFloat(theEvent.clientX), parseFloat(theEvent.clientY));
-			console.log('Drop @ angle ' + realAngle/Math.PI*180 + '°');
-			DRAGUKE.makePlaceFor(myNum, DRAGUKE.getBall(myNum).angleRad, realAngle);
+			var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, parseFloat(theEvent.clientX), parseFloat(theEvent.clientY), false);
+			
+			console.log('Drop @ angle ' + angle/Math.PI*180 + '°');
+			DRAGUKE.makePlaceFor(myNum, DRAGUKE.getBall(myNum).angleRad, angle);
+			
 		}
 		function dragMaker(theEvent) {
 			//console.log("Client X detected is: "+theEvent.clientX/finalRatio);
 			//console.log("Client Y detected is: "+theEvent.clientY/finalRatio);
 			if (firsttime == 1 && down == 1) {
+				console.log('Drag');
 				// If the location has been memorized at previous call and mouse is down
 				// New positions
 				posX = parseFloat(posX) + parseFloat(theEvent.clientX) - stampX;
 				posY = parseFloat(posY) + parseFloat(theEvent.clientY) - stampY;
-				var angle = segmentAngleRad(300, 200, posX, posY);
-				var forcedPosX = 300 + DRAGUKE.rFromCenter*Math.cos(angle);
-				var forcedPosY = 200 + DRAGUKE.rFromCenter*Math.sin(angle);
+				var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, posX, posY, false);
+				/** Not forced!!
+				var forcedPosX = DRAGUKE.ringCenterX + DRAGUKE.rFromCenter*Math.cos(angle);
+				var forcedPosY = DRAGUKE.ringCenterY + DRAGUKE.rFromCenter*Math.sin(angle);
+				posX = forcedPosX;
+				posY = forcedPosY;
+				**/
 				// Apply them
 				
 				// If not SVG
@@ -332,18 +347,19 @@ window.app.service("Draguke", function() {
 				jQme.attr('top', posY + "px");
 				// If SVG
 				if ( jQme.is(jQuery("circle")) ) {
-					//jQme.attr('cx',forcedPosX);
-					//jQme.attr('cy',forcedPosY);
+					
 					jQme.attr('cx', posX);
 					jQme.attr('cy', posY);
-				} else if ( jQme.is(jQuery("path")) ) {
+					// Angular will adapt the model, 2way data-binding ;)
+					
+				} /*else if ( jQme.is(jQuery("path")) ) {
 					var x = posX - initialPosX;
 					var y = posY - initialPosY;
 					jQme.attr('transform', "translate(" + x + "," + y + ")");
 					jQme.attr('-webkit-transform', "translate(" + x + "," + y + ")");
 					jQme.attr('-o-transform', "translate(" + x + "," + y + ")");
 					
-				} else{ console.log("SVG element not recognized"); }
+				} else{ console.log("SVG element not recognized"); }*/
 			}
 			
 			// Memorize pointer location
@@ -352,6 +368,7 @@ window.app.service("Draguke", function() {
 			firsttime = 1;
 		}
 		
+		jQme.off();
 		jQme.on("pointermove", function(ev) {
 			dragMaker(ev);
 		});
@@ -368,7 +385,6 @@ window.app.service("Draguke", function() {
 			down = 0;
 		});
 		jQme.on("pointerenter", function(ev) {
-			jQuery(containerSelector).append(jQme);
 			jQme.css("cursor", "grab").css("cursor", "-moz-grab").css("cursor", "-webkit-grab");
 		});
 	}
@@ -378,9 +394,10 @@ window.app.service("Draguke", function() {
 	 * @param {Number} Ystart Y value of the segment starting point
 	 * @param {Number} Xtarget X value of the segment target point
 	 * @param {Number} Ytarget Y value of the segment target point
+	 * @param {Boolean} realOrWeb true if Real (Y towards top), false if Web (Y towards bottom)
 	 * @returns {Number} Angle between 0 and 2PI
 	 */
-	DRAGUKE.segmentAngleRad = function(Xstart, Ystart, Xtarget, Ytarget) {
+	DRAGUKE.segmentAngleRad = function(Xstart, Ystart, Xtarget, Ytarget, realOrWeb) {
 		var result;// Will range between 0 and 2PI
 		if (Xstart == Xtarget) {
 			if(Ystart == Ytarget) {
@@ -395,7 +412,14 @@ window.app.service("Draguke", function() {
 		} else if (Xstart > Xtarget) {
 			result = Math.PI + Math.atan((Ytarget - Ystart)/(Xtarget - Xstart));
 		}
-		return (result + 2*Math.PI)%(2*Math.PI);
+		
+		result = (result + 2*Math.PI)%(2*Math.PI);
+		
+		if (!realOrWeb) {
+			result = 2*Math.PI - result;
+		}
+		
+		return result;
 	}
 
 	/**
@@ -426,6 +450,8 @@ window.app.service("Draguke", function() {
 	
 	/*** Aliasing ***/
 	// Because when calling a function of the angular service, "this" has to be DRAGUKE
+	this.init = DRAGUKE.init;
+	this.update = DRAGUKE.update;
 	this.shapeCentral = DRAGUKE.shapeCentral;
 	this.angleToXY = DRAGUKE.angleToXY;
 	this.fill = DRAGUKE.fill;
