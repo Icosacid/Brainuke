@@ -1,4 +1,4 @@
-window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "Model", "Audiuke", function($scope, $interval, $timeout, Model, Audiuke) {
+window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "Model", "Audiuke", "Draguke", function($scope, $interval, $timeout, Model, Audiuke, Draguke) {
 
 	// Model service
 	$scope.model = Model;
@@ -7,6 +7,9 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	
 	// Audio service
 	$scope.audiuke = Audiuke;
+	
+	// Drag and drop service
+	$scope.draguke = Draguke;
 	
 	// View variables
 	$scope.currentPage = 1;
@@ -68,7 +71,6 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].name;
 			console.log("New note:" + $scope.currentNote);
 		});
-		
 	}
 	$scope.nextStep = function() {
 		// Success
@@ -114,7 +116,13 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.currentNote = null;
 		$scope.model.resetAll();
 	}
-
+	
+	/** Drag and drop functions **/
+	$scope.startDND = function(){
+	
+	}
+	
+	
 	//Forces rendering, creep solution, but it works, assuming that the
 	//program is monothread and stops just to recognise the note
 	/*$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {

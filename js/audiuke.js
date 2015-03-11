@@ -1,4 +1,4 @@
-/*
+/**
  * pitchdetect.js
  * Copyright (c) 2014 Chris Wilson
  * Adapted for AngluarJS app Brainuke
