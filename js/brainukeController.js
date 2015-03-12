@@ -113,6 +113,8 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		}
 	}
 	$scope.gameOver = function() {
+		$scope.model.gameOver();
+		
 		// Killing the gameLoop
 		$interval.cancel($scope.intervalPromise);
 		

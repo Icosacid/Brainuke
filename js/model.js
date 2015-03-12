@@ -20,7 +20,7 @@ window.app.service("Model", function() {
 	
 	// Fills the rankedPlayers array
 	this.rankPlayers = function() {
-		//Creating a shallow copy of the array of players
+		//Creating a shallow copy of the array -> players
 		this.rankedPlayers=this.players.slice(0);
 
 		//Sorting array
@@ -62,6 +62,12 @@ window.app.service("Model", function() {
 
 		//After randomising we have to update the position of the notes inside the array
 		this.updateShapesPosition();
+	}
+
+	//Function that connects the score and notes to the user when the game is over
+	this.gameOver= function(){
+		this.players[this.players.length-1].notes=this.notes;
+		this.players[this.players.length-1].score=this.score;
 	}
 	
 	// Function that empties the notes array
