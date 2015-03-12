@@ -5,7 +5,7 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 
 ## Navigation
 * Save player's name in variable which will be used in score screen
-* Reset player's name input when navigating back to start page
+* Reset player's name input when navigating back to start page (DONE)
 
 ## Game session
 
@@ -18,7 +18,7 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 
 ### Preparation phase
 * Allow drag & drop, removal and adding only in preparation phase
-* Swap positions as well when randomizing, not just the order in the players array
+* Swap positions as well when randomizing, not just the order in the players array (DONE)
 * Implement drag&drop
 
 ### Sound
