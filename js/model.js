@@ -20,22 +20,20 @@ window.app.service("Model", function() {
 	
 	// Fills the rankedPlayers array
 	this.rankPlayers = function() {
-		// Store scores
-		var scores = [];
-		for (key in this.players) {
-			scores.push(this.players[key].score);
-		}
-		// Sort
-		var sorted = scores.sort(function(a, b){return b-a});
-		// Fill this.rankedPlayers
-		for (key in sorted) {
-			for (key2 in this.players) {
-				if (sorted[key] == this.players[key2].score) {
-					this.players[key2].rank = parseInt(key) + 1;
-					this.rankedPlayers.push(this.players[key2]);
-				}
+		//Creating a shallow copy of the array of players
+		this.rankedPlayers=this.players.slice(0);
+
+		//Sorting array
+		this.rankedPlayers.sort(function (a, b) {
+			if (a.score < b.score) {
+				return 1;
 			}
-		}
+			if (a.score > b.score) {
+				return -1;
+			}
+		  // a must be equal to b
+		  return 0;
+		});
 	}
 
 	// Add note on the array of notes and update its position on the viewPort
@@ -70,8 +68,8 @@ window.app.service("Model", function() {
 	this.resetAll = function() {
 		this.notes = [];
 		this.score = 0;
-		this.players = [];
 		this.rankedPlayers = [];
+		this.rankPlayers();
 	}
 	
 	// Function that returns an Int array with random values
@@ -141,8 +139,7 @@ window.app.service("Model", function() {
 	this.players.push(maria2);
 	this.players.push(maria3);
 	this.players.push(maria4);
-	this.rankPlayers();
 	
 ///////////////////////////////////////////////////////
-	
+
 });

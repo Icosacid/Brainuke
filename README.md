@@ -31,6 +31,7 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 * Add background for game screen
 * Smooth transition between screens (find some trick, since angluar ng-show/ng-hide directives force the CSS property display:none)
 * Design for SVG elements
+* Increase the score table when new players are added  
 
 # Discussion
 * Shall we do the two modes, practice VS live stream? (like step-by-step VS guitar hero)

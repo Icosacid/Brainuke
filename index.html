@@ -16,7 +16,7 @@
 				 <p id="subtitle">Enjoy your Ukulele!</p>
 			</div>
 			<div id="getStart">
-				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && addPlayer(player); setPage(2)" novalidate>
+				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && addPlayer(player); setPage(3)" novalidate>
 					<div class="form-group">
 						<input ng-model="inputName" type="text" class="form-control" placeholder="Enter your name" required>
 					</div>
@@ -30,6 +30,7 @@
 	<div class="row" id="mainPage" ng-show="isSetPage(2)">
 		<div class="col-md-2" id="left">
 			<div>
+				<p>{{currentPlayer.name}}</p>
 				<button type="button" class="btn btn-primary" id="randomBtn1" ng-click="randomize()">
 					<span><span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom</span>
 				</button>
@@ -48,7 +49,7 @@
 				<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius}}" fill="none" stroke-width="2" stroke="rgba(0,0,0,0.5)"/>
 				
 				<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
-				<g  class="noteCircle" ng-repeat="note in model.notes" on-finish-render="ngRepeatFinished">
+				<g  class="noteCircle" ng-repeat="note in model.notes">
 					<circle ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-attr-cx="{{note.x}}" ng-attr-cy="{{note.y}}" ng-attr-r="{{note.r}}"/>
 					<text ng-attr-x="{{note.x-10}}" ng-attr-y="{{note.y+10}}">{{note.name}}</text>
 				</g>
@@ -131,7 +132,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr ng-repeat="player in rankedPlayers">
+						<tr ng-repeat="player in model.rankedPlayers track by $index">
 							<td>{{player.name}}</td>
 							<td>{{player.score}}</td>
 							<td>{{player.rank}}</td>
