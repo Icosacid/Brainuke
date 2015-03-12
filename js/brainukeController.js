@@ -21,6 +21,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	// Game variables
 	// Current player, it consist of a string of it's name, 
 	// however for future implementation it could be an object that consists of all information of the player
+	$scope.inputName;
 	$scope.currentPlayer;
 	$scope.currentNote;
 	
@@ -50,8 +51,8 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	/** Game setup functions **/
 	$scope.addPlayer= function(playerName){
-		$scope.model.addPlayer($scope.currentPlayer);
-		$scope.currentPlayer="";	
+		$scope.model.addPlayer($scope.inputName);
+		$scope.inputName="";	
 	};
 
 	$scope.addNote = function(note) {

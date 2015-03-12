@@ -10,8 +10,12 @@ window.app.service("Model", function() {
 	this.ringCenterY = 300;
 	
 	// Add player on the list of players (name and score)
-	this.addPlayer = function(player) {
-		this.players.push(player);
+	this.addPlayer = function(playerName) {
+		var newPlayer= {};
+		newPlayer.name=playerName;
+		newPlayer.score=0;
+		newPlayer.rank=null;
+		this.players.push(newPlayer);
 	}
 	
 	// Fills the rankedPlayers array
