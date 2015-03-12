@@ -57,6 +57,9 @@ window.app.service("Model", function() {
 		for (key in this.notes) {
 			this.notes[key] = notesCopy[order[key]];
 		}
+
+		//After randomising we have to update the position of the notes inside the array
+		this.updateShapesPosition();
 	}
 	
 	// Function that empties the notes array
