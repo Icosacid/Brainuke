@@ -16,11 +16,11 @@
 				 <p id="subtitle">Enjoy your Ukulele!</p>
 			</div>
 			<div id="getStart">
-				<form name="formName" class="navbar-form navbar-left" role="search" novalidate>
+				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && addPlayer(player); setPage(3)" novalidate>
 					<div class="form-group">
 						<input ng-model="currentPlayer" type="text" class="form-control" placeholder="Enter your name" required>
 					</div>
-					<button type="submit" class="btn btn-warning" ng-click="formName.$valid && setPage(2)">Get Started!</button>
+					<button type="submit" class="btn btn-warning">Get Started!</button>
 				</form>
 			</div>
 		</div>
@@ -36,7 +36,8 @@
 			</div>
 			<br />
 			<div id="randomBtn1">
-           		<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" />
+           		<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" 
+           		min="0"/>
        		</div>
 		</div>
 

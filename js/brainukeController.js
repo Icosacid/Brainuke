@@ -38,16 +38,22 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	/** View functions **/
 	$scope.isSetPage = function(page) {
 		return ($scope.currentPage === page);
-	}
+	};
+
 	$scope.setPage = function(pageId) {
 		//homePage = 1, mainPage = 2, scorePage = 3
 		$scope.currentPage = pageId;
 		if (pageId == 2) {
 			$scope.gamePrep = true;
 		}
-	}
-	
+	};
+
 	/** Game setup functions **/
+	$scope.addPlayer= function(playerName){
+		$scope.model.addPlayer($scope.currentPlayer);
+		$scope.currentPlayer="";	
+	};
+
 	$scope.addNote = function(note) {
 		$scope.model.addNote(note);
 		console.log($scope.model.notes);
@@ -60,6 +66,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.draguke.update();
 		});
 	};
+
 	$scope.randomize = function() {
 		$scope.model.randomize();
 	};
@@ -84,6 +91,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			console.log("New note:" + $scope.currentNote);
 		});
 	}
+
 	$scope.nextStep = function() {
 		// Success
 		console.log('Success!');
@@ -128,27 +136,5 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.currentNote = null;
 		$scope.model.resetAll();
 	}
-	
-	
-	//Forces rendering, creep solution, but it works, assuming that the
-	//program is monothread and stops just to recognise the note
-	/*$scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent) {
-		console.log("ngRepeatFinished event is fired");
-		if($scope.gameOn && $scope.totalNotes!== 0) {
-		
-			console.log("Into");
-			$scope.model.checkNote($scope.totalNotes);
-			$scope.totalNotes--;
-
-			if($scope.totalNotes !== 0) {
-				$scope.currentNote = Model.notes[$scope.totalNotes-1].name;
-			} else {
-				$scope.resetGame();
-				$scope.setPage(3);
-			}
-		} else {
-			console.log("Not Yet (outside)");
-		}
-	});*/
 
 }]);
