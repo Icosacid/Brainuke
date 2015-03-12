@@ -4,7 +4,7 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 @ March 2015
 
 ## Navigation
-* Save player's name in variable which will be used in score screen
+* Save player's name in variable which will be used in score screen (DONE) 
 * Reset player's name input when navigating back to start page (DONE)
 
 ## Game session
