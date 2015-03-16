@@ -13,7 +13,7 @@
 
 		<div class="col-md-5">
 			<div><p id="title">Brainuke<span></span></p>
-				 <p id="subtitle">Enjoy your Ukulele!</p>
+				<p id="subtitle">Enjoy your Ukulele!</p>
 			</div>
 			<div id="getStart">
 				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && addPlayer(player); setPage(2)" novalidate>
@@ -30,15 +30,29 @@
 	<div class="row" id="mainPage" ng-show="isSetPage(2)">
 		<div class="col-md-2" id="left">
 			<div>
-				<button type="button" class="btn btn-primary" id="randomBtn1" ng-click="randomize()">
+				<button type="button" class="btn btn-primary" class="randomBtn1" ng-click="randomize()">
 					<span><span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom</span>
 				</button>
 			</div>
 			<br />
-			<div id="randomBtn1">
-           		<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" 
-           		min="0"/>
-       		</div>
+			<div class="randomBtn1">
+				<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" 
+				min="0"/>
+			</div>
+			<br />
+
+
+			<div>
+				<button type="button" class="btn btn-primary" class="randomBtn1" ng-click="addPreDefinedSequence(0)">
+					Sequence 1
+				</button>
+			</div>
+			<br />
+			<div>
+				<button type="button" class="btn btn-primary" class="randomBtn1" ng-click="addPreDefinedSequence(1)">
+					Sequence 2
+				</button>
+			</div>
 		</div>
 
 		<div class="col-md-8" id="center">

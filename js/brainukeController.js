@@ -56,6 +56,10 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.inputName="";	
 	};
 
+	$scope.addPreDefinedSequence =  function(id){
+		$scope.model.usePreDefinedSequence(id);
+	}
+
 	$scope.addNote = function(note) {
 		$scope.model.addNote(note);
 		console.log($scope.model.notes);

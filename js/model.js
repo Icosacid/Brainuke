@@ -8,6 +8,7 @@ window.app.service("Model", function() {
 	this.ringRadius = 230;
 	this.ringCenterX = 300;
 	this.ringCenterY = 300;
+	this.preDefinedSequences=[];
 	
 	// Add player on the list of players (name and score)
 	this.addPlayer = function(playerName) {
@@ -122,7 +123,33 @@ window.app.service("Model", function() {
 			j++;
 		}
 	};
-	
+
+
+//////////////////Pre-defined note/////////////////////
+this.addPreDefinedSequence = function(arraySequence, name) {
+	newSequence={};
+	newSequence.name=name;
+	newSequence.notes=arraySequence;
+	this.preDefinedSequences.push(newSequence);
+};	
+
+this.usePreDefinedSequence= function(id){
+	this.notes=[];
+	var noteSequence=this.preDefinedSequences[id].notes;
+
+	for(key in noteSequence){
+		this.addNote(noteSequence[key]);
+	}
+};
+
+//Happy Birthday to you//
+var happyBirthday=["G", "G", "A", "G", "C", "B", "G", "G", "A", "G", "D", "C"];
+this.addPreDefinedSequence(happyBirthday, "Happy Birthday");
+
+//Twinkle, twinkle little star//
+var twinkleTwinkle=["C", "C", "G", "G", "A", "A", "G", "F", "F", "E", "E", "D","D","C"];
+this.addPreDefinedSequence(twinkleTwinkle, "Twinkle, twinkle little star");
+///////////////////////////////////////////////////////
 
 ///////////////TEST AREA - REMOVE AFTERWARDS///////////
 
