@@ -125,7 +125,7 @@ window.app.service("Model", function() {
 	};
 
 
-//////////////////Pre-defined note/////////////////////
+//////////////////Predefined note/////////////////////
 this.addPreDefinedSequence = function(arraySequence, name) {
 	newSequence={};
 	newSequence.name=name;
