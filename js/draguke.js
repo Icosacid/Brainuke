@@ -132,11 +132,7 @@ window.app.service("Draguke", function() {
 		var anim;
 		var cloDist = DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "clockwise");
 		var antiCloDist = DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "anticlockwise");
-		function callback() {
-			clearInterval(anim);
-			// Save new angle to DRAGUKE.positions
-			DRAGUKE.getBall(id).angleRad = newAngleRad;
-		}
+		
 		anim = setInterval(function() {
 			if(way == "anticlockwise") {
 				var stepAngle = oldAngleRad + antiCloDist * i/steps;
@@ -153,6 +149,14 @@ window.app.service("Draguke", function() {
 			}
 			i++;
 		}, animDuration/steps);
+		
+		function callback() {
+			clearInterval(anim);
+			// Save new angle to DRAGUKE.positions
+			DRAGUKE.getBall(id).angleRad = newAngleRad;
+			jQuery('#ball'+id).attr('cx', DRAGUKE.angleToXY(newAngleRad).cx);
+			jQuery('#ball'+id).attr('cy', DRAGUKE.angleToXY(newAngleRad).cy);
+		}
 	}
 
 	/**
@@ -160,6 +164,7 @@ window.app.service("Draguke", function() {
 	 * @param {Number} id Id of dropped ball
 	 * @param {Number} oldAngleRad Where it started from 
 	 * @param {Number} newAngleRad Where it will be moved
+	 * @param {Function} callback Callback function to update the dnd variables in DRAGUKE.dragMe
 	 */
 	DRAGUKE.makePlaceFor = function(id, oldAngleRad, newAngleRad) {
 		var antiCloDist = DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "anticlockwise");
@@ -171,7 +176,7 @@ window.app.service("Draguke", function() {
 		
 		// Detect closest element and 2nd closest to destination (newAngleRad)
 		for (var j = 1; j <= DRAGUKE.positions.length; j++) {
-			if(j !== id) {
+			//if (j !== id) {
 				var distance1 = Math.abs(newAngleRad - DRAGUKE.getBall(j).angleRad);
 				var distance2 = Math.abs(newAngleRad + 2*Math.PI - DRAGUKE.getBall(j).angleRad);
 				var distance3 = Math.abs(newAngleRad - 2*Math.PI - DRAGUKE.getBall(j).angleRad);
@@ -189,7 +194,7 @@ window.app.service("Draguke", function() {
 						closestToNewAngle2nd = temp2;
 					}
 				}
-			}
+			//}
 		}
 		
 		// Used to know which from closestToNewAngle or closestToNewAngle2nd to choose when animating the selected ball
@@ -241,9 +246,14 @@ window.app.service("Draguke", function() {
 			DRAGUKE.animateBall(id, newAngleRad, newAngleRad + angleCloseness2nd, "anticlockwise");
 		} else {
 			// No group motion, ball returns to original position
-			console.log("Stays");
-			DRAGUKE.animateBall(id, newAngleRad, oldAngleRad, "clockwise");
+			console.log("Return to your original position!");
+			if ( DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "clockwise") > DRAGUKE.angleDistance(oldAngleRad, newAngleRad, "anticlockwise")) {
+				DRAGUKE.animateBall(id, newAngleRad, oldAngleRad, "clockwise");
+			} else {
+				DRAGUKE.animateBall(id, newAngleRad, oldAngleRad, "anticlockwise");
+			}
 		}
+		
 	}
 
 	/**
@@ -306,11 +316,14 @@ window.app.service("Draguke", function() {
 		var initialPosY = posY;
 		
 		// Container dimensions (not used at the moment)
-		var leftEdge = mycontainer.offsetLeft;
-		var topEdge = mycontainer.offsetTop;
+		var leftEdge = mycontainer.getBoundingClientRect().left;
+		var topEdge = mycontainer.getBoundingClientRect().top;
 		
 		var stampX; // Number withtour "px"
 		var stampY; // Number withtour "px"
+		function editPosX(newPosX) {
+			posX = newPosX;
+		}
 		var firsttime = 0;
 
 		// Mouse down or not, not if 0
@@ -318,23 +331,26 @@ window.app.service("Draguke", function() {
 		
 		function drop(theEvent) {
 			// Calculate angle
-			var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, parseFloat(theEvent.clientX), parseFloat(theEvent.clientY), false);
+			var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, parseFloat(theEvent.clientX) - leftEdge, parseFloat(theEvent.clientY - topEdge), false);
 			
 			console.log('Drop @ angle ' + angle/Math.PI*180 + '°');
-			DRAGUKE.makePlaceFor(myNum, DRAGUKE.getBall(myNum).angleRad, angle);
 			
+			DRAGUKE.makePlaceFor(myNum, DRAGUKE.getBall(myNum).angleRad, angle);
 		}
 		function dragMaker(theEvent) {
-			//console.log("Client X detected is: "+theEvent.clientX/finalRatio);
-			//console.log("Client Y detected is: "+theEvent.clientY/finalRatio);
+		
 			if (firsttime == 1 && down == 1) {
 				console.log('Drag');
 				// If the location has been memorized at previous call and mouse is down
 				// New positions
-				posX = parseFloat(posX) + parseFloat(theEvent.clientX) - stampX;
-				posY = parseFloat(posY) + parseFloat(theEvent.clientY) - stampY;
-				var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, posX, posY, false);
+				//posX = parseFloat(posX) + parseFloat(theEvent.clientX - leftEdge) - stampX;
+				//posY = parseFloat(posY) + parseFloat(theEvent.clientY - topEdge) - stampY;
+				posX = parseFloat(theEvent.clientX - leftEdge);
+				posY = parseFloat(theEvent.clientY - topEdge);
+				
 				/** Not forced!!
+				var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, posX, posY, false);
+				
 				var forcedPosX = DRAGUKE.ringCenterX + DRAGUKE.rFromCenter*Math.cos(angle);
 				var forcedPosY = DRAGUKE.ringCenterY + DRAGUKE.rFromCenter*Math.sin(angle);
 				posX = forcedPosX;
@@ -363,9 +379,15 @@ window.app.service("Draguke", function() {
 			}
 			
 			// Memorize pointer location
-			stampX = theEvent.clientX;
-			stampY = theEvent.clientY;
+			//stampX = theEvent.clientX - leftEdge;
+			//stampY = theEvent.clientY - topEdge;
+			
 			firsttime = 1;
+			
+			//if (firsttime == 0) {
+			//	posX = stampX;
+			//	posY = stampY;
+			//}
 		}
 		
 		jQme.off();
@@ -378,8 +400,9 @@ window.app.service("Draguke", function() {
 		});
 		jQme.on("pointerup", function(ev) {
 			down = 0;
+			firsttime = 0;
 			jQme.css("cursor", "grab").css("cursor", "-moz-grab").css("cursor", "-webkit-grab");
-			drop(ev);
+			drop(ev)
 		});
 		jQme.on("pointerleave", function(ev) {
 			down = 0;

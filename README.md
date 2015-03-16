@@ -19,7 +19,9 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 ### Preparation phase
 * Allow drag & drop, removal and adding only in preparation phase
 * Swap positions as well when randomizing, not just the order in the players array (DONE)
-* Implement drag&drop
+* Implement drag&drop (DONE)
+* Debug the hell out of it (DONE)
+* Move <text> before <circle> in the html for notes, and play with the style so that the test is still visible
 
 ### Sound
 * (all done?)
