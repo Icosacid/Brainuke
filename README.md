@@ -11,7 +11,7 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 
 ### UI
 * Add SVG text for the note detected by the microphone, under the requested note? (The html is there, just needs styling)
-* Add remove note function
+* Add remove note function (right now working with the double click of angular, however it is not working completely because of the drag and drop)
 * Add buttons/list for predefined sequences
 * Add progression/XP/score bar
 * Add feedback animation when note is performed with success

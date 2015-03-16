@@ -69,6 +69,10 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		});
 	};
 
+	$scope.removeNote= function(index){
+		$scope.model.removeNote(index);
+	}
+
 	$scope.randomize = function() {
 		$scope.model.randomize();
 	};

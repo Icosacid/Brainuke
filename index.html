@@ -48,7 +48,7 @@
 				<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius}}" fill="none" stroke-width="2" stroke="rgba(0,0,0,0.5)"/>
 				
 				<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
-				<g  class="noteCircle" ng-repeat="note in model.notes">
+				<g  class="noteCircle" ng-repeat="note in model.notes track by $index" ng-dblclick="removeNote($index)">
 					<circle ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-attr-cx="{{note.x}}" ng-attr-cy="{{note.y}}" ng-attr-r="{{note.r}}"/>
 					<text ng-attr-x="{{note.x-10}}" ng-attr-y="{{note.y+10}}">{{note.name}}</text>
 				</g>

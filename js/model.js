@@ -46,11 +46,15 @@ window.app.service("Model", function() {
 		newNote.verified = false; //set as not verified initially
 		newNote.isRight = true; //set the note as right when it is added
 
-		//ATTENTION: The oldest note is in the end of the array
-		this.notes.unshift(newNote);
+		this.notes.push(newNote);
 		this.updateShapesPosition();
 		
 	};
+
+	this.removeNote =  function(noteId){
+		this.notes.splice(noteId, 1);
+		this.updateShapesPosition();
+	}
 
 	// Function that randomises the order of the notes in the array
 	this.randomize = function() {
@@ -110,10 +114,12 @@ window.app.service("Model", function() {
 	// and updates the their coordinates
 	this.updateShapesPosition = function() {
 		var numberNotes = this.notes.length;
-		for (var i = 0; i < numberNotes; i++) {
+		var j=0;
+		for (var i = numberNotes-1;  i >=0; i--) {
 			// Loop coordinate shape values 
-			this.notes[i].x = this.ringCenterX + this.ringRadius * Math.cos((i+1)/numberNotes*2*Math.PI + (Math.PI/2));
-			this.notes[i].y = this.ringCenterY - this.ringRadius * Math.sin((i+1)/numberNotes*2*Math.PI + (Math.PI/2));
+			this.notes[i].x = this.ringCenterX + this.ringRadius * Math.cos((j+1)/numberNotes*2*Math.PI + (Math.PI/2));
+			this.notes[i].y = this.ringCenterY - this.ringRadius * Math.sin((j+1)/numberNotes*2*Math.PI + (Math.PI/2));
+			j++;
 		}
 	};
 	
