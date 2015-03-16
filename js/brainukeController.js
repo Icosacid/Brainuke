@@ -48,6 +48,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.gamePrep = true;
 			$scope.currentPlayer=$scope.model.players[$scope.model.players.length-1];
 		}
+		
 	};
 
 	/** Game setup functions **/
