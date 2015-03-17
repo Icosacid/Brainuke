@@ -8,11 +8,13 @@
 </head>
 
 <body ng-controller="BrainukeController as mainCtrl">
+
 	<!--Home page-->
 	<div id="homePage" ng-show="isSetPage(1)">
 
 		<div class="col-md-5">
-			<div><p id="title">Brainuke<span></span></p>
+			<div>
+				<p id="title">Brainuke</p>
 				<p id="subtitle">Enjoy your Ukulele!</p>
 			</div>
 			<div id="getStart">
@@ -27,152 +29,165 @@
 	</div>
 
 	<!--mainCtrl page-->
-	<div class="row" id="mainPage" ng-show="isSetPage(2)">
-		<div class="col-md-2" id="left">
-			<div>
-				<button type="button" class="btn btn-primary" class="randomBtn1" ng-click="randomize()">
-					<span><span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom</span>
-				</button>
-			</div>
-			<br />
-			<div class="randomBtn1">
-				<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" 
-				min="0"/>
-			</div>
-			<br />
+	<div id="container" ng-show="isSetPage(2)">
+		<div class="row" id="mainPage">
+			<div class="col-md-2" id="left">
+				<div>
+					<button type="button" class="btn btn-primary" class="randomBtn1" ng-click="randomize()">
+						<span><span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom</span>
+					</button>
+				</div>
+				<br />
+				<div class="randomBtn1">
+					<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" 
+					min="0"/>
+				</div>
+				<br />
 
 
-			<div class="btn-group" role="group" aria-label="...">
+				<div class="btn-group" role="group" aria-label="...">
 				<button type="button" class="btn btn-danger" class="randomBtn1" ng-click="addPreDefinedSequence(0)">
 					Music 1
 				</button>
 			
 				<button type="button" class="btn btn-warning" class="randomBtn1" ng-click="addPreDefinedSequence(1)">
 					Music 2
-				</button>
+					</button>
+				</div>
 			</div>
-		</div>
-
-		<div class="col-md-8" id="center">
-			<svg class="true-center" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
-				
-				<!-- Background rings -->
-				<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius - model.ballRadius}}"/>
-				<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius + model.ballRadius}}"/>
-				
-				<!--Inserting the the text of the current note being tested-->
-				<text class="currentNote" x="270" y="320" ng-if="gameOn">{{currentNote}}</text>
-				
-				<!-- Anyone wanna do the style for this one? -->
-				<text class="heardNote" x="290" y="350" ng-if="gameOn">{{audiuke.noteString}}</text>
-				
-				<!--Inserting the the text of the points on the game-->
-				<text class="scoreText" ng-attr-x="{{230}}" ng-attr-y="{{400}}" ng-show="gameOn">Score: {{model.score}}</text>
-
-				<!--Button responsible for initiating the game-->
-				<g class="startGameButton" ng-if="model.notes.length!=0 && !gameOn" ng-click="startGame()" >
-					<rect x="175" y="250" rx="20" ry="20" width="250" height="100"/>
-					<text x="230" y="315">start</text>
-				</g>
-				
-				<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
-				<g  class="noteCircle" ng-repeat="note in model.notes track by $index" ng-dblclick="removeNote($index)">
-					<text ng-attr-x="{{note.x-15}}" ng-attr-y="{{note.y+10}}">{{note.name}}</text>
-					<circle ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-attr-cx="{{note.x}}" ng-attr-cy="{{note.y}}" ng-attr-r="{{note.r}}"/>
-				</g>
-
-			</svg>
-
-		</div>
-		<div class="col-md-2" id="right">
-
-			<button type="button" class="btn btn-default noteBtn" aria-label="Left Align" ng-click="addNote('C')">C
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn "aria-label="Left Align" ng-click="addNote('C#')"> C#
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('D')"> D
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('D#')"> D#
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('E')"> E
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('F')"> F
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('F#')"> F#
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('G')"> G
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('G#')"> G#
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('A')"> A
-			</button>
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('A#')"> A#
-			</button>
-
-			<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('B')"> B
-			</button>
-
-		</div>
-	</div>
-
-	<!--Score page-->
-	<div id="bgScore" ng-show="isSetPage(3)" >
-		<div class="col-md-2" ></div>	
-
-		<div class="col-md-8">
-
-			<div id="header">
-				Game Score
-			</div>
-
-			<div class="container" id="scoreTable">    
-				<table class="table table-hover">
-					<thead>
-						<tr>
-							<th>Username</th>
-							<th>Points</th>
-							<th>No.</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="player in model.rankedPlayers track by $index">
-							<td>{{player.name}}</td>
-							<td>{{player.score}}</td>
-							<td>{{player.rank}}</td>
-						</tr>
-					</tbody>
-				</table>
-		
-
-			<div>
-				<button type="button" class="btn btn-warning" id="gameBtn" ng-click="setPage(2)" > New Game 
-				</button>
 			
-				<button type="button" class="btn btn-success" id="userBtn" ng-click="setPage(1)"> New User 
+			<div class="col-md-8" id="center">
+				<svg class="true-center" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
+					
+					<!-- Background rings -->
+					<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius - model.ballRadius}}"/>
+					<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius + model.ballRadius}}"/>
+					
+					<!--Inserting the the text of the current note being tested-->
+					<text class="currentNote" x="270" y="320" ng-if="gameOn">{{currentNote}}</text>
+					
+					<!-- Anyone wanna do the style for this one? -->
+					<text class="heardNote" x="290" y="350" ng-if="gameOn">{{audiuke.noteString}}</text>
+					
+					<!--Inserting the the text of the points on the game-->
+					<text class="scoreText" ng-attr-x="{{230}}" ng-attr-y="{{400}}" ng-show="gameOn">Score: {{model.score}}</text>
+
+					<!--Button responsible for initiating the game-->
+					<g class="startGameButton" ng-if="model.notes.length!=0 && !gameOn" ng-click="startGame()" >
+						<rect x="175" y="250" rx="20" ry="20" width="250" height="100"/>
+						<text x="230" y="315">start</text>
+					</g>
+					
+					<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
+					<g  class="noteCircle" ng-repeat="note in model.notes track by $index" ng-dblclick="removeNote($index)">
+						<text ng-attr-x="{{note.x-15}}" ng-attr-y="{{note.y+10}}">{{note.name}}</text>
+						<circle ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-attr-cx="{{note.x}}" ng-attr-cy="{{note.y}}" ng-attr-r="{{note.r}}"/>
+					</g>
+
+				</svg>
+			</div>
+			
+			<div class="col-md-2" id="right">
+
+
+			
+
+				<button type="button" class="btn btn-default noteBtn" aria-label="Left Align" ng-click="addNote('C')">C
+
 				</button>
+
+				<button type="button" class="btn btn-default noteBtn "aria-label="Left Align" ng-click="addNote('C#')"> C#
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('D')"> D
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('D#')"> D#
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('E')"> E
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('F')"> F
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('F#')"> F#
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('G')"> G
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('G#')"> G#
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('A')"> A
+				</button>
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('A#')"> A#
+				</button>
+
+				<button type="button" class="btn btn-default noteBtn"aria-label="Left Align" ng-click="addNote('B')"> B
+				</button>
+
 			</div>
 		</div>
-		</div>
-	</div>
-	<div class="col-md-2" ></div>	
-</div>
 
-<script src="https://code.jquery.com/jquery.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
-<script src="js/app.js"></script>
-<script src="js/model.js"></script>
-<script src="js/audiuke.js"></script>
-<script src="js/hand.minified-1.3.8.js"></script>
-<script src="js/draguke.js"></script>
-<script src="js/brainukeController.js"></script>
+		<!--When game is over show this div-->
+		<div id="gameOver" ng-show="isGameOver">
+			<div>
+				<p>Game Over<p>
+					<p>Final Score: {{model.score}}</p>
+				</div>
+			</div>	
+		</div>	
+		<!--Score page-->
+		<div id="bgScore" ng-show="isSetPage(3)" >
+			<div class="col-md-2" ></div>	
+
+			<div class="col-md-8">
+
+				<div id="header">
+					Game Score
+				</div>
+
+				<div class="container" id="scoreTable">    
+					<table class="table table-hover">
+						<thead>
+							<tr>
+								<th>Username</th>
+								<th>Points</th>
+								<th>No.</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="player in model.rankedPlayers track by $index">
+								<td>{{player.name}}</td>
+								<td>{{player.score}}</td>
+								<td>{{player.rank}}</td>
+							</tr>
+						</tbody>
+					</table>
+					
+
+					<div>
+						<button type="button" class="btn btn-warning" id="gameBtn" ng-click="setPage(2)" > New Game 
+						</button>
+						
+						<button type="button" class="btn btn-success" id="userBtn" ng-click="setPage(1)"> New User 
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2" ></div>	
+	</div>
+
+	<script src="https://code.jquery.com/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+	<script src="js/app.js"></script>
+	<script src="js/model.js"></script>
+	<script src="js/audiuke.js"></script>
+	<script src="js/hand.minified-1.3.8.js"></script>
+	<script src="js/draguke.js"></script>
+	<script src="js/brainukeController.js"></script>
 
 </body>

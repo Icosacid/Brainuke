@@ -1,6 +1,6 @@
 # Brainuke
 Musical web application for KTH course Interaction Programming
-by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
+by Midas Nouwens, Mariama Oliveira, Sheng Li & Alexandre Andrieux
 @ March 2015
 
 ## Navigation
@@ -32,7 +32,7 @@ by Midas Nouwens, Mariama Oliveira, Seng Li & Alexandre Andrieux
 * Smooth transition between screens (find some trick, since angluar ng-show/ng-hide directives force the CSS property display:none)
 * Design for SVG elements
 * Reposition all SVG elements correctly, in particular the text nodes depeding on their length so that they're always centered
-* Increase the score table when new players are added  
+* Increase the score table when new players are added (DONE)
 
 ## Feedback
 * Go through the feedback on KTH social and grab the best out of it (there are some very relevant points)
