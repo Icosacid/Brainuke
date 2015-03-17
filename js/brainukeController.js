@@ -47,12 +47,13 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		if (pageId == 2) {
 			$scope.gamePrep = true;
 			$scope.model.addPlayer($scope.currentPlayer);
+			$scope.addedPlayer();
 		}
 		
 	};
 
 	/** Game setup functions **/
-	$scope.addPlayer= function(playerName){
+	$scope.addedPlayer= function(){
 		$scope.currentPlayer=$scope.inputName;
 		$scope.inputName="";	
 	};

@@ -16,9 +16,10 @@
 			<div>
 				<p id="title">Brainuke</p>
 				<p id="subtitle">Enjoy your Ukulele!</p>
+				{{formName.$valid}}
 			</div>
 			<div id="getStart">
-				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && addPlayer(player); setPage(2)" novalidate>
+				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && setPage(2)" novalidate>
 					<div class="form-group">
 						<input ng-model="inputName" type="text" class="form-control" placeholder="Enter your name" required>
 					</div>
