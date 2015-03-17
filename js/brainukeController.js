@@ -46,14 +46,14 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.currentPage = pageId;
 		if (pageId == 2) {
 			$scope.gamePrep = true;
-			$scope.currentPlayer=$scope.model.players[$scope.model.players.length-1];
+			$scope.model.addPlayer($scope.currentPlayer);
 		}
 		
 	};
 
 	/** Game setup functions **/
 	$scope.addPlayer= function(playerName){
-		$scope.model.addPlayer($scope.inputName);
+		$scope.currentPlayer=$scope.inputName;
 		$scope.inputName="";	
 	};
 
