@@ -28,7 +28,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.gamePrep = false;
 	$scope.gameOn = false;
 	$scope.mikeOn = false;
-	$scope.gameOver = false;
+	$scope.isGameOver = false;
 	
 	$scope.intervalPromise;
 	//The time is binded with the html, pass value to the model to handle it
@@ -135,12 +135,14 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		
 		// Killing the gameLoop
 		$interval.cancel($scope.intervalPromise);
-		
+		$timeout(function() {
+			$scope.isGameOver=true;
 		// Showing the score page and reseting the game after a little while
 		$timeout(function() {
 			$scope.resetGame();
 			$scope.setPage(3);
-		}, 1000);
+		}, 2000);
+	},1000);
 	}
 	$scope.gameLoop = function() {
 		console.log('You are playing:' + $scope.audiuke.noteString);
@@ -151,6 +153,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		}
 	}
 	$scope.resetGame = function() {
+		$scope.isGameOver=false;
 		$scope.gameOn = false;
 		$scope.mikeOn = false;
 		$scope.totalNotes = 0;
