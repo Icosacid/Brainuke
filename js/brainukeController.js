@@ -59,6 +59,10 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	$scope.addPreDefinedSequence =  function(id){
 		$scope.model.usePreDefinedSequence(id);
+		$scope.totalNotes= $scope.model.notes.length;
+		$timeout(function() {
+			$scope.draguke.update();
+		});
 	}
 
 	$scope.addNote = function(note) {
