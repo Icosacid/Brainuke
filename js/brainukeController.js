@@ -111,6 +111,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		// Success
 		console.log('Success!');
 		// View feedback that note is OK
+		$scope.model.updateScore();
 		$scope.model.notes[($scope.gameStep-1)].verified = true;
 		$scope.model.notes[($scope.gameStep-1)].isRight = true;
 		

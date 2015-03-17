@@ -18,6 +18,11 @@ window.app.service("Model", function() {
 		newPlayer.rank=null;
 		this.players.push(newPlayer);
 	}
+
+	//rules of how the score is calculated
+	this.updateScore=function(){
+		this.score=this.score+100;
+	}
 	
 	// Fills the rankedPlayers array
 	this.rankPlayers = function() {
