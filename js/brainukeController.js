@@ -98,7 +98,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.mikeOn = true;
 			$scope.audiuke.gotStream(stream);
 			// Load first note
-			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].name;
+			$scope.currentNote = $scope.model.notes[($scope.gameStep-1)].name;
 			console.log("New note:" + $scope.currentNote);
 		});
 	}
@@ -107,19 +107,23 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		// Success
 		console.log('Success!');
 		// View feedback that note is OK
-		$scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].verified = true;
-		$scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].isRight = true;
+		$scope.model.notes[($scope.gameStep-1)].verified = true;
+		$scope.model.notes[($scope.gameStep-1)].isRight = true;
+		
 		// Next step
 		$scope.gameStep++;
+
 		// Might be over!
 		if (($scope.gameStep-1) !== $scope.totalNotes) {
 			// Next step indeed
-			$scope.currentNote = $scope.model.notes[$scope.totalNotes-1-($scope.gameStep-1)].name;
+			$scope.currentNote = $scope.model.notes[($scope.gameStep-1)].name;
 			console.log("New note:" + $scope.currentNote);
 		} else {
 			// Game over!
 			$scope.gameOver();
 		}
+
+		
 	}
 	$scope.gameOver = function() {
 		$scope.model.gameOver();
