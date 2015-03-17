@@ -8,7 +8,7 @@ window.app.service("Audiuke", function() {
 
 	window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
-	this.audioContext = null;
+	this.audioContext = new AudioContext();
 	this.isPlaying = false;
 	this.sourceNode = null;
 	this.analyser = null;
@@ -39,7 +39,9 @@ window.app.service("Audiuke", function() {
 	
 	
 	this.init = function(callback) {
+		try {
 		_this.audioContext = new AudioContext();
+		} catch(e) {console.log("Error here");}
 		_this.getUserMedia({
 			audio: true,
 			video: false

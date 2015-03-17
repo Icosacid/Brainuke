@@ -82,6 +82,7 @@ svg{
 	margin:50px 0px;
 	border-radius:5px;
 	box-shadow:rgba(0,0,0,0.7) 0px 0px 10px;
+	background:rgba(0,0,0,0.05);
 }
 svg > *{
 	/* No selection */
@@ -96,17 +97,28 @@ svg > *{
 	user-drag: none;
 	cursor:default;
 }
+.ringCircle{
+	fill:none;
+	stroke-width:2;
+	stroke:rgba(0,0,0,0.07);
+}
 .startGameButton{
 	cursor:pointer;
-	fill:rgba(255,0,0,0.7);
+	fill:rgba(255,255,255,0.8);
 	stroke:black;
-	stroke-width:5;
+	stroke-width:2;
+}
+.startGameButton:hover{
+	stroke-width:4;
+	fill:white;
 }
 .startGameButton text{
 	font-family:'Verdana';
-	font-size:50px;
-	fill:#05a;
+	font-size:40px;
+	fill:rgba(0,50,250,0.75);
 	stroke-width:0;
+	font-weight:bold;
+	text-transform:uppercase;
 }
 .noteCircle circle{
 	stroke-width:2px;
@@ -114,30 +126,34 @@ svg > *{
 }
 .noteCircle text{
 	font-family:'Verdana';
-	font-size:30px;
-	fill:blue;
+	font-size:35px;
+	fill:black;
 }
 
 .isRight{
-	fill:green;
+	fill:rgba(0,200,0,0.5);
 }
 
 .isWrong{
-	fill:#FF0000;
+	fill:rgba(200,0,0,0.8);
 }
 
 .notVerified{
-	fill:gray;
+	fill:rgba(0,0,0,0.3);
 }
 .currentNote{
 	font-family:'Verdana';
 	font-size:100px;
-	fill:blue;
+	fill:rgba(0,0,0,0.8);
+}
+.heardNote{
+	font-size:20px;
 }
 .scoreText{
 	font-family:'Verdana';
 	font-size:25px;
-	fill:blue;
+	fill:rgba(0,50,250,0.75);
+	font-weight:bold;
 }
 
 /* score page */
