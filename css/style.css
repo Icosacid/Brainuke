@@ -1,5 +1,6 @@
 
 
+
 /* Home page */
 #homePage{
 	position: absolute;
@@ -208,6 +209,30 @@ svg > *{
 	fill:rgba(0,50,250,0.75);
 	font-weight:bold;
 }
+
+/*Balls testing*/
+
+#ballsArea{
+	margin: auto;
+	height: 600px;
+	width: 600px;
+	background-color: #D8D8D8; 
+	position: relative;
+}
+
+.balls{
+	position: absolute;
+	background-color: #41db65;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	/* No unwanted drag */
+	/*-webkit-user-drag: none;
+	user-drag: none;
+	cursor:default;*/
+}
+
+
 
 /* score page */
 
