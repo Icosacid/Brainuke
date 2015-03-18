@@ -16,7 +16,7 @@
 			<div>
 				<p id="title">Brainuke</p>
 				<p id="subtitle">Enjoy your Ukulele!</p>
-				{{formName.$valid}}
+				<!-- {{formName.$valid}} -->
 			</div>
 			<div id="getStart">
 				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && setPage(2)" novalidate>
@@ -33,9 +33,13 @@
 	<div id="container" ng-show="isSetPage(2)">
 		<div class="row" id="mainPage">
 			<div class="col-md-2" id="left">
-				<div>
-					<button type="button" class="btn btn-primary" class="randomBtn1" ng-click="randomize()">
-						<span><span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom</span>
+				<div class="center-align"> 
+					<h3> Hej {{currentPlayer}}!</h3>
+					Are you ready to rumble?!
+				</div>
+				<div class="btn-random">
+					<button type="button" class="btn btn-primary" ng-click="randomize()">
+						<span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom
 					</button>
 				</div>
 				<br />
@@ -44,7 +48,6 @@
 					min="0"/>
 				</div>
 				<br />
-
 
 				<div class="btn-group" role="group" aria-label="...">
 				<button type="button" class="btn btn-danger" class="randomBtn1" ng-click="addPreDefinedSequence(0)">
