@@ -151,6 +151,32 @@ svg > *{
 	user-drag: none;
 	cursor:default;
 }
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/*Balls testing*/
+
+#ballsArea{
+	margin: auto;
+	height: 600px;
+	width: 600px;
+	background-color: #D8D8D8; 
+	position: relative;
+}
+
+.balls{
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	/* No unwanted drag */
+	/*-webkit-user-drag: none;
+	user-drag: none;
+	cursor:default;*/
+}
+
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
 .ringCircle{
 	fill:none;
 	stroke-width:2;
@@ -185,15 +211,15 @@ svg > *{
 }
 
 .isRight{
-	fill:rgba(0,200,0,0.5);
+	background-color:rgba(0,200,0,0.5);
 }
 
 .isWrong{
-	fill:rgba(200,0,0,0.8);
+	background-color:rgba(200,0,0,0.8);
 }
 
 .notVerified{
-	fill:rgba(0,0,0,0.3);
+	background-color:rgba(0,0,0,0.3);
 }
 .currentNote{
 	font-family:'Verdana';
@@ -209,29 +235,6 @@ svg > *{
 	fill:rgba(0,50,250,0.75);
 	font-weight:bold;
 }
-
-/*Balls testing*/
-
-#ballsArea{
-	margin: auto;
-	height: 600px;
-	width: 600px;
-	background-color: #D8D8D8; 
-	position: relative;
-}
-
-.balls{
-	position: absolute;
-	background-color: #41db65;
-	width: 100px;
-	height: 100px;
-	border-radius: 50%;
-	/* No unwanted drag */
-	/*-webkit-user-drag: none;
-	user-drag: none;
-	cursor:default;*/
-}
-
 
 
 /* score page */
