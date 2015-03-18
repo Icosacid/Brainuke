@@ -217,9 +217,9 @@ svg > *{
 	width: 100px;
 	height: 100px;
 	/* No unwanted drag */
-	-webkit-user-drag: none;
+	/*-webkit-user-drag: none;
 	user-drag: none;
-	cursor:default;
+	cursor:default;*/
 }
 
 
