@@ -48,12 +48,16 @@
 	position: fixed;
 }
 
-.center-align{
+.left-align{
     position: relative;
-    left: 35px;
+    left: 25px;
     padding-bottom: 40px;
 }
-
+.right-align{
+    position: relative;
+    left: -20px;
+    padding-bottom: 20px;
+}
 #mainPage, #gameOver{
 
 	width: 100%;
@@ -159,7 +163,7 @@ svg > *{
 	margin: auto;
 	height: 600px;
 	width: 600px;
-	background-color: #D8D8D8; 
+	/* background-color: #D8D8D8; */
 	position: relative;
 }
 
@@ -181,6 +185,41 @@ svg > *{
 	fill:none;
 	stroke-width:2;
 	stroke:rgba(0,0,0,0.07);
+}
+.circleOuter{
+	position: absolute;
+	margin: 18px 0 0 19px;
+	width:563px;
+	height:563px;
+	border-radius:50%;
+	border: 2px solid;
+	border-color: rgba(0,0,0,0.1);
+	font-size:20px;
+	color:#fff;
+	line-height:100px;
+	text-align:center;
+	background: none;
+}
+.circleInner{
+	position: absolute;
+	margin: 120px 0 0 120px;
+	width:360px;
+	height:360px;
+	border-radius:50%;
+	border: 2px solid;
+	border-color: rgba(0,0,0,0.1);
+	font-size:20px;
+	color:#fff;
+	line-height:100px;
+	text-align:center;
+	background: none;
+}
+.unselectable {
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }
 .startGameButton{
 	cursor:pointer;
@@ -222,20 +261,36 @@ svg > *{
 	background-color:rgba(0,0,0,0.3);
 }
 .currentNote{
-	font-family:'Verdana';
+	position: absolute;
+	margin: 200px 0 0 262px;
 	font-size:100px;
 	fill:rgba(0,0,0,0.8);
 }
 .heardNote{
-	font-size:20px;
+	font-size:18px;
+	position: absolute;
+	margin: 310px 0 0 275px;
 }
 .scoreText{
-	font-family:'Verdana';
+	position: absolute;
+	margin: 370px 0 0 250px;
 	font-size:25px;
 	fill:rgba(0,50,250,0.75);
 	font-weight:bold;
 }
-
+.noteLetter{
+	position: absolute;
+	margin: 37px 0 0 40px;
+	font-weight: bold;
+	text-shadow: 0px 1px 0px #999999;
+	color: #fff;
+}
+.startBtn {
+	position: relative;
+	margin: 250px 0 0 250px;
+	display: inline-block;
+	width: 100px;
+}
 
 /* score page */
 
