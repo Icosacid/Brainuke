@@ -216,6 +216,7 @@ svg > *{
 	background-color: #41db65;
 	width: 100px;
 	height: 100px;
+	border-radius: 50%;
 	/* No unwanted drag */
 	/*-webkit-user-drag: none;
 	user-drag: none;

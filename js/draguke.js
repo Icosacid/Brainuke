@@ -389,11 +389,8 @@ window.app.service("Draguke", function() {
 			pX=ev.clientX;
 			pY=ev.clientY;
 			if(down===1){
-			dragMaker(ev);
-			console.log("down true");
+				dragMaker(ev);
 			}
-			console.log(pX);
-			console.log(pY);
 		});
 	}
 
