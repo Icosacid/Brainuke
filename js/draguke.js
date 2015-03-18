@@ -39,7 +39,7 @@ window.app.service("Draguke", function() {
 		//DRAGUKE.addAllBalls();
 		for (key in DRAGUKE.model.notes) {
 			var id = parseInt(key) + 1;
-			DRAGUKE.dragMe("#" + DRAGUKE.idPrefix + id, id, "#mainPage svg");
+			DRAGUKE.dragMe("#" + DRAGUKE.idPrefix + id, id, "#mainPage #ballsArea");
 		}
 	}
 
@@ -49,8 +49,8 @@ window.app.service("Draguke", function() {
 	 */
 	DRAGUKE.angleToXY = function(angleRad) {
 		var obj = {
-			cx : DRAGUKE.ringCenterX + DRAGUKE.rFromCenter * Math.cos(angleRad),
-			cy : DRAGUKE.ringCenterY - DRAGUKE.rFromCenter * Math.sin(angleRad)
+			cx : DRAGUKE.ringCenterX + DRAGUKE.rFromCenter * Math.cos(angleRad) -50,
+			cy : DRAGUKE.ringCenterY - DRAGUKE.rFromCenter * Math.sin(angleRad) -50
 		}
 		return obj;
 	}
@@ -142,8 +142,10 @@ window.app.service("Draguke", function() {
 				console.log('Wrong "way" parameter in animateBall()');
 			}
 			// Move to step position
-			jQuery('#ball'+id).attr('cx', DRAGUKE.angleToXY(stepAngle).cx);
-			jQuery('#ball'+id).attr('cy', DRAGUKE.angleToXY(stepAngle).cy);
+			//jQuery('#ball'+id).attr('cx', DRAGUKE.angleToXY(stepAngle).cx);
+			//jQuery('#ball'+id).attr('cy', DRAGUKE.angleToXY(stepAngle).cy);
+			jQuery('#ball'+id).css('left', DRAGUKE.angleToXY(stepAngle).cx+"px");
+			jQuery('#ball'+id).css('top', DRAGUKE.angleToXY(stepAngle).cy+"px");
 			if(i == steps){
 				callback();
 			}
@@ -154,8 +156,10 @@ window.app.service("Draguke", function() {
 			clearInterval(anim);
 			// Save new angle to DRAGUKE.positions
 			DRAGUKE.getBall(id).angleRad = newAngleRad;
-			jQuery('#ball'+id).attr('cx', DRAGUKE.angleToXY(newAngleRad).cx);
-			jQuery('#ball'+id).attr('cy', DRAGUKE.angleToXY(newAngleRad).cy);
+			//jQuery('#ball'+id).attr('cx', DRAGUKE.angleToXY(newAngleRad).cx);
+			//jQuery('#ball'+id).attr('cy', DRAGUKE.angleToXY(newAngleRad).cy);
+			jQuery('#ball'+id).css('left', DRAGUKE.angleToXY(newAngleRad).cx+"px");
+			jQuery('#ball'+id).css('top', DRAGUKE.angleToXY(newAngleRad).cy+"px");
 		}
 	}
 
@@ -345,8 +349,8 @@ window.app.service("Draguke", function() {
 				// New positions
 				//posX = parseFloat(posX) + parseFloat(theEvent.clientX - leftEdge) - stampX;
 				//posY = parseFloat(posY) + parseFloat(theEvent.clientY - topEdge) - stampY;
-				posX = parseFloat(theEvent.clientX - leftEdge);
-				posY = parseFloat(theEvent.clientY - topEdge);
+				posX = parseFloat(theEvent.clientX - leftEdge)-50;
+				posY = parseFloat(theEvent.clientY - topEdge)-50;
 				
 				/** Not forced!!
 				var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, posX, posY, false);
@@ -359,8 +363,8 @@ window.app.service("Draguke", function() {
 				// Apply them
 				
 				// If not SVG
-				jQme.attr('left', posX + "px");
-				jQme.attr('top', posY + "px");
+				jQme.css('left', posX + "px");
+				jQme.css('top', posY + "px");
 				// If SVG
 				if ( jQme.is(jQuery("circle")) ) {
 					

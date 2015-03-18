@@ -10,13 +10,12 @@
 <body ng-controller="BrainukeController as mainCtrl">
 
 	<!--Home page-->
-	<div id="homePage" ng-show="isSetPage(1)">
+	<div id="homePage" ng-show="isSetPage(2)">
 
 		<div class="col-md-5">
 			<div>
 				<p id="title">Brainuke</p>
 				<p id="subtitle">Enjoy your Ukulele!</p>
-				{{formName.$valid}}
 			</div>
 			<div id="getStart">
 				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && setPage(2)" novalidate>
@@ -30,7 +29,7 @@
 	</div>
 
 	<!--mainCtrl page-->
-	<div id="container" ng-show="isSetPage(2)">
+	<div id="container" ng-show="isSetPage(1)">
 		<div class="row" id="mainPage">
 			<div class="col-md-2" id="left">
 				<div>
@@ -41,7 +40,7 @@
 				<br />
 				<div class="randomBtn1">
 					<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" 
-					min="0"/>
+					min="1"/>
 				</div>
 				<br />
 
@@ -58,34 +57,10 @@
 			</div>
 			
 			<div class="col-md-8" id="center">
-				<svg class="true-center" width="600" height="600" xmlns="http://www.w3.org/2000/svg">
-					
-					<!-- Background rings -->
-					<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius - model.ballRadius}}"/>
-					<circle class="ringCircle" ng-attr-cx="{{model.ringCenterX}}" ng-attr-cy="{{model.ringCenterY}}" ng-attr-r="{{model.ringRadius + model.ballRadius}}"/>
-					
-					<!--Inserting the the text of the current note being tested-->
-					<text class="currentNote" x="270" y="320" ng-if="gameOn">{{currentNote}}</text>
-					
-					<!-- Anyone wanna do the style for this one? -->
-					<text class="heardNote" x="290" y="350" ng-if="gameOn">{{audiuke.noteString}}</text>
-					
-					<!--Inserting the the text of the points on the game-->
-					<text class="scoreText" ng-attr-x="{{230}}" ng-attr-y="{{400}}" ng-show="gameOn">Score: {{model.score}}</text>
-
-					<!--Button responsible for initiating the game-->
-					<g class="startGameButton" ng-if="model.notes.length!=0 && !gameOn" ng-click="startGame()" >
-						<rect x="175" y="250" rx="20" ry="20" width="250" height="100"/>
-						<text x="230" y="315">start</text>
-					</g>
-					
-					<!--Drawing the notes shapes on the screen, first it draws the shape, after insert the text over it-->
-					<g  class="noteCircle" ng-repeat="note in model.notes track by $index" ng-dblclick="removeNote($index)">
-						<text ng-attr-x="{{note.x-15}}" ng-attr-y="{{note.y+10}}">{{note.name}}</text>
-						<circle ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-attr-cx="{{note.x}}" ng-attr-cy="{{note.y}}" ng-attr-r="{{note.r}}"/>
-					</g>
-
-				</svg>
+				<div id="ballsArea">
+					<div ng-repeat="note in model.notes track by $index" class="balls" ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-style="{'left': note.x -50, 'top': note.y-50}">{{note.name}}
+					</div>
+				</div>
 			</div>
 			
 			<div class="col-md-2" id="right">
