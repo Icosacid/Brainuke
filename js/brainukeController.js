@@ -22,7 +22,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	// Current player, it consist of a string of it's name, 
 	// however for future implementation it could be an object that consists of all information of the player
 	$scope.inputName;
-	$scope.currentPlayer;
+	$scope.currentPlayer=$scope.inputName;;
 	$scope.currentNote;
 	
 	$scope.gamePrep = false;
@@ -45,17 +45,19 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		//homePage = 1, mainPage = 2, scorePage = 3
 		$scope.currentPage = pageId;
 		if (pageId == 2) {
-			$scope.gamePrep = true;
-			$scope.model.addPlayer($scope.currentPlayer);
-			$scope.addedPlayer();
+			
+			$scope.addPlayer();
+		}else if(pageId ===3){
+			$scope.inputName="";
 		}
 		
 	};
 
 	/** Game setup functions **/
-	$scope.addedPlayer= function(){
-		$scope.currentPlayer=$scope.inputName;
-		$scope.inputName="";	
+	$scope.addPlayer= function(){
+		$scope.gamePrep = true;
+		$scope.currentPlayer=$scope.inputName;	
+		$scope.model.addPlayer($scope.currentPlayer);	
 	};
 
 	$scope.addPreDefinedSequence =  function(id){
@@ -78,12 +80,6 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		});
 	};
 
-	$scope.removeNote= function(index){
-		$scope.model.removeNote(index);
-		$timeout(function() {
-			$scope.draguke.update();
-		});
-	}
 
 	$scope.randomize = function() {
 		$scope.model.randomize();
@@ -91,7 +87,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	/** Game functions **/
 	$scope.startGame = function() {
-		$totalNotes=$scope.model.notes.length;
+		$scope.totalNotes=$scope.model.notes.length;
 		$scope.gamePrep = false;
 		$scope.gameOn = true;
 		// Start the loop
