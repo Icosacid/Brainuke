@@ -34,7 +34,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.clock;
 	$scope.btnText="on";
 	//The time is binded with the html, pass value to the model to handle it
-	$scope.timeCount=1;
+	$scope.timeCount;
 	$scope.timeCountActive=false;
 	$scope.timesUp=false;
 	$scope.totalNotes = 0;
