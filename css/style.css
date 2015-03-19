@@ -173,7 +173,9 @@ margin-top: 25px;
 	height: 100px;
 	left: 500px;
 	top: 500px;
-	background-color: pink;
+  margin-left: 10px;
+  background-image: url("../images/bin.png");
+  background-size: 100px;
 	z-index: -1;
 }
 
