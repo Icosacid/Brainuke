@@ -1,4 +1,4 @@
-window.app.service("Draguke", function() {
+window.app.service("Draguke", ["$rootScope",function($rootScope) {
 	
 	var DRAGUKE = {};
 	DRAGUKE.ringCenterX;
@@ -184,7 +184,7 @@ window.app.service("Draguke", function() {
 			jQuery('#ball'+id).css('top', DRAGUKE.angleToXY(newAngleRad).cy+"px");
 
 			if((idInt)===id){
-				var first=jQuery("#ball1");
+
 				var auxArray2=[];
 				var auxArray3=[];
 				for(key in auxArray){
@@ -192,18 +192,15 @@ window.app.service("Draguke", function() {
 					auxArray3[key]=auxArray[key].y;
 				}
 
-				for(var i=0; i<DRAGUKE.model.notes.length; i++){
+				$rootScope.$apply(function(){
+					for(var i=0; i<DRAGUKE.model.notes.length; i++){
 					DRAGUKE.model.notes[i].x=auxArray2[i];
-					first.css("left", auxArray2[i]-50);
 					DRAGUKE.model.notes[i].y=auxArray3[i];
-					first.css("top", auxArray3[i]-50);
-					
-					first.attr("id", "ball"+(i+1));
-					first.html("<h3 class='noteLetter'>"+DRAGUKE.model.notes[i].name+"</h3>");
-					first=first.next();
 				}
+
+				});
 				auxArray=DRAGUKE.model.notes.slice(0);
-				DRAGUKE.fill();
+				DRAGUKE.update();
 			}
 		}
 	}
@@ -412,12 +409,22 @@ window.app.service("Draguke", function() {
 		
 		function drop(theEvent) {
 			// Calculate angle
+		
+			cX = parseFloat(theEvent.clientX - leftEdge);
+			cY = parseFloat(theEvent.clientY - topEdge);
+			if((cX>500 && cX<600)&&(cY>500 && cY<600)){
+				//remove
+				$rootScope.$apply(function(){
+				DRAGUKE.model.removeNote(idInt-1);
+				});
+				DRAGUKE.update();
+			}else{
 			var angle = DRAGUKE.segmentAngleRad(DRAGUKE.ringCenterX, DRAGUKE.ringCenterY, parseFloat(pX - leftEdge), parseFloat(pY - topEdge), false);
 			
 			console.log('Drop @ angle ' + angle/Math.PI*180 + '°');
 			
 			DRAGUKE.makePlaceFor(myNum, DRAGUKE.getBall(myNum).angleRad, angle);
-			
+			}
 		}
 		
 		jQme.off();
@@ -547,4 +554,4 @@ window.app.service("Draguke", function() {
 	this.segmentAngleRad = DRAGUKE.segmentAngleRad;
 	this.angleDistance = DRAGUKE.angleDistance;
 	
-});
+}]);

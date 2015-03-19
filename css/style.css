@@ -167,6 +167,15 @@ margin-top: 25px;
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
+#bin{
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	left: 500px;
+	top: 500px;
+	background-color: pink;
+	z-index: -1;
+}
 
 .circleOuter{
 	position: absolute;

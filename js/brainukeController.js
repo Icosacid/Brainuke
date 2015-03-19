@@ -69,7 +69,6 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.addNote = function(note) {
 		$scope.model.addNote(note);
 		console.log($scope.model.notes);
-		$scope.totalNotes++;
 		// A digest loop is triggered in model.addNote() because the array notes changes
 		// We want to wait for Angular to create the DOM SVG element before putting a listener on it
 		// This is an amazing trick: using $timeout without time
@@ -81,6 +80,9 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	$scope.removeNote= function(index){
 		$scope.model.removeNote(index);
+		$timeout(function() {
+			$scope.draguke.update();
+		});
 	}
 
 	$scope.randomize = function() {
@@ -89,6 +91,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	/** Game functions **/
 	$scope.startGame = function() {
+		$totalNotes=$scope.model.notes.length;
 		$scope.gamePrep = false;
 		$scope.gameOn = true;
 		// Start the loop

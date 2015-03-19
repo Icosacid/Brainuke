@@ -9,7 +9,7 @@
 <body ng-controller="BrainukeController as mainCtrl">
 
 	<!--Home page-->
-	<div id="homePage" ng-show="isSetPage(2)">
+	<div id="homePage" ng-show="isSetPage(1)">
 
 		<div class="col-md-5">
 			<div>
@@ -28,7 +28,7 @@
 	</div>
 
 	<!--mainCtrl page-->
-	<div id="container" ng-show="isSetPage(1)">
+	<div id="container" ng-show="isSetPage(2)">
 		<div class="row" id="mainPage">
 			<div class="col-md-2" id="left">
 				<div class="left-align"> 
@@ -63,7 +63,7 @@
 					<div class="circleOuter"></div>
 					<div class="circleInner"></div>
 
-					<div ng-repeat="note in model.notes" class="balls" ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-style="{'left': note.x -50, 'top': note.y-50}"><h3 class="noteLetter">{{note.name}}</h3>
+					<div ng-repeat="note in model.notes" class="balls" ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-style="{'left': note.x -50, 'top': note.y-50}"><h3 class="noteLetter" ng-dblclick="removeNote($index)">{{note.name}}</h3>
 					</div>
 
 					<!--elements that need styling, Midas pleeeeassseee you can do wherever you want here :D-->
@@ -75,6 +75,8 @@
 							<h3>Start!<h3>
 						</button>
 					</div>
+
+					<div id="bin">bin</div>
 
 				</div>
 			</div>
