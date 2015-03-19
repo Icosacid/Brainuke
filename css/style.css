@@ -142,11 +142,11 @@ margin-top: 25px;
 	padding-top: 10px;
 }
 #inputBtn{
-	padding-left: 35px;
+	margin-left: -30px;
 }
 
 #secondEnter{
-	width:60px;
+	width:100px;
 	margin-left: 10px;
 	display:block;
 }
@@ -277,6 +277,13 @@ margin-top: 25px;
 	margin: 250px 0 0 250px;
 	display: inline-block;
 	width: 100px;
+}
+
+#progressBar{
+	margin: auto;
+	position: relative;
+	width: 600px;
+
 }
 
 /* score page */

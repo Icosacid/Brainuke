@@ -1,2 +1,2 @@
 //Creating the angular app
-window.app = angular.module('brainuke', []);
+window.app = angular.module('brainuke', ['ui.bootstrap']);

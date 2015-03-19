@@ -37,17 +37,17 @@
 				</div>
 				<div>
 					<button type="button" class="btn btn-primary btn-random" ng-click="randomize()">
-						<span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom
+						<span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandomize
 					</button>
 				</div>
 				<br/>
 				<div>
-					<div class="col-md-6">
+					<div class="col-md-8">
 					<input ng-model="main.timeCount"  ng-disabled="!timeCountActive" id="secondEnter" type="number" class="form-control" placeholder="Seconds" min="1"/>
 				   </div>
-					<div class="col-md-6">
+					<div class="col-md-4">
 					<div class="btn-group btn-switch" role="group" aria-label="...">
-                    <button type="button" ng-class="{'btn btn-danger':timeCountActive,'btn btn-success':!timeCountActive}" ng-click="timeToggle()">{{btnText}}</button>			
+                    	<button id="inputBtn" type="button" ng-class="{'btn btn-danger':timeCountActive,'btn btn-success':!timeCountActive}" ng-click="timeToggle()">{{btnText}}</button>			
 				    </div>
 					</div>
 				</div>
@@ -64,6 +64,12 @@
 			</div>
 			
 			<div class="col-md-8 true-center" id="center">
+
+				<div id="progressBar" ng-show="gameOn">
+    			<progress><bar ng-repeat="bar in stacked track by $index" value="bar.value" type="{{bar.type}}"><span ng-hide="bar.value < 5">{{bar.value}}%</span></bar></progress>
+    			</div>
+
+
 				<div id="ballsArea" class="unselectable">
 					<div class="circleOuter"></div>
 					<div class="circleInner"></div>
@@ -81,7 +87,7 @@
 						</button>
 					</div>
 					
-						<div id="bin" ng-if="model.notes.length!=0"></div>
+					<div id="bin" ng-if="model.notes.length!=0  && !gameOn"></div>
 					
 				</div>
 			</div>
@@ -152,16 +158,20 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th>Username</th>
+								<th></th>
+								<th>Player</th>
 								<th>Points</th>
-								<th>Rank</th>
+								<th>Right</th>
+								<th>Wrong</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="player in model.rankedPlayers track by $index">
+							<tr ng-repeat="player in model.rankedPlayers track by $index">	
+								<td>{{$index+1}}</td>
 								<td>{{player.name}}</td>
 								<td>{{player.score}}</td>
-								<td>{{$index+1}}</td>
+								<td>{{player.right}} %</td>
+								<td>{{player.wrong}} %</td>
 							</tr>
 						</tbody>
 					</table>
@@ -182,6 +192,7 @@
 
 	<script src="lib/jquery-2.1.1.min.js"></script>
 	<script src="lib/angular.min.js"></script>
+	<script src="lib/ui-bootstrap-tpls-0.12.1.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/model.js"></script>
 	<script src="js/audiuke.js"></script>

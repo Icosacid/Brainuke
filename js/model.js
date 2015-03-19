@@ -9,6 +9,8 @@ window.app.service("Model", function() {
 	this.ringCenterX = 300;
 	this.ringCenterY = 300;
 	this.preDefinedSequences=[];
+	this.notesRight=0;
+	this.notesWrong=0;
 	
 	// Add player on the list of players (name and score)
 	this.addPlayer = function(playerName) {
@@ -78,12 +80,16 @@ window.app.service("Model", function() {
 	this.gameOver= function(){
 		this.players[this.players.length-1].notes=this.notes;
 		this.players[this.players.length-1].score=this.score;
+		this.players[this.players.length-1].right=Math.floor(((this.notesWrong/this.notes.length)*100));
+		this.players[this.players.length-1].wrong=Math.floor(((this.notesRight/this.notes.length)*100));
 	}
 	
 	// Function that empties the notes array
 	this.resetAll = function() {
 		this.notes = [];
 		this.score = 0;
+		this.notesRight=0;
+		this.notesWrong=0;
 		this.rankedPlayers = [];
 		this.rankPlayers();
 	}
@@ -179,10 +185,10 @@ this.addPreDefinedSequence(twinkleTwinkle, "Twinkle, twinkle little star");
 	maria4.score = 33003;
 	maria4.rank = null;
 	
-	this.players.push(maria);
-	this.players.push(maria2);
-	this.players.push(maria3);
-	this.players.push(maria4);
+	//this.players.push(maria);
+	//this.players.push(maria2);
+	//this.players.push(maria3);
+	//this.players.push(maria4);
 	
 ///////////////////////////////////////////////////////
 

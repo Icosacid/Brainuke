@@ -142,10 +142,14 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.model.notes[($scope.gameStep-1)].verified = true;
 			$scope.model.notes[($scope.gameStep-1)].isRight = true;
 			$scope.timesUp=false;
+			$scope.model.notesRight++;
+			$scope.randomStacked();
 		}else{
 			$scope.model.notes[($scope.gameStep-1)].verified = true;
 			$scope.model.notes[($scope.gameStep-1)].isRight = false;
 			$scope.timesUp=false;
+			$scope.model.notesWrong++;
+			$scope.randomStacked();
 		}
 		// Next step
 		$scope.gameStep++;
@@ -202,6 +206,24 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.gameStep = 1;
 		$scope.currentNote = null;
 		$scope.model.resetAll();
+		$scope.stacked = [];
 	}
+
+	$scope.stacked;
+	$scope.randomStacked = function() {  
+    var types = ['success','danger'];
+    	$scope.stacked = [];
+    	//success
+        $scope.stacked.push({
+          value: Math.floor(($scope.model.notesRight/$scope.model.notes.length)*100),
+          type: types[0]
+        });
+
+        //fail
+        $scope.stacked.push({
+          value: Math.floor(($scope.model.notesWrong/$scope.model.notes.length)*100),
+          type: types[1]
+        });
+   };
 
 }]);
