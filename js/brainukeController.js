@@ -31,8 +31,11 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.isGameOver = false;
 	
 	$scope.intervalPromise;
+	$scope.clock;
 	//The time is binded with the html, pass value to the model to handle it
-	$scope.timeCount;
+	$scope.timeCount=1;
+	$scope.timeCountActive=true;
+	$scope.timesUp=false;
 	$scope.totalNotes = 0;
 	$scope.gameStep = 1;
 
@@ -90,6 +93,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		$scope.totalNotes=$scope.model.notes.length;
 		$scope.gamePrep = false;
 		$scope.gameOn = true;
+
 		// Start the loop
 		$scope.intervalPromise = $interval(function() {
 			if ($scope.mikeOn) {
@@ -97,11 +101,18 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			}
 			// Test note
 		}, 150);
+		
 		// Start microphone (and success callback)
 		$scope.audiuke.init(function(stream) {
 			$scope.mikeOn = true;
 			$scope.audiuke.gotStream(stream);
 			// Load first note
+			//in case of having to finish in a specific time limit
+			if($scope.timeCountActive){
+				$scope.clock=$timeout(function() {
+					$scope.timesUp=true;
+				}, $scope.timeCount*1000);
+			}
 			$scope.currentNote = $scope.model.notes[($scope.gameStep-1)].name;
 			console.log("New note:" + $scope.currentNote);
 		});
@@ -111,12 +122,27 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		// Success
 		console.log('Success!');
 		// View feedback that note is OK
-		$scope.model.updateScore();
-		$scope.model.notes[($scope.gameStep-1)].verified = true;
-		$scope.model.notes[($scope.gameStep-1)].isRight = true;
+		 $timeout.cancel($scope.clock);
 		
+		if(!$scope.timesUp){
+			$scope.model.updateScore();
+			$scope.model.notes[($scope.gameStep-1)].verified = true;
+			$scope.model.notes[($scope.gameStep-1)].isRight = true;
+			$scope.timesUp=false;
+		}else{
+			$scope.model.notes[($scope.gameStep-1)].verified = true;
+			$scope.model.notes[($scope.gameStep-1)].isRight = false;
+			$scope.timesUp=false;
+		}
 		// Next step
 		$scope.gameStep++;
+
+		//in case of having to finish in a specific time limit
+		if($scope.timeCountActive){
+			$scope.clock=$timeout(function() {
+				$scope.timesUp=true;
+			}, $scope.timeCount*1000);
+		}
 
 		// Might be over!
 		if (($scope.gameStep-1) !== $scope.totalNotes) {
@@ -126,10 +152,9 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		} else {
 			// Game over!
 			$scope.gameOver();
-		}
-
-		
+		}		
 	}
+
 	$scope.gameOver = function() {
 		$scope.model.gameOver();
 		
@@ -144,15 +169,18 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		}, 2000);
 	},1000);
 	}
+
 	$scope.gameLoop = function() {
 		console.log('You are playing:' + $scope.audiuke.noteString);
-		if ($scope.audiuke.noteString == $scope.currentNote) {
+		if ($scope.audiuke.noteString == $scope.currentNote || $scope.timesUp) {
 			$scope.nextStep();
 		} else {
 			// Wait...
 		}
 	}
+
 	$scope.resetGame = function() {
+		$timeout.cancel($scope.clock);
 		$scope.isGameOver=false;
 		$scope.gameOn = false;
 		$scope.mikeOn = false;
