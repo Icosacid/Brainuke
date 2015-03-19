@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html ng-app="brainuke">
 <head>
-
-	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="stylesheet" type="text/css" href="css/mdevcss.css">
 </head>
@@ -63,6 +62,7 @@
 				<div id="ballsArea" class="unselectable">
 					<div class="circleOuter"></div>
 					<div class="circleInner"></div>
+
 					<div ng-repeat="note in model.notes track by $index" class="balls" ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-style="{'left': note.x -50, 'top': note.y-50}"><h3 class="noteLetter">{{note.name}}</h3>
 					</div>
 
@@ -173,8 +173,8 @@
 		<div class="col-md-2" ></div>	
 	</div>
 
-	<script src="https://code.jquery.com/jquery.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
+	<script src="lib/jquery-2.1.1.min.js"></script>
+	<script src="lib/angular.min.js"></script>
 	<script src="js/app.js"></script>
 	<script src="js/model.js"></script>
 	<script src="js/audiuke.js"></script>
