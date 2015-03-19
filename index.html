@@ -63,7 +63,7 @@
 					<div class="circleOuter"></div>
 					<div class="circleInner"></div>
 
-					<div ng-repeat="note in model.notes track by $index" class="balls" ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-style="{'left': note.x -50, 'top': note.y-50}"><h3 class="noteLetter">{{note.name}}</h3>
+					<div ng-repeat="note in model.notes" class="balls" ng-class="{'notVerified':!note.verified,'isRight':note.isRight && note.verified,'isWrong': !note.isRight && note.verified}" ng-attr-id="{{idPrefix + ($index + 1)}}" ng-style="{'left': note.x -50, 'top': note.y-50}"><h3 class="noteLetter">{{note.name}}</h3>
 					</div>
 
 					<!--elements that need styling, Midas pleeeeassseee you can do wherever you want here :D-->

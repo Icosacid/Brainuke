@@ -19,6 +19,7 @@ window.app.service("Draguke", function() {
 	var pY;
 	var leftEdge;
 	var topEdge;
+	DRAGUKE.scope;
 
 
 	
@@ -29,7 +30,7 @@ window.app.service("Draguke", function() {
 	 * @param {AngularJS Service} model Model of the app
 	 * @param {String} idPrefix
 	 */
-	 DRAGUKE.init = function(model, idPrefix) {
+	 DRAGUKE.init = function(model, idPrefix, scope) {
 	 	DRAGUKE.model = model;
 	 	DRAGUKE.ringCenterX = model.ringCenterX;
 	 	DRAGUKE.ringCenterY = model.ringCenterY;
@@ -39,6 +40,7 @@ window.app.service("Draguke", function() {
 	 	DRAGUKE.rBall = model.ballRadius;
 	 	DRAGUKE.idPrefix = idPrefix;
 	 	DRAGUKE.containerDrag("#mainPage #ballsArea");
+	 	DRAGUKE.scope=scope;
 	 }
 
 	/**
@@ -54,10 +56,10 @@ window.app.service("Draguke", function() {
 			DRAGUKE.dragMe("#" + DRAGUKE.idPrefix + id, id, "#mainPage #ballsArea");
 
 			//To fix a bug that I don't know from where it came
-			if(id===1){
+			/*if(id===1){
 				jQuery('#ball'+id).css('left', (DRAGUKE.model.notes[0].x-50) +"px");
 				jQuery('#ball'+id).css('top', (DRAGUKE.model.notes[0].y-50)+"px");
-			}
+			}*/
 		}
 
 		auxArray=DRAGUKE.model.notes.slice(0);
