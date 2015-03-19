@@ -32,9 +32,10 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	
 	$scope.intervalPromise;
 	$scope.clock;
+	$scope.btnText="on";
 	//The time is binded with the html, pass value to the model to handle it
 	$scope.timeCount=1;
-	$scope.timeCountActive=true;
+	$scope.timeCountActive=false;
 	$scope.timesUp=false;
 	$scope.totalNotes = 0;
 	$scope.gameStep = 1;
@@ -57,6 +58,18 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	};
 
 	/** Game setup functions **/
+	$scope.timeToggle=function(){
+		
+		if($scope.timeCountActive){
+			$scope.timeCountActive=false;
+			$scope.btnText="on";
+		}else{
+			$scope.timeCountActive=true;
+			$scope.btnText="off";
+		}
+	}
+
+
 	$scope.addPlayer= function(){
 		$scope.gamePrep = true;
 		$scope.currentPlayer=$scope.inputName;	

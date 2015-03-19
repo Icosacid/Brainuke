@@ -42,13 +42,12 @@
 				</div>
 				<br/>
 				<div>
-					<div class="col-md-3">
-					<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" min="1"/>
+					<div class="col-md-6">
+					<input ng-model="main.timeCount"  ng-disabled="!timeCountActive" id="secondEnter" type="number" class="form-control" placeholder="Seconds" min="1"/>
 				   </div>
-					<div class="col-md-9">
+					<div class="col-md-6">
 					<div class="btn-group btn-switch" role="group" aria-label="...">
-                    <button type="button" class="btn btn-primary btn-on" >on</button>			
-				    <button type="button" class="btn btn-off">off</button>
+                    <button type="button" ng-class="{'btn btn-danger':timeCountActive,'btn btn-success':!timeCountActive}" ng-click="timeToggle()">{{btnText}}</button>			
 				    </div>
 					</div>
 				</div>
@@ -82,7 +81,7 @@
 						</button>
 					</div>
 					
-						<div id="bin"></div>
+						<div id="bin" ng-if="model.notes.length!=0"></div>
 					
 				</div>
 			</div>
