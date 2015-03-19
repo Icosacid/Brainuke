@@ -40,14 +40,22 @@
 						<span class="glyphicon glyphicon-random"></span>&nbsp&nbspRandom
 					</button>
 				</div>
-				<br />
-				<div class="randomBtn1">
-					<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" 
-					min="1"/>
+				<br/>
+				<div>
+					<div class="col-md-3">
+					<input ng-model="main.timeCount" id="secondEnter" type="number" class="form-control" placeholder="Seconds" min="1"/>
+				   </div>
+					<div class="col-md-9">
+					<div class="btn-group btn-switch" role="group" aria-label="...">
+                    <button type="button" class="btn btn-primary btn-on" >on</button>			
+				    <button type="button" class="btn btn-off">off</button>
+				    </div>
+					</div>
 				</div>
+
 				<br />
 
-				<div class="btn-group" role="group" aria-label="...">
+				<div class="btn-group btn-music" role="group" aria-label="...">
 				<button type="button" class="btn btn-danger" class="randomBtn1" ng-click="addPreDefinedSequence(0)">
 					Music 1
 				</button>

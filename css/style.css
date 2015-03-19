@@ -109,10 +109,11 @@ margin-top: 25px;
 #left{
 	padding-top: 100px;
 }
-.btn-group{
+.btn-music{
 	margin-left: 23px;
 	margin-top:10px;
 }
+
 .btn-random{
 	margin-left: 23px;
 	width: 153px
@@ -123,13 +124,16 @@ margin-top: 25px;
 	padding-top: 10px;
 }
 #inputBtn{
-	padding:15px;
 	padding-left: 35px;
 }
+
 #secondEnter{
-	width:153px;
-	margin-left: 23px;
-	display:inline;
+	width:60px;
+	margin-left: 10px;
+	display:block;
+}
+.btn-switch{
+  margin-left: 25px;
 }
 
 #right{
