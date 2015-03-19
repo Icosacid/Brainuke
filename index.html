@@ -126,10 +126,10 @@
 		</div>
 
 		<!--When game is over show this div-->
-		<div id="gameOver" ng-show="isGameOver">
-			<div>
-				<p>Game Over<p>
-					<p>Final Score: {{model.score}}</p>
+			<div id="gameOver" ng-show="isGameOver">
+				<div id="gameOverBackground">
+					<p class="gameOverText" id="firstText">Game Over<p>
+					<p class="gameOverText" id="secondText">Final Score: {{model.score}}</p>
 				</div>
 			</div>	
 		</div>	
@@ -149,14 +149,14 @@
 							<tr>
 								<th>Username</th>
 								<th>Points</th>
-								<th>No.</th>
+								<th>Rank</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr ng-repeat="player in model.rankedPlayers track by $index">
 								<td>{{player.name}}</td>
 								<td>{{player.score}}</td>
-								<td>{{player.rank}}</td>
+								<td>{{$index+1}}</td>
 							</tr>
 						</tbody>
 					</table>

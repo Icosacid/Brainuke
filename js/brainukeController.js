@@ -22,7 +22,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	// Current player, it consist of a string of it's name, 
 	// however for future implementation it could be an object that consists of all information of the player
 	$scope.inputName;
-	$scope.currentPlayer=$scope.inputName;;
+	$scope.currentPlayer;
 	$scope.currentNote;
 	
 	$scope.gamePrep = false;
@@ -50,7 +50,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 		if (pageId == 2) {
 			
 			$scope.addPlayer();
-		}else if(pageId ===3){
+		}else if(pageId ===1){
 			$scope.inputName="";
 		}
 		
@@ -181,6 +181,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	$scope.resetGame = function() {
 		$timeout.cancel($scope.clock);
+		$scope.timesUp=false;
 		$scope.isGameOver=false;
 		$scope.gameOn = false;
 		$scope.mikeOn = false;
