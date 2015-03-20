@@ -1,7 +1,19 @@
 /**
+ * Angular service for audio input in Brainuke
+ * Application for teaching yourself ukulele
+ * for KTH course DH2641 - Interaction Programming
+ *
+ * Adapted from 
  * pitchdetect.js
  * Copyright (c) 2014 Chris Wilson
- * Adapted for AngluarJS app Brainuke
+ *
+ * by
+ * Alexandre Andrieux
+ * Mariama Oliveira
+ * Midas Nouwens
+ * Sheng Li
+ *
+ * @March 2015
  */
 
 window.app.service("Audiuke", function() {
@@ -176,24 +188,24 @@ window.app.service("Audiuke", function() {
 		var foundGoodCorrelation = false;
 		var correlations = new Array(MAX_SAMPLES);
 
-		for (var i=0;i<SIZE;i++) {
+		for (var i = 0; i < SIZE; i++) {
 			var val = buf[i];
 			rms += val*val;
 		}
 		rms = Math.sqrt(rms/SIZE);
-		if (rms<0.01) // not enough signal
+		if (rms < 0.01) // not enough signal
 			return -1;
 
 		var lastCorrelation = 1;
 		for (var offset = MIN_SAMPLES; offset < MAX_SAMPLES; offset++) {
 			var correlation = 0;
 
-			for (var i=0; i<MAX_SAMPLES; i++) {
+			for (var i = 0; i < MAX_SAMPLES; i++) {
 				correlation += Math.abs((buf[i])-(buf[i+offset]));
 			}
 			correlation = 1 - (correlation/MAX_SAMPLES);
 			correlations[offset] = correlation; // store it, for the tweaking we need to do below.
-			if ((correlation>0.9) && (correlation > lastCorrelation)) {
+			if ((correlation > 0.9) && (correlation > lastCorrelation)) {
 				foundGoodCorrelation = true;
 				if (correlation > best_correlation) {
 					best_correlation = correlation;

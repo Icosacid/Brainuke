@@ -1,3 +1,17 @@
+/**
+ * Angular service for drag&drop in Brainuke
+ * Application for teaching yourself ukulele
+ * for KTH course DH2641 - Interaction Programming
+ *
+ * by
+ * Alexandre Andrieux
+ * Mariama Oliveira
+ * Midas Nouwens
+ * Sheng Li
+ *
+ * @March 2015
+ */
+
 window.app.service("Draguke", ["$rootScope",function($rootScope) {
 	
 	var DRAGUKE = {};

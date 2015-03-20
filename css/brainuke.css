@@ -1,8 +1,0 @@
-#central{
-	width:600px;
-	height:400px;
-	background:rgba(0,0,0,0.1);
-}
-#central .ball{
-	cursor:pointer;
-}

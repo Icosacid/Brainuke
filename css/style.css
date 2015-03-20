@@ -1,3 +1,17 @@
+/**
+ * Style for Brainuke
+ * Application for teaching yourself ukulele
+ * for KTH course DH2641 - Interaction Programming
+ *
+ * by
+ * Alexandre Andrieux
+ * Mariama Oliveira
+ * Midas Nouwens
+ * Sheng Li
+ *
+ * @March 2015
+ */
+
 body {
   font-family: 'Montserrat', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -5,9 +19,8 @@ body {
   overflow-x:hidden;
 }
 
-
-/* Home page */
-#homePage{
+/* Homepage */
+#homePage {
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -17,19 +30,17 @@ body {
 	background-image: url("../images/bgHome.jpg");
 	background-repeat: no-repeat;
 }
-#title{
+#title {
 	font-size: 66px;
 	margin: auto;
 	color: #ffffff;
 	padding-top: 250px;
 	padding-left: 160px;
-	
 	text-shadow: 0px 2px 3px #F3F781;  font-weight: bold;
-
 	letter-spacing:0.05em;
 	position:relative;
 }
-#getStart{
+#getStart {
 	width:30px;
 	display: inline;
 	/*background-image: url("../images/start.png");
@@ -39,53 +50,46 @@ body {
 	display:block;
 	*/
 }
-.navbar-left{
+.navbar-left {
 	margin-left: 150px;
 }
 
 /* Main page */
-
-#container{
+#container {
 	top:0px;
 	left:0px;
 	width: 100%;
 	height: 100%;
 	position: fixed;
 }
-
 .true-center {
-margin: 0 auto;
-margin-top: 25px;
+	margin: 0 auto;
+	margin-top: 25px;
 }
-
-.left-align{
+.left-align {
     position: relative;
     left: 25px;
     padding-bottom: 40px;
 }
-.right-align{
+.right-align {
     position: relative;
     left: -26px;
     padding-bottom: 20px;
 }
-#mainPage, #gameOver{
-
+#mainPage, #gameOver {
 	width: 100%;
 	height: 100%;
 	position: absolute;
 	top: 0;
 	left: 0;
 }
-
-#gameOver{
+#gameOver {
 	background-color: rgba(204,204,204,0.7);
 	z-index: 10;
 	line-height: 100%;
 	text-align: center;
 }
-
-#gameOverBackground{
-
+#gameOverBackground {
 	position: relative;
 	width:600px; 
 	height:300px;  
@@ -94,69 +98,60 @@ margin-top: 25px;
 	top: 25%;           
 	margin-left: auto;
 	margin-right: auto;
-	                  
 }
-
-.gameOverText{
+.gameOverText {
 	text-align: center;
 	font-weight: bold;
 	margin-bottom: 30px;
 	color: #30D683;
 }
-
-#firstText{
+#firstText {
 	font-size: 80px;
 	position: relative;
 	padding-top: 100px;
 	color: #FF4747;
 }
-
-#secondText{
+#secondText {
 	font-size: 40px;
 	padding-top: 30px;
 }
-
-#subtitle{
+#subtitle {
 	font-size: 25px;
 	display: block;	
 	padding-left: 170px;
 	font: Tahoma, Helvetica, Arial, Sans-Serif;
 	color: #fff;
 }
-#left{
+#left {
 	padding-top: 100px;
 }
-.btn-music{
+.btn-music {
 	margin-left: 23px;
-  margin-top: 50px;
+	margin-top: 50px;
 }
-
-.btn-random{
+.btn-random {
 	margin-left: 23px;
 	width: 153px
 }
-.randomBtn1{
+.randomBtn1 {
 	display:block;
 	margin: auto;
-	
 }
-#inputBtn{
+#inputBtn {
 	margin-left: -30px;
 }
-
-#secondEnter{
+#secondEnter {
 	width:108px;
 	margin-left: 10px;
 	display:block;
 }
-.btn-switch{
-  margin-left: 20px;
+.btn-switch {
+	margin-left: 20px;
 }
-
-#right{
+#right {
 	margin-top: 50px;
 }
-.noteBtn{
+.noteBtn {
 	display: inline-block;
 	width:50px;
 	height: 50px;
@@ -164,18 +159,15 @@ margin-top: 25px;
 	margin-bottom: 20px;
 }
 
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-/*Balls testing*/
-
-#ballsArea{
+/* Balls area */
+#ballsArea {
 	margin: auto;
 	height: 600px;
 	width: 600px;
 	/* background-color: #D8D8D8; */
 	position: relative;
 }
-
-.balls{
+.balls {
 	position: absolute;
 	width: 100px;
 	height: 100px;
@@ -185,23 +177,19 @@ margin-top: 25px;
 	user-drag: none;
 	cursor:default;*/
 }
-
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-
-#bin{
+#bin {
 	position: absolute;
 	width: 100px;
 	height: 100px;
 	left: 500px;
 	top: 500px;
-  margin-left: 10px;
-  font-size: 5em;
-  background-image: url("../images/bin.png");
-  background-size: 100px;
+	margin-left: 10px;
+	font-size: 5em;
+	background-image: url("../images/bin.png");
+	background-size: 100px;
 	z-index: -1;
 }
-
-.circleOuter{
+.circleOuter {
 	position: absolute;
 	margin: 18px 0 0 19px;
 	width:563px;
@@ -215,7 +203,7 @@ margin-top: 25px;
 	text-align:center;
 	background: none;
 }
-.circleInner{
+.circleInner {
 	position: absolute;
 	margin: 120px 0 0 120px;
 	width:360px;
@@ -229,43 +217,42 @@ margin-top: 25px;
 	text-align:center;
 	background: none;
 }
-.unselectable {
+.unselectable,
+.unselectable * {
     -moz-user-select: -moz-none;
     -khtml-user-select: none;
     -webkit-user-select: none;
     -o-user-select: none;
     user-select: none;
 }
-.isRight{
+.isRight {
 	background-color:rgba(0,200,0,0.5);
 }
-
-.isWrong{
+.isWrong {
 	background-color:rgba(200,0,0,0.8);
 }
-
-.notVerified{
+.notVerified {
 	background-color:rgba(0,0,0,0.3);
 }
-.currentNote{
+.currentNote {
 	position: absolute;
 	margin: 200px 0 0 262px;
 	font-size:100px;
 	fill:rgba(0,0,0,0.8);
 }
-.heardNote{
+.heardNote {
 	font-size:18px;
 	position: absolute;
 	margin: 310px 0 0 275px;
 }
-.scoreText{
+.scoreText {
 	position: absolute;
 	margin: 370px 0 0 250px;
 	font-size:25px;
 	fill:rgba(0,50,250,0.75);
 	font-weight:bold;
 }
-.noteLetter{
+.noteLetter {
 	position: absolute;
 	margin: 37px 0 0 40px;
 	font-weight: bold;
@@ -278,28 +265,24 @@ margin-top: 25px;
 	display: inline-block;
 	width: 100px;
 }
-
-#progressBar{
+#progressBar {
 	margin: auto;
 	position: relative;
 	width: 600px;
-
 }
 
-/* score page */
-
-#bgScore{
+/* Score page */
+#bgScore {
 	position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-size: cover;
-  background-image: url("../images/bgScore.jpg");
-  background-repeat: no-repeat;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-size: cover;
+	background-image: url("../images/bgScore.jpg");
+	background-repeat: no-repeat;
 }
-
-#header{
+#header {
 	text-align: center;
 	margin-top: 50px;
 	font-size: 36px;
@@ -309,133 +292,122 @@ margin-top: 25px;
 	letter-spacing:0.05em;
 	position:relative;
 }
-
-#scoreTable{
+#scoreTable {
 	margin-top: 50px;
 	margin-bottom:30px;
 	width: 600px;
 	height: 300px;
 	font-size: 18px;
 }
-
-.table{
+.table {
 	background-color: rgba(255,255,255,0.8);
-
 }
-
-#gameBtn{
+#gameBtn {
 	display: inline-block;
 	margin-left: 150px;
 	width:120px;
 }
-
-#userBtn{
+#userBtn {
 	display: inline-block;
 	margin-left: 30px;
 	width:120px;
 }
-
-
-
-.table-hover{
+.table-hover {
 	table-hover: black;
 }
-
-    input[type=number]::-webkit-inner-spin-button, 
-    input[type=number]::-webkit-outer-spin-button {  
-
-    	opacity: 1;
-    }
-    input[type="number"]::-webkit-input-placeholder {
-    	color:    #fff;
-    }
-    input[type="number"]:-moz-placeholder {
-    	color:    #fff;
-    }
-    input[type="number"]::-moz-placeholder {
-    	color:    #fff;
-    }
-    input[type="number"]:-ms-input-placeholder {
-    	color:    #fff;
-    }
-
-.form-control[disabled]{
-  background-color: #428bca;
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+	opacity: 1;
 }
-input[type="number"]{
-  margin: auto;
-  position: relative;
-  text-align: center;
-  border: 0 !important;
-  -webkit-font-smoothing: antialiased;
-  font-weight: bold !important;
-  -webkit-border-radius: 10px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 10px;
-  -moz-background-clip: padding;
-  border-radius: 10px;
-  background-clip: padding-box;
-  -webkit-transition: all 50ms ease;
-  -moz-transition: all 50ms ease;
-  -o-transition: all 50ms ease;
-  transition: all 50ms ease;
-  border: 0;
-  color: #fff;
-  text-shadow: 0px 1px 0px #3071a9;
-  background-color: #5697d0;
-  -webkit-box-shadow: 0px 6px 0px #3071a9;
-  -moz-box-shadow: 0px 6px 0px #3071a9;
-  box-shadow: 0px 6px 0px #3071a9;
+input[type="number"]::-webkit-input-placeholder {
+	color:    #fff;
 }
+input[type="number"]:-moz-placeholder {
+	color:    #fff;
+}
+input[type="number"]::-moz-placeholder {
+	color:    #fff;
+}
+input[type="number"]:-ms-input-placeholder {
+	color:    #fff;
+}
+.form-control[disabled] {
+	background-color: #428bca;
+}
+input[type="number"] {
+	margin: auto;
+	position: relative;
+	text-align: center;
+	border: 0 !important;
+	-webkit-font-smoothing: antialiased;
+	font-weight: bold !important;
+	-webkit-border-radius: 10px;
+	-webkit-background-clip: padding-box;
+	-moz-border-radius: 10px;
+	-moz-background-clip: padding;
+	border-radius: 10px;
+	background-clip: padding-box;
+	-webkit-transition: all 50ms ease;
+	-moz-transition: all 50ms ease;
+	-o-transition: all 50ms ease;
+	transition: all 50ms ease;
+	border: 0;
+	color: #fff;
+	text-shadow: 0px 1px 0px #3071a9;
+	background-color: #5697d0;
+	-webkit-box-shadow: 0px 6px 0px #3071a9;
+	-moz-box-shadow: 0px 6px 0px #3071a9;
+	box-shadow: 0px 6px 0px #3071a9;
+}
+
 /* BUTTONS */
-
-input[type="number"]{
-  margin: auto;
-  position: relative;
-  text-align: center;
-  border: 0 !important;
-  -webkit-font-smoothing: antialiased;
-  font-weight: bold !important;
-  -webkit-border-radius: 10px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 10px;
-  -moz-background-clip: padding;
-  border-radius: 10px;
-  background-clip: padding-box;
-  -webkit-transition: all 50ms ease;
-  -moz-transition: all 50ms ease;
-  -o-transition: all 50ms ease;
-  transition: all 50ms ease;
-  border: 0;
-  color: #fff;
-  text-shadow: 0px 1px 0px #3071a9;
-  background-color: #5697d0;
-  -webkit-box-shadow: 0px 6px 0px #3071a9;
-  -moz-box-shadow: 0px 6px 0px #3071a9;
-  box-shadow: 0px 6px 0px #3071a9;
+input[type="number"] {
+	margin: auto;
+	position: relative;
+	text-align: center;
+	border: 0 !important;
+	-webkit-font-smoothing: antialiased;
+	font-weight: bold !important;
+	-webkit-border-radius: 10px;
+	-webkit-background-clip: padding-box;
+	-moz-border-radius: 10px;
+	-moz-background-clip: padding;
+	border-radius: 10px;
+	background-clip: padding-box;
+	-webkit-transition: all 50ms ease;
+	-moz-transition: all 50ms ease;
+	-o-transition: all 50ms ease;
+	transition: all 50ms ease;
+	border: 0;
+	color: #fff;
+	text-shadow: 0px 1px 0px #3071a9;
+	background-color: #5697d0;
+	-webkit-box-shadow: 0px 6px 0px #3071a9;
+	-moz-box-shadow: 0px 6px 0px #3071a9;
+	box-shadow: 0px 6px 0px #3071a9;
 }
 .btn {
-  position: relative;
-  border: 0 !important;
-  cursor: pointer;
-  -webkit-font-smoothing: antialiased;
-  font-weight: bold !important;
-  -webkit-border-radius: 10px;
-  -webkit-background-clip: padding-box;
-  -moz-border-radius: 10px;
-  -moz-background-clip: padding;
-  border-radius: 10px;
-  background-clip: padding-box;
-  -webkit-transition: all 50ms ease;
-  -moz-transition: all 50ms ease;
-  -o-transition: all 50ms ease;
-  transition: all 50ms ease;
-  border: 0;
-  text-shadow: 0px 1px 0px #999999;
-  background-color: #cccccc;
-  -webkit-box-shadow: 0px 6px 0px #999999;
-  -moz-box-shadow: 0px 6px 0px #999999;
-  box-shadow: 0px 6px 0px #999999;
+	position: relative;
+	border: 0 !important;
+	cursor: pointer;
+	-webkit-font-smoothing: antialiased;
+	font-weight: bold !important;
+	-webkit-border-radius: 10px;
+	-webkit-background-clip: padding-box;
+	-moz-border-radius: 10px;
+	-moz-background-clip: padding;
+	border-radius: 10px;
+	background-clip: padding-box;
+	-webkit-transition: all 50ms ease;
+	-moz-transition: all 50ms ease;
+	-o-transition: all 50ms ease;
+	transition: all 50ms ease;
+	border: 0;
+	text-shadow: 0px 1px 0px #999999;
+	background-color: #cccccc;
+	-webkit-box-shadow: 0px 6px 0px #999999;
+	-moz-box-shadow: 0px 6px 0px #999999;
+	box-shadow: 0px 6px 0px #999999;
 }
 .btn:focus {
   outline: 0;

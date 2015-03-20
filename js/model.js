@@ -1,3 +1,17 @@
+/**
+ * Angular service for the model in Brainuke
+ * Application for teaching yourself ukulele
+ * for KTH course DH2641 - Interaction Programming
+ *
+ * by
+ * Alexandre Andrieux
+ * Mariama Oliveira
+ * Midas Nouwens
+ * Sheng Li
+ *
+ * @March 2015
+ */
+
 window.app.service("Model", function() {
 
 	this.notes = [];
@@ -8,28 +22,28 @@ window.app.service("Model", function() {
 	this.ringRadius = 230;
 	this.ringCenterX = 300;
 	this.ringCenterY = 300;
-	this.preDefinedSequences=[];
-	this.notesRight=0;
-	this.notesWrong=0;
+	this.preDefinedSequences = [];
+	this.notesRight = 0;
+	this.notesWrong = 0;
 	
 	// Add player on the list of players (name and score)
 	this.addPlayer = function(playerName) {
-		var newPlayer= {};
-		newPlayer.name=playerName;
-		newPlayer.score=0;
-		newPlayer.rank=null;
+		var newPlayer = {};
+		newPlayer.name = playerName;
+		newPlayer.score = 0;
+		newPlayer.rank = null;
 		this.players.push(newPlayer);
 	}
 
 	//rules of how the score is calculated
-	this.updateScore=function(){
-		this.score=this.score+100;
+	this.updateScore = function() {
+		this.score = this.score + 100;
 	}
 	
 	// Fills the rankedPlayers array
 	this.rankPlayers = function() {
 		//Creating a shallow copy of the array -> players
-		this.rankedPlayers=this.players.slice(0);
+		this.rankedPlayers = this.players.slice(0);
 
 		//Sorting array
 		this.rankedPlayers.sort(function (a, b) {
@@ -59,7 +73,7 @@ window.app.service("Model", function() {
 		
 	};
 
-	this.removeNote =  function(noteId){
+	this.removeNote = function(noteId) {
 		this.notes.splice(noteId, 1);
 		this.updateShapesPosition();
 	}
@@ -77,19 +91,19 @@ window.app.service("Model", function() {
 	}
 
 	//Function that connects the score and notes to the user when the game is over
-	this.gameOver= function(){
-		this.players[this.players.length-1].notes=this.notes;
-		this.players[this.players.length-1].score=this.score;
-		this.players[this.players.length-1].wrong=Math.floor(((this.notesWrong/this.notes.length)*100));
-		this.players[this.players.length-1].right=Math.floor(((this.notesRight/this.notes.length)*100));
+	this.gameOver = function() {
+		this.players[this.players.length-1].notes = this.notes;
+		this.players[this.players.length-1].score = this.score;
+		this.players[this.players.length-1].wrong = Math.floor(((this.notesWrong/this.notes.length)*100));
+		this.players[this.players.length-1].right = Math.floor(((this.notesRight/this.notes.length)*100));
 	}
 	
 	// Function that empties the notes array
 	this.resetAll = function() {
 		this.notes = [];
 		this.score = 0;
-		this.notesRight=0;
-		this.notesWrong=0;
+		this.notesRight = 0;
+		this.notesWrong = 0;
 		this.rankedPlayers = [];
 		this.rankPlayers();
 	}
@@ -126,8 +140,8 @@ window.app.service("Model", function() {
 	// and updates the their coordinates
 	this.updateShapesPosition = function() {
 		var numberNotes = this.notes.length;
-		var j=0;
-		for (var i = numberNotes-1;  i >=0; i--) {
+		var j = 0;
+		for (var i = numberNotes-1;  i >= 0; i--) {
 			// Loop coordinate shape values 
 			this.notes[i].x = this.ringCenterX + this.ringRadius * Math.cos((j+1)/numberNotes*2*Math.PI + (Math.PI/2));
 			this.notes[i].y = this.ringCenterY - this.ringRadius * Math.sin((j+1)/numberNotes*2*Math.PI + (Math.PI/2));
@@ -135,61 +149,30 @@ window.app.service("Model", function() {
 		}
 	};
 
-
-//////////////////Predefined note/////////////////////
+//////////////////Predefined sequences/////////////////////
 this.addPreDefinedSequence = function(arraySequence, name) {
-	newSequence={};
-	newSequence.name=name;
-	newSequence.notes=arraySequence;
+	newSequence = {};
+	newSequence.name = name;
+	newSequence.notes = arraySequence;
 	this.preDefinedSequences.push(newSequence);
-};	
+};
 
-this.usePreDefinedSequence= function(id){
-	this.notes=[];
-	var noteSequence=this.preDefinedSequences[id].notes;
+this.usePreDefinedSequence = function(id) {
+	this.notes = [];
+	var noteSequence = this.preDefinedSequences[id].notes;
 
-	for(key in noteSequence){
+	for(key in noteSequence) {
 		this.addNote(noteSequence[key]);
 	}
 };
 
 //Happy Birthday to you//
-var happyBirthday=["G", "G", "A", "G", "C", "B", "G", "G", "A", "G", "D", "C"];
+var happyBirthday = ["G", "G", "A", "G", "C", "B", "G", "G", "A", "G", "D", "C"];
 this.addPreDefinedSequence(happyBirthday, "Happy Birthday");
 
 //Twinkle, twinkle little star//
-var twinkleTwinkle=["C", "C", "G", "G", "A", "A", "G", "F", "F", "E", "E", "D","D","C"];
+var twinkleTwinkle = ["C", "C", "G", "G", "A", "A", "G", "F", "F", "E", "E", "D","D","C"];
 this.addPreDefinedSequence(twinkleTwinkle, "Twinkle, twinkle little star");
-///////////////////////////////////////////////////////
-
-///////////////TEST AREA - REMOVE AFTERWARDS///////////
-
-	//Testing score board
-	maria = {};
-	maria.name = "augusto";
-	maria.score = 333;
-	maria.rank = null;
-
-	maria2 = {}
-	maria2.name = "maria";
-	maria2.score = 24523;
-	maria2.rank = null;
-
-	maria3 = {};
-	maria3.name = "mariama";
-	maria3.score = 333333;
-	maria3.rank = null;
-	
-	maria4 = {};
-	maria4.name = "sheng";
-	maria4.score = 33003;
-	maria4.rank = null;
-	
-	//this.players.push(maria);
-	//this.players.push(maria2);
-	//this.players.push(maria3);
-	//this.players.push(maria4);
-	
 ///////////////////////////////////////////////////////
 
 });
