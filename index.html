@@ -6,7 +6,7 @@
 	
 </head>
 
-<body ng-controller="BrainukeController as mainCtrl">
+<body ng-controller="BrainukeController as mainCtrl" class="unselectable">
 
 	<!--Home page-->
 	<div id="homePage" ng-show="isSetPage(1)">
@@ -14,7 +14,7 @@
 		<div class="col-md-5">
 			<div>
 				<p id="title">Brainuke</p>
-				<p id="subtitle">Enjoy your Ukulele!</p>
+				<p id="subtitle">Practice notes on your Ukulele!</p>
 			</div>
 			<div id="getStart">
 				<form name="formName" class="navbar-form navbar-left" role="search" ng-submit="formName.$valid && setPage(2)" novalidate>
@@ -44,24 +44,22 @@
 
 				<div>
 					<div class="col-md-8">
-					<input ng-model="timeCount"  ng-disabled="!timeCountActive" id="secondEnter" type="number" class="form-control" placeholder="Seconds" min="1"/>
+						<input ng-model="timeCount"  ng-disabled="!timeCountActive" id="secondEnter" type="number" class="form-control" placeholder="Timer" min="1"/>
 				   </div>
-					<div class="col-md-4">
-					<div class="btn-group btn-switch" role="group" aria-label="...">
-                    	<button id="inputBtn" type="button" ng-class="{'btn btn-danger':timeCountActive,'btn btn-success':!timeCountActive}" ng-click="timeToggle()">{{btnText}}</button>			
-				    </div>
-					</div>
+						<div class="col-md-4">
+							<div class="btn-group btn-switch" role="group" aria-label="...">
+                    			<button id="inputBtn" type="button" ng-class="{'btn btn-danger':timeCountActive,'btn btn-success':!timeCountActive}" ng-click="timeToggle()">{{btnText}}</button>			
+				    		</div>
+						</div>
 				</div>
-				<br />
-				<br />
-				<br />
-				<div class="btn-group btn-music" role="group" aria-label="...">
-				<button type="button" class="btn btn-danger" class="randomBtn1" ng-click="addPreDefinedSequence(0)">
-					Music 1
-				</button>
-			
-				<button type="button" class="btn btn-warning" class="randomBtn1" ng-click="addPreDefinedSequence(1)">
-					Music 2
+
+				<div class="btn-music" role="group" aria-label="...">
+					<button type="button" class="btn btn-danger" class="randomBtn1" ng-click="addPreDefinedSequence(0)">
+						Song 1
+					</button>
+				
+					<button type="button" class="btn btn-warning" class="randomBtn1" ng-click="addPreDefinedSequence(1)">
+						Song 2
 					</button>
 				</div>
 			</div>
@@ -73,7 +71,7 @@
     			</div>
 
 
-				<div id="ballsArea" class="unselectable">
+				<div id="ballsArea">
 					<div class="circleOuter"></div>
 					<div class="circleInner"></div>
 
@@ -97,7 +95,7 @@
 			
 			<div class="col-md-2" id="right">
 				<div class="right-align">
-                    <h5>Select notes to practice:</h5>
+                    <h5><b>Select notes to practice:<b></h5>
                 </div>
 
 				<button type="button" class="btn btn-default noteBtn" aria-label="Left Align" ng-click="addNote('C')">C
