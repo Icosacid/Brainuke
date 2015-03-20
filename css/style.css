@@ -78,25 +78,43 @@ margin-top: 25px;
 }
 
 #gameOver{
-	background-color: rgba(192,46,185,0.7);
-	text-align: center;
-	vertical-align: middle;
+	background-color: rgba(204,204,204,0.7);
 	z-index: 10;
 	line-height: 100%;
+	text-align: center;
 }
 
-#gameOver div{
-	position: absolute;               
-	top: 40%;  
-	left: 40%;                      
+#gameOverBackground{
+
+	position: relative;
+	width:600px; 
+	height:300px;  
+	background-color: #FFFFFF;
+	border-radius: 10px;    
+	top: 25%;           
+	margin-left: auto;
+	margin-right: auto;
+	                  
 }
 
-#gameOver div p{
-	font-size: 50px;
+.gameOverText{
+	text-align: center;
 	font-weight: bold;
 	font-family: 'Helvetica Neue', sans-serif;
-	text-shadow: 0px 2px 3px #F3F781;
 	margin-bottom: 30px;
+	color: #30D683;
+}
+
+#firstText{
+	font-size: 80px;
+	position: relative;
+	padding-top: 100px;
+	color: #FF4747;
+}
+
+#secondText{
+	font-size: 40px;
+	padding-top: 30px;
 }
 
 #subtitle{
@@ -109,9 +127,10 @@ margin-top: 25px;
 #left{
 	padding-top: 100px;
 }
-.btn-group{
+.btn-music{
 	margin-left: 23px;
 }
+
 .btn-random{
 	margin-left: 23px;
 	width: 153px
@@ -122,13 +141,16 @@ margin-top: 25px;
 	
 }
 #inputBtn{
-	padding:15px;
-	padding-left: 35px;
+	margin-left: -30px;
 }
+
 #secondEnter{
-	width:153px;
-	margin-left: 23px;
-	display:inline;
+	width:100px;
+	margin-left: 10px;
+	display:block;
+}
+.btn-switch{
+  margin-left: 25px;
 }
 
 #right{
@@ -166,6 +188,17 @@ margin-top: 25px;
 
 /*!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
+#bin{
+	position: absolute;
+	width: 100px;
+	height: 100px;
+	left: 500px;
+	top: 500px;
+  margin-left: 10px;
+  background-image: url("../images/bin.png");
+  background-size: 100px;
+	z-index: -1;
+}
 
 .circleOuter{
 	position: absolute;
@@ -245,13 +278,24 @@ margin-top: 25px;
 	width: 100px;
 }
 
+#progressBar{
+	margin: auto;
+	position: relative;
+	width: 600px;
+
+}
+
 /* score page */
 
 #bgScore{
-	background-image:url("../images/bgScore.jpg");
-	height:700px;
-	background-size: 150%;
-	background-position: -200px -257px;
+	position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-size: cover;
+  background-image: url("../images/bgScore.jpg");
+  background-repeat: no-repeat;
 }
 
 #header{
