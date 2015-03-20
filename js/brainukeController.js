@@ -45,6 +45,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.totalNotes = 0;
 	$scope.notesPlayed=0;
 	$scope.gameStep = 1;
+	$scope.delay=1000;
 
 
 
@@ -141,26 +142,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	}
 
 	$scope.nextStep = function() {
-		// Success
-		console.log('Success!');
-		$scope.notesPlayed++;
-		// View feedback that note is OK
-		 $timeout.cancel($scope.clock);
-		
-		if(!$scope.timesUp){
-			$scope.model.updateScore();
-			$scope.model.notes[($scope.gameStep-1)].verified = true;
-			$scope.model.notes[($scope.gameStep-1)].isRight = true;
-			$scope.timesUp=false;
-			$scope.model.notesRight++;
-			$scope.progressStacked();
-		}else{
-			$scope.model.notes[($scope.gameStep-1)].verified = true;
-			$scope.model.notes[($scope.gameStep-1)].isRight = false;
-			$scope.timesUp=false;
-			$scope.model.notesWrong++;
-			$scope.progressStacked();
-		}
+		$scope.itIsOk = false;
 		// Next step
 		$scope.gameStep++;
 
@@ -200,8 +182,34 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.gameLoop = function() {
 		console.log('You are playing:' + $scope.audiuke.noteString);
 		$scope.progressStacked();
-		if ($scope.audiuke.noteString == $scope.currentNote || $scope.timesUp) {
-			$scope.nextStep();
+		if (($scope.audiuke.noteString == $scope.currentNote || $scope.timesUp) && !$scope.itIsOk) {
+			$scope.itIsOk = true;
+
+			// Success
+			console.log('Success!');
+			$scope.notesPlayed++;
+			// View feedback that note is OK
+			 $timeout.cancel($scope.clock);
+			
+			if(!$scope.timesUp){
+				$scope.model.updateScore();
+				$scope.model.notes[($scope.gameStep-1)].verified = true;
+				$scope.model.notes[($scope.gameStep-1)].isRight = true;
+				$scope.timesUp=false;
+				$scope.model.notesRight++;
+				$scope.progressStacked();
+			}else{
+				$scope.model.notes[($scope.gameStep-1)].verified = true;
+				$scope.model.notes[($scope.gameStep-1)].isRight = false;
+				$scope.timesUp=false;
+				$scope.model.notesWrong++;
+				$scope.progressStacked();
+			}
+
+
+			$timeout(function(){
+				$scope.nextStep();
+			},$scope.delay);	
 		} else if($scope.totalNotes===$scope.notesPlayed) {
 			// Game over!
 			$scope.gameOver();
