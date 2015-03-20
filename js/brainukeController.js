@@ -13,7 +13,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	
 	// Drag and drop service
 	$scope.draguke = Draguke;
-	$scope.draguke.init($scope.model, $scope.idPrefix);
+	$scope.draguke.init($scope.model, $scope.idPrefix, $scope);
 	
 	// View variables
 	$scope.currentPage = 1;
@@ -33,12 +33,20 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.intervalPromise;
 	$scope.clock;
 	$scope.btnText="on";
+
+	$scope.noteSystem="alphabetic"
+	$scope.alphabeticSystem= ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+	$scope.solmizationSystem= ["Do", "Do#", "Ré", "Ré#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si"];
+	$scope.currentSystem;
 	//The time is binded with the html, pass value to the model to handle it
 	$scope.timeCount;
 	$scope.timeCountActive=false;
 	$scope.timesUp=false;
 	$scope.totalNotes = 0;
+	$scope.notesPlayed=0;
 	$scope.gameStep = 1;
+
+
 
 	/** View functions **/
 	$scope.isSetPage = function(page) {
@@ -87,6 +95,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.addNote = function(note) {
 		$scope.model.addNote(note);
 		console.log($scope.model.notes);
+		$scope.totalNotes++;
 		// A digest loop is triggered in model.addNote() because the array notes changes
 		// We want to wait for Angular to create the DOM SVG element before putting a listener on it
 		// This is an amazing trick: using $timeout without time
@@ -134,6 +143,7 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	$scope.nextStep = function() {
 		// Success
 		console.log('Success!');
+		$scope.notesPlayed++;
 		// View feedback that note is OK
 		 $timeout.cancel($scope.clock);
 		
@@ -143,13 +153,11 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.model.notes[($scope.gameStep-1)].isRight = true;
 			$scope.timesUp=false;
 			$scope.model.notesRight++;
-			$scope.randomStacked();
 		}else{
 			$scope.model.notes[($scope.gameStep-1)].verified = true;
 			$scope.model.notes[($scope.gameStep-1)].isRight = false;
 			$scope.timesUp=false;
 			$scope.model.notesWrong++;
-			$scope.randomStacked();
 		}
 		// Next step
 		$scope.gameStep++;
@@ -189,15 +197,20 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 
 	$scope.gameLoop = function() {
 		console.log('You are playing:' + $scope.audiuke.noteString);
+		$scope.progressStacked();
 		if ($scope.audiuke.noteString == $scope.currentNote || $scope.timesUp) {
 			$scope.nextStep();
-		} else {
-			// Wait...
+		} else if($scope.totalNotes===$scope.notesPlayed) {
+			// Game over!
+			$scope.gameOver();
+		}else{
+			// Wait!
 		}
 	}
 
 	$scope.resetGame = function() {
 		$timeout.cancel($scope.clock);
+		$scope.notesPlayed=0;
 		$scope.timesUp=false;
 		$scope.isGameOver=false;
 		$scope.gameOn = false;
@@ -210,18 +223,18 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 	}
 
 	$scope.stacked;
-	$scope.randomStacked = function() {  
+	$scope.progressStacked = function() {  
     var types = ['success','danger'];
     	$scope.stacked = [];
     	//success
         $scope.stacked.push({
-          value: Math.floor(($scope.model.notesRight/$scope.model.notes.length)*100),
+          value: (($scope.model.notesRight/$scope.model.notes.length)*100).toFixed(2),
           type: types[0]
         });
 
         //fail
         $scope.stacked.push({
-          value: Math.floor(($scope.model.notesWrong/$scope.model.notes.length)*100),
+          value: (($scope.model.notesWrong/$scope.model.notes.length)*100).toFixed(2),
           type: types[1]
         });
    };

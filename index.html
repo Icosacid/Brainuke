@@ -41,6 +41,7 @@
 					</button>
 				</div>
 				<br/>
+
 				<div>
 					<div class="col-md-8">
 					<input ng-model="timeCount"  ng-disabled="!timeCountActive" id="secondEnter" type="number" class="form-control" placeholder="Seconds" min="1"/>
@@ -51,6 +52,8 @@
 				    </div>
 					</div>
 				</div>
+				<br />
+				<br />
 				<br />
 				<div class="btn-group btn-music" role="group" aria-label="...">
 				<button type="button" class="btn btn-danger" class="randomBtn1" ng-click="addPreDefinedSequence(0)">
@@ -87,7 +90,7 @@
 						</button>
 					</div>
 					
-					<div id="bin" ng-if="model.notes.length!=0  && !gameOn"></div>
+					<div id="bin" ng-if="model.notes.length!=0"></div>
 					
 				</div>
 			</div>
@@ -158,7 +161,7 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th></th>
+								<th>Rank</th>
 								<th>Player</th>
 								<th>Points</th>
 								<th>Right</th>

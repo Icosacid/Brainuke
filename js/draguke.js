@@ -416,6 +416,8 @@ window.app.service("Draguke", ["$rootScope",function($rootScope) {
 				//remove
 				$rootScope.$apply(function(){
 				DRAGUKE.model.removeNote(idInt-1);
+				DRAGUKE.scope.totalNotes--;
+
 				});
 				DRAGUKE.update();
 			}else{
