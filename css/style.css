@@ -21,11 +21,11 @@ body {
 	font-size: 66px;
 	margin: auto;
 	color: #ffffff;
-	font-weight: bold;
 	padding-top: 250px;
 	padding-left: 160px;
-	font-family: 'Helvetica Neue', sans-serif;
-	text-shadow: 0px 2px 3px #F3F781;
+	
+	text-shadow: 0px 2px 3px #F3F781;  font-weight: bold;
+
 	letter-spacing:0.05em;
 	position:relative;
 }
@@ -65,7 +65,7 @@ margin-top: 25px;
 }
 .right-align{
     position: relative;
-    left: -20px;
+    left: -26px;
     padding-bottom: 20px;
 }
 #mainPage, #gameOver{
@@ -100,7 +100,6 @@ margin-top: 25px;
 .gameOverText{
 	text-align: center;
 	font-weight: bold;
-	font-family: 'Helvetica Neue', sans-serif;
 	margin-bottom: 30px;
 	color: #30D683;
 }
@@ -118,7 +117,7 @@ margin-top: 25px;
 }
 
 #subtitle{
-	font-size: 30px;
+	font-size: 25px;
 	display: block;	
 	padding-left: 170px;
 	font: Tahoma, Helvetica, Arial, Sans-Serif;
@@ -129,6 +128,7 @@ margin-top: 25px;
 }
 .btn-music{
 	margin-left: 23px;
+  margin-top: 50px;
 }
 
 .btn-random{
@@ -145,12 +145,12 @@ margin-top: 25px;
 }
 
 #secondEnter{
-	width:100px;
+	width:108px;
 	margin-left: 10px;
 	display:block;
 }
 .btn-switch{
-  margin-left: 25px;
+  margin-left: 20px;
 }
 
 #right{
@@ -195,6 +195,7 @@ margin-top: 25px;
 	left: 500px;
 	top: 500px;
   margin-left: 10px;
+  font-size: 5em;
   background-image: url("../images/bin.png");
   background-size: 100px;
 	z-index: -1;
@@ -304,7 +305,6 @@ margin-top: 25px;
 	font-size: 36px;
 	color: #F7F8E0;
 	font-weight: bold;
-	font-family: 'Helvetica Neue', sans-serif;
 	text-shadow: 0px 2px 3px #F3F781;
 	letter-spacing:0.05em;
 	position:relative;
@@ -359,6 +359,34 @@ margin-top: 25px;
     	color:    #fff;
     }
 
+.form-control[disabled]{
+  background-color: #428bca;
+}
+input[type="number"]{
+  margin: auto;
+  position: relative;
+  text-align: center;
+  border: 0 !important;
+  -webkit-font-smoothing: antialiased;
+  font-weight: bold !important;
+  -webkit-border-radius: 10px;
+  -webkit-background-clip: padding-box;
+  -moz-border-radius: 10px;
+  -moz-background-clip: padding;
+  border-radius: 10px;
+  background-clip: padding-box;
+  -webkit-transition: all 50ms ease;
+  -moz-transition: all 50ms ease;
+  -o-transition: all 50ms ease;
+  transition: all 50ms ease;
+  border: 0;
+  color: #fff;
+  text-shadow: 0px 1px 0px #3071a9;
+  background-color: #5697d0;
+  -webkit-box-shadow: 0px 6px 0px #3071a9;
+  -moz-box-shadow: 0px 6px 0px #3071a9;
+  box-shadow: 0px 6px 0px #3071a9;
+}
 /* BUTTONS */
 
 input[type="number"]{
