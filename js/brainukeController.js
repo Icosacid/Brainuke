@@ -153,11 +153,13 @@ window.app.controller("BrainukeController", ["$scope","$interval", "$timeout", "
 			$scope.model.notes[($scope.gameStep-1)].isRight = true;
 			$scope.timesUp=false;
 			$scope.model.notesRight++;
+			$scope.progressStacked();
 		}else{
 			$scope.model.notes[($scope.gameStep-1)].verified = true;
 			$scope.model.notes[($scope.gameStep-1)].isRight = false;
 			$scope.timesUp=false;
 			$scope.model.notesWrong++;
+			$scope.progressStacked();
 		}
 		// Next step
 		$scope.gameStep++;

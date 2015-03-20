@@ -80,8 +80,8 @@ window.app.service("Model", function() {
 	this.gameOver= function(){
 		this.players[this.players.length-1].notes=this.notes;
 		this.players[this.players.length-1].score=this.score;
-		this.players[this.players.length-1].right=Math.floor(((this.notesWrong/this.notes.length)*100));
-		this.players[this.players.length-1].wrong=Math.floor(((this.notesRight/this.notes.length)*100));
+		this.players[this.players.length-1].wrong=Math.floor(((this.notesWrong/this.notes.length)*100));
+		this.players[this.players.length-1].right=Math.floor(((this.notesRight/this.notes.length)*100));
 	}
 	
 	// Function that empties the notes array
