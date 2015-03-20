@@ -432,24 +432,30 @@ window.app.service("Draguke", ["$rootScope",function($rootScope) {
 		jQme.off();
 
 		jQme.on("pointerdown", function(ev) {
+			if(!DRAGUKE.scope.gameOn){
 			down = 1;
 			element=this.id;
 			idInt=parseInt(element.substring(4));
 			elementObject=DRAGUKE.model.notes[idInt-1];
 			jQme.css("cursor", "grabbing").css("cursor", "-moz-grabbing").css("cursor", "-webkit-grabbing");
+			}
 		});
 		jQme.on("pointerup", function(ev) {
+			if(!DRAGUKE.scope.gameOn){
 			down = 0;
 			firsttime = 0;
 			jQme.css("cursor", "grab").css("cursor", "-moz-grab").css("cursor", "-webkit-grab");
 			drop(ev)
+			}
 
 		});
 		jQme.on("pointerleave", function(ev) {
 			//down = 0;
 		});
 		jQme.on("pointerenter", function(ev) {
+			if(!DRAGUKE.scope.gameOn){
 			jQme.css("cursor", "grab").css("cursor", "-moz-grab").css("cursor", "-webkit-grab");
+			}
 		});
 	}
 
