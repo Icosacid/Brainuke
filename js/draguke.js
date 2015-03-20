@@ -474,7 +474,9 @@ window.app.service("Draguke", ["$rootScope",function($rootScope) {
 			pX=ev.clientX;
 			pY=ev.clientY;
 			if(down===1){
+				if(!DRAGUKE.scope.gameOn){
 				dragMaker(ev);
+				}
 			}
 		});
 	}

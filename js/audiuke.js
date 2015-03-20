@@ -229,7 +229,7 @@ window.app.service("Audiuke", function() {
 		
 		if (ac == -1) {
 			//console.log("vague");
-			_this.noteString = "Vague";
+			_this.noteString = "?";
 			/*detectorElem.className = "vague";
 			pitchElem.innerText = "--";
 			noteElem.innerText = "-";
