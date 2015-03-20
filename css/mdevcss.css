@@ -10,9 +10,8 @@ margin-top: 25px;
 }
 input[type="number"]{
   margin: auto;
-  margin-left: 20%;
   position: relative;
-  padding-left: 20px;
+  text-align: center;
   border: 0 !important;
   -webkit-font-smoothing: antialiased;
   font-weight: bold !important;
