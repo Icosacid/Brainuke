@@ -445,7 +445,8 @@ window.app.service("Draguke", ["$rootScope",function($rootScope) {
 			down = 0;
 			firsttime = 0;
 			jQme.css("cursor", "grab").css("cursor", "-moz-grab").css("cursor", "-webkit-grab");
-			drop(ev)
+			drop(ev);
+			jQme.css('z-index', "inherit");
 			}
 
 		});
@@ -471,6 +472,7 @@ window.app.service("Draguke", ["$rootScope",function($rootScope) {
 				var jQme = jQuery("#"+element);
 				posX = parseFloat(theEvent.clientX - leftEdge)-50;
 				posY = parseFloat(theEvent.clientY - topEdge)-50;
+				jQme.css('z-index', 999);
 				jQme.css('left', posX + "px");
 				jQme.css('top', posY + "px");
 		
